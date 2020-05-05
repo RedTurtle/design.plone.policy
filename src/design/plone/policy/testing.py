@@ -12,10 +12,8 @@ from plone.testing import z2
 import collective.folderishtypes
 import collective.venue
 import design.plone.contenttypes
-import design.plone.contenttypes
 import design.plone.policy
 import plone.formwidget.geolocation
-import plone.restapi
 import plone.restapi
 
 
