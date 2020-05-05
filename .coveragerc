@@ -1,0 +1,6 @@
+[report]
+include =
+    src/design/*
+omit =
+    */test*
+    */upgrades/*
