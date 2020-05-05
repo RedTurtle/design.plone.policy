@@ -7,19 +7,11 @@
 
   <i18n:registerTranslations directory="locales" />
 
-  <!--
-    Be careful if you use general includeDependencies, it can have sideffects!
-    Better import explicite packages or configurations ;)
-  -->
-  <!--<includeDependencies package="." />-->
-
-  <include package=".browser" />
-
   <include file="permissions.zcml" />
 
   <genericsetup:registerProfile
       name="default"
-      title="design.plone.policy"
+      title="Design Plone: policy"
       directory="profiles/default"
       description="Installs the design.plone.policy add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -28,7 +20,7 @@
 
   <genericsetup:registerProfile
       name="uninstall"
-      title="design.plone.policy (uninstall)"
+      title="Design Plone: policy (uninstall)"
       directory="profiles/uninstall"
       description="Uninstalls the design.plone.policy add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -39,7 +31,5 @@
       factory=".setuphandlers.HiddenProfiles"
       name="design.plone.policy-hiddenprofiles"
       />
-
-  <!-- -*- extra stuff goes here -*- -->
 
 </configure>
