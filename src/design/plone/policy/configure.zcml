@@ -7,6 +7,7 @@
 
   <i18n:registerTranslations directory="locales" />
 
+  <include package=".restapi" />
   <include file="permissions.zcml" />
 
   <genericsetup:registerProfile
