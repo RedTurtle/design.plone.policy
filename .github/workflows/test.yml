@@ -26,7 +26,7 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt -c constraints_plone${{ matrix.plone }}.txt
+          pip install -r requirements.txt
           cp test_plone${{ matrix.plone }}.cfg buildout.cfg
       - name: Install buildout
         run: |
