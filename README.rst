@@ -1,44 +1,59 @@
-.. This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
-   If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
-   This text does not appear on pypi or github. It is a comment.
-
 ===================
-design.plone.policy
+Design Plone Policy
 ===================
 
-Tell me what your product does
+Pacchetto di policy per un sito Plone AGID.
 
 Features
---------
+========
 
-- Can be bullet points
+Installando questo pacchetto, si inizializza un sito Plone Agid.
 
+Endpoint per plone.restapi
+==========================
 
-Examples
---------
+@search-filters
+---------------
 
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
+Questo endpoint serve al frontend di Volto, per popolare il menu e i filtri per la ricerca::
 
+    > curl -i http://localhost:8080/Plone/@search-filters -H 'Accept: application/json'
 
-Documentation
--------------
+Ritorna un json con le sezioni principali e la lista degli argomenti::
 
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
+    {
+        'sections':{
+            'amministrazione':{
+                '@id': '',
+                'path': '',
+                'title': '',
+                'items': [
+                    {
+                        '@id': '',
+                        'path': '',
+                        'title': '',
+                    },
+                    ...
+                ]
+            }
+            'documenti-e-dati': {...}
+            'novita': {...}
+            'servizi': {...}
+        },
+        'arguments': [
+            {
+                '@id': '',
+                'path': '',
+                'title': '',
+            },
+            ...
+        ]
+    }
 
+Installazione
+=============
 
-Translations
-------------
-
-This product has been translated into
-
-- Klingon (thanks, K'Plai)
-
-
-Installation
-------------
-
-Install design.plone.policy by adding it to your buildout::
+Per installare design.plone.policy bisogna per prima cosa aggiungerlo al buildout::
 
     [buildout]
 
@@ -48,25 +63,28 @@ Install design.plone.policy by adding it to your buildout::
         design.plone.policy
 
 
-and then running ``bin/buildout``
+e poi lanciare il buildout con ``bin/buildout``.
+
+Successivamente va installato dal pannello di controllo di Plone.
 
 
-Contribute
-----------
+Contribuisci
+============
 
-- Issue Tracker: https://github.com/collective/design.plone.policy/issues
-- Source Code: https://github.com/collective/design.plone.policy
-- Documentation: https://docs.plone.org/foo/bar
-
-
-Support
--------
-
-If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
+- Issue Tracker: https://github.com/redturtle/design.plone.policy/issues
+- Codice sorgente: https://github.com/redturtle/design.plone.policy
 
 
-License
--------
+Licenza
+=======
 
-The project is licensed under the GPLv2.
+Questo progetto è rilasciato con licenza GPLv2.
+
+Autori
+======
+
+Questo progetto è stato sviluppato da **RedTurtle Technology**.
+
+.. image:: https://avatars1.githubusercontent.com/u/1087171?s=100&v=4
+   :alt: RedTurtle Technology Site
+   :target: http://www.redturtle.it/
