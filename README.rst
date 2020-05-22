@@ -40,7 +40,7 @@ Ritorna un json con le sezioni principali e la lista degli argomenti::
             'novita': {...}
             'servizi': {...}
         },
-        'arguments': [
+        'topics': [
             {
                 '@id': '',
                 'path': '',

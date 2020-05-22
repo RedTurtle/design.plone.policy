@@ -24,7 +24,7 @@ class SearchFiltersGet(Service):
     def reply(self):
         portal_path = "/".join(api.portal.get().getPhysicalPath())
         sections = {}
-        arguments = []
+        topics = []
         for section_id in SECTION_IDS:
             section_path = '{portal}/{id}'.format(
                 portal=portal_path, id=section_id
@@ -37,6 +37,6 @@ class SearchFiltersGet(Service):
                     self.get_basic_data(item=children)
                 )
         for argument in api.content.find(portal_type="Pagina Argomento"):
-            arguments.append(self.get_basic_data(argument.getObject()))
-        res = {'sections': sections, 'arguments': arguments}
+            topics.append(self.get_basic_data(argument.getObject()))
+        res = {'sections': sections, 'topics': topics}
         return res
