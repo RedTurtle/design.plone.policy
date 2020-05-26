@@ -53,6 +53,7 @@ setup(
         'setuptools',
         'redturtle.volto',
         'design.plone.contenttypes',
+        'redturtle.rssservice',
     ],
     extras_require={
         'test': [
