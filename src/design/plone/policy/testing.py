@@ -11,6 +11,7 @@ from plone.testing import z2
 
 import collective.folderishtypes
 import collective.venue
+import collective.volto.cookieconsent
 import design.plone.contenttypes
 import design.plone.policy
 import plone.formwidget.geolocation
@@ -29,6 +30,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
 
         self.loadZCML(package=collective.folderishtypes)
         self.loadZCML(package=collective.venue)
+        self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=plone.formwidget.geolocation)
@@ -36,7 +38,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=redturtle.volto)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'design.plone.policy:default')
+        applyProfile(portal, "design.plone.policy:default")
 
 
 DESIGN_PLONE_POLICY_FIXTURE = DesignPlonePolicyLayer()
@@ -44,13 +46,13 @@ DESIGN_PLONE_POLICY_FIXTURE = DesignPlonePolicyLayer()
 
 DESIGN_PLONE_POLICY_INTEGRATION_TESTING = IntegrationTesting(
     bases=(DESIGN_PLONE_POLICY_FIXTURE,),
-    name='DesignPlonePolicyLayer:IntegrationTesting',
+    name="DesignPlonePolicyLayer:IntegrationTesting",
 )
 
 
 DESIGN_PLONE_POLICY_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(DESIGN_PLONE_POLICY_FIXTURE,),
-    name='DesignPlonePolicyLayer:FunctionalTesting',
+    name="DesignPlonePolicyLayer:FunctionalTesting",
 )
 
 
@@ -60,7 +62,7 @@ DESIGN_PLONE_POLICY_ACCEPTANCE_TESTING = FunctionalTesting(
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE,
     ),
-    name='DesignPlonePolicyLayer:AcceptanceTesting',
+    name="DesignPlonePolicyLayer:AcceptanceTesting",
 )
 
 
@@ -75,6 +77,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
 
         self.loadZCML(package=collective.folderishtypes)
         self.loadZCML(package=collective.venue)
+        self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=plone.formwidget.geolocation)
@@ -82,7 +85,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=redturtle.volto)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'design.plone.policy:default')
+        applyProfile(portal, "design.plone.policy:default")
 
 
 DESIGN_PLONE_POLICY_API_FIXTURE = DesignPlonePolicyRestApiLayer()
