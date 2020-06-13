@@ -9,6 +9,14 @@ Features
 
 Installando questo pacchetto, si inizializza un sito Plone Agid.
 
+Creazione struttura del sito
+============================
+
+All'installazione di questo prodotto, oltre che l'installazione di tutte le dipendenze,
+viene anche eseguita la creazione in automatico di una serie di cartelle utili per la 
+gestione dei contenuti richiesta da Agid.
+
+
 Endpoint per plone.restapi
 ==========================
 
@@ -67,6 +75,16 @@ e poi lanciare il buildout con ``bin/buildout``.
 
 Successivamente va installato dal pannello di controllo di Plone.
 
+Test con Volto standalone
+-------------------------
+
+Si può usare questo prodotto anche da solo, per fare delle demo veloci di Volto, senza
+dover per forza creare un nuovo progetto/buildout.
+
+E' presente un file `buildout.cfg` anche in questo prodotto, quindi basta lanciare il buildout ed avviare l'istanza.
+
+Il sito Plone sarà esposto sulla porta standard (**8080**) ed è già configurato per accettare chiamate dalla porta **3000**
+(quindi Volto dovrà girare su quella porta, che poi è il suo default).
 
 Contribuisci
 ============
