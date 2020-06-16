@@ -1,13 +1,7 @@
 # -*- coding: utf-8 -*-
-from plone.app.testing import setRoles
-from plone.app.testing import SITE_OWNER_NAME
-from plone.app.testing import SITE_OWNER_PASSWORD
-from plone.app.testing import TEST_USER_ID
-from plone import api
-from plone.restapi.testing import RelativeSession
 from design.plone.policy.testing import DESIGN_PLONE_POLICY_INTEGRATION_TESTING
-from transaction import commit
-from design.plone.policy.utils import TASSONOMIA_SERVIZI
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 
 import unittest
 
