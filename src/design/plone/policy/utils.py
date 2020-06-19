@@ -41,87 +41,94 @@ def folderSubstructureGenerator(title):
         container=container, type="Document", title=title
     )
     api.content.transition(obj=tree_root, transition="publish")
+    restrict_types(context=tree_root, types=("Document",))
+
     if title == "Servizi":
-        tree_rootConstraints = ISelectableConstrainTypes(tree_root)
-        tree_rootConstraints.setConstrainTypesMode(1)
-        tree_rootConstraints.setLocallyAllowedTypes(("Document",))
         for ts in TASSONOMIA_SERVIZI:
             folder = api.content.create(
                 container=tree_root, type="Document", title=ts
             )
-
-            folderConstraints = ISelectableConstrainTypes(folder)
-            folderConstraints.setConstrainTypesMode(1)
-            folderConstraints.setLocallyAllowedTypes(("Servizio",))
+            # temporary disabled
+            # restrict_types(context=folder, types=("Servizio",))
 
     elif title == "Documenti e dati":
-        tree_rootConstraints = ISelectableConstrainTypes(tree_root)
-        tree_rootConstraints.setConstrainTypesMode(1)
-        tree_rootConstraints.setLocallyAllowedTypes(("Document",))
-
         for td in TASSONOMIA_DOCUMENTI:
             folder = api.content.create(
                 container=tree_root, type="Document", title=td
             )
-
-            folderConstraints = ISelectableConstrainTypes(folder)
-            folderConstraints.setConstrainTypesMode(1)
             if td == "Dataset":
-                folderConstraints.setLocallyAllowedTypes(("Dataset",))
+                # restrict_types(context=folder, types=("Dataset",))
+                pass
             else:
-                folderConstraints.setLocallyAllowedTypes(("Documento",))
+                # restrict_types(context=folder, types=("Documento",))
+                pass
 
     elif title == "Novità":
-        tree_rootConstraints = ISelectableConstrainTypes(tree_root)
-        tree_rootConstraints.setConstrainTypesMode(1)
-        tree_rootConstraints.setLocallyAllowedTypes(("Document",))
         for tn in TASSONOMIA_NEWS:
             folder = api.content.create(
                 container=tree_root, type="Document", title=tn
             )
 
-            folderConstraints = ISelectableConstrainTypes(folder)
-            folderConstraints.setConstrainTypesMode(1)
             if tn == "Eventi":
-                folderConstraints.setLocallyAllowedTypes(("Event",))
+                # temporary disabled
+                # restrict_types(context=folder, types=("Event",))
+                pass
             else:
-                folderConstraints.setLocallyAllowedTypes(("News Item",))
+                restrict_types(context=folder, types=("News Item",))
 
     elif title == "Amministrazione":
-        tree_rootConstraints = ISelectableConstrainTypes(tree_root)
-        tree_rootConstraints.setConstrainTypesMode(1)
-        tree_rootConstraints.setLocallyAllowedTypes(
-            ("PersoneFolder", "UnitaOrganizzativaFolder", "LuoghiFolder")
+        api.content.create(
+            type="Document", title="Politici", container=tree_root
         )
+        # restrict_types(context=tree_root['politici'], types=("Persona",))
 
         api.content.create(
-            type="PersoneFolder", title="Politici", container=tree_root
-        )
-        api.content.create(
-            type="PersoneFolder",
+            type="Document",
             title="Personale Amministrativo",
             container=tree_root,
         )
-        api.content.create(
-            type="UnitaOrganizzativaFolder",
-            title="Organi di governo",
-            container=tree_root,
+        restrict_types(
+            context=tree_root['personale-amministrativo'], types=("Persona",)
         )
+
         api.content.create(
-            type="UnitaOrganizzativaFolder",
-            title="Aree amministrative",
-            container=tree_root,
+            type="Document", title="Organi di governo", container=tree_root
         )
+        restrict_types(
+            context=tree_root['organi-di-governo'],
+            types=("UnitaOrganizzativa",),
+        )
+
         api.content.create(
-            type="UnitaOrganizzativaFolder",
-            title="Uffici",
-            container=tree_root,
+            type="Document", title="Aree amministrative", container=tree_root
         )
+        restrict_types(
+            context=tree_root['aree-amministrative'],
+            types=("UnitaOrganizzativa",),
+        )
+
         api.content.create(
-            type="UnitaOrganizzativaFolder",
-            title="Enti e fondazioni",
-            container=tree_root,
+            type="Document", title="Uffici", container=tree_root
         )
+        restrict_types(
+            context=tree_root['uffici'], types=("UnitaOrganizzativa",)
+        )
+
         api.content.create(
-            type="LuoghiFolder", title="Luoghi", container=tree_root
+            type="Document", title="Enti e fondazioni", container=tree_root
         )
+        restrict_types(
+            context=tree_root['enti-e-fondazioni'],
+            types=("UnitaOrganizzativa",),
+        )
+
+        api.content.create(
+            type="Document", title="Luoghi", container=tree_root
+        )
+        restrict_types(context=tree_root['luoghi'], types=("Venue",))
+
+
+def restrict_types(context, types):
+    constraints = ISelectableConstrainTypes(context)
+    constraints.setConstrainTypesMode(1)
+    constraints.setLocallyAllowedTypes(types)
