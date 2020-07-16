@@ -1,3 +1,5 @@
+.Python
+pyenv.cfg
 .python-version
 .coverage
 *.egg-info
