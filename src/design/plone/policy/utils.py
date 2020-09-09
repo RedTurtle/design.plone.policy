@@ -88,14 +88,14 @@ def folderSubstructureGenerator(title):
             container=tree_root,
         )
         restrict_types(
-            context=tree_root['personale-amministrativo'], types=("Persona",)
+            context=tree_root["personale-amministrativo"], types=("Persona",)
         )
 
         api.content.create(
             type="Document", title="Organi di governo", container=tree_root
         )
         restrict_types(
-            context=tree_root['organi-di-governo'],
+            context=tree_root["organi-di-governo"],
             types=("UnitaOrganizzativa",),
         )
 
@@ -103,7 +103,7 @@ def folderSubstructureGenerator(title):
             type="Document", title="Aree amministrative", container=tree_root
         )
         restrict_types(
-            context=tree_root['aree-amministrative'],
+            context=tree_root["aree-amministrative"],
             types=("UnitaOrganizzativa",),
         )
 
@@ -111,21 +111,24 @@ def folderSubstructureGenerator(title):
             type="Document", title="Uffici", container=tree_root
         )
         restrict_types(
-            context=tree_root['uffici'], types=("UnitaOrganizzativa",)
+            context=tree_root["uffici"], types=("UnitaOrganizzativa",)
         )
 
         api.content.create(
             type="Document", title="Enti e fondazioni", container=tree_root
         )
         restrict_types(
-            context=tree_root['enti-e-fondazioni'],
+            context=tree_root["enti-e-fondazioni"],
             types=("UnitaOrganizzativa",),
         )
 
         api.content.create(
             type="Document", title="Luoghi", container=tree_root
         )
-        restrict_types(context=tree_root['luoghi'], types=("Venue",))
+        restrict_types(context=tree_root["luoghi"], types=("Venue",))
+
+    elif title == "Argomenti":
+        restrict_types(context=tree_root, types=("Pagina Argomento",))
 
 
 def restrict_types(context, types):

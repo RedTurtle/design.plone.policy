@@ -17,6 +17,7 @@ def post_install(context):
     folderSubstructureGenerator("Servizi")
     folderSubstructureGenerator("Novità")
     folderSubstructureGenerator("Documenti e dati")
+    folderSubstructureGenerator("Argomenti")
 
 
 def uninstall(context):
