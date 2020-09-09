@@ -19,6 +19,7 @@ def post_install(context):
     folderSubstructureGenerator("Documenti e dati")
     folderSubstructureGenerator("Argomenti")
 
+
 def uninstall(context):
     """Uninstall script"""
     # Do something at the end of the uninstallation of this package.

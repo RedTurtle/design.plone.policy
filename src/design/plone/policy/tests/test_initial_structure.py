@@ -179,7 +179,7 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.assertEqual(child.portal_type, 'Document')
             self.assertEqual(child.constrain_types_mode, 1)
             self.assertEqual(child.locally_allowed_types, ("Document",))
-    
+
     def test_argomenti_section(self):
         folder = self.portal["argomenti"]
         self.assertEqual(folder.portal_type, "Document")
