@@ -126,6 +126,9 @@ def folderSubstructureGenerator(title):
             type="Document", title="Luoghi", container=tree_root
         )
         restrict_types(context=tree_root['luoghi'], types=("Venue",))
+    
+    elif title == "Argomenti":
+        restrict_types(context=tree_root, types=("Pagina Argomento",))
 
 
 def restrict_types(context, types):
