@@ -54,6 +54,7 @@ setup(
         'redturtle.volto',
         'design.plone.contenttypes',
         'redturtle.rssservice',
+        'collective.volto.dropdownmenu',
     ],
     extras_require={
         'test': [
