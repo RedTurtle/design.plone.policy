@@ -12,6 +12,7 @@ from plone.testing import z2
 import collective.folderishtypes
 import collective.venue
 import collective.volto.cookieconsent
+import collective.volto.dropdownmenu
 import design.plone.contenttypes
 import design.plone.policy
 import plone.formwidget.geolocation
@@ -31,6 +32,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=collective.folderishtypes)
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
+        self.loadZCML(package=collective.volto.dropdownmenu)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=plone.formwidget.geolocation)
@@ -78,6 +80,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=collective.folderishtypes)
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
+        self.loadZCML(package=collective.volto.dropdownmenu)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=plone.formwidget.geolocation)
