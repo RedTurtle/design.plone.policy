@@ -1,2 +1,2 @@
-setuptools
+setuptools==42.0.2
 zc.buildout
