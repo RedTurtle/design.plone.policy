@@ -19,6 +19,7 @@ class SearchFiltersGet(Service):
             "description": item.description,
             "@type": item.portal_type,
             "path": item.virtual_url_path(),
+            "UID": item.UID(),
         }
 
     def reply(self):
