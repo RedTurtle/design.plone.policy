@@ -35,13 +35,14 @@ TASSONOMIA_DOCUMENTI = [
 TASSONOMIA_NEWS = ["Notizie", "Comunicati", "Eventi"]
 
 
-def folderSubstructureGenerator(title):
+def folderSubstructureGenerator(title, types=[]):
     container = api.portal.get()
     tree_root = api.content.create(
         container=container, type="Document", title=title
     )
     api.content.transition(obj=tree_root, transition="publish")
-    restrict_types(context=tree_root, types=("Document",))
+    if types:
+        restrict_types(context=tree_root, types=types)
 
     if title == "Servizi":
         for ts in TASSONOMIA_SERVIZI:
@@ -56,12 +57,6 @@ def folderSubstructureGenerator(title):
             folder = api.content.create(
                 container=tree_root, type="Document", title=td
             )
-            if td == "Dataset":
-                # restrict_types(context=folder, types=("Dataset",))
-                pass
-            else:
-                # restrict_types(context=folder, types=("Documento",))
-                pass
 
     elif title == "Novità":
         for tn in TASSONOMIA_NEWS:
