@@ -19,6 +19,7 @@ class SearchFiltersGet(Service):
             "description": item.description,
             "@type": item.portal_type,
             "path": item.virtual_url_path(),
+            "UID": item.UID(),
         }
 
     def reply(self):
@@ -31,6 +32,8 @@ class SearchFiltersGet(Service):
                 portal=portal_path, id=section_id
             )
             section = api.content.get(section_path)
+            if not section:
+                continue
             sections[section_id] = self.get_basic_data(item=section)
             sections[section_id]["items"] = []
             for children in section.listFolderContents():
