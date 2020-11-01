@@ -13,20 +13,29 @@ class HiddenProfiles(object):
 
 def post_install(context):
     """Post install script"""
-    folderSubstructureGenerator(title="Amministrazione", types=("Document",))
-    folderSubstructureGenerator(title="Servizi", types=("Document",))
-    folderSubstructureGenerator(title="Novità", types=("Document",))
+    folderSubstructureGenerator(
+        title="Amministrazione", types=("Document", "Image", "File", "Link")
+    )
+    folderSubstructureGenerator(
+        title="Servizi", types=("Document", "Image", "File", "Link")
+    )
+    folderSubstructureGenerator(
+        title="Novità", types=("Document", "Image", "File", "Link")
+    )
     folderSubstructureGenerator(
         title="Documenti e dati",
         types=(
             "Document",
             "Image",
             "File",
+            "Link",
             "Documento",
             "CartellaModulistica",
         ),
     )
-    folderSubstructureGenerator(title="Argomenti", types=("Document",))
+    folderSubstructureGenerator(
+        title="Argomenti", types=("Document", "Image", "File", "Link")
+    )
 
 
 def uninstall(context):
