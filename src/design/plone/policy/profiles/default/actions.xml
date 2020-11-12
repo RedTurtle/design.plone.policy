@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <action-provider name="portal_workflow"/>
+ <action-provider name="portal_types"/>
+ <action-provider name="portal_actions"/>
+ <object name="portal_tabs" meta_type="CMF Action Category" purge="False">
+  <object name="index_html" meta_type="CMF Action" i18n:domain="plone">
+   <property name="visible">False</property>
+  </object>
+ </object>
+</object>

@@ -32,7 +32,10 @@ class TestInitialStructureCreation(unittest.TestCase):
 
         amministrazione = self.portal["amministrazione"]
         self.assertEqual(amministrazione.constrain_types_mode, 1)
-        self.assertEqual(amministrazione.locally_allowed_types, ("Document",))
+        self.assertEqual(
+            amministrazione.locally_allowed_types,
+            ("Document", "Image", "File", "Link"),
+        )
 
         self.assertEqual(
             amministrazione.keys(),
@@ -50,7 +53,8 @@ class TestInitialStructureCreation(unittest.TestCase):
         self.assertEqual(amministrazione["politici"].portal_type, "Document")
         self.assertEqual(amministrazione["politici"].constrain_types_mode, 1)
         self.assertEqual(
-            amministrazione["politici"].locally_allowed_types, ("Document",)
+            amministrazione["politici"].locally_allowed_types,
+            ("Document", "Image", "File", "Link"),
         )
 
         self.assertEqual(
@@ -114,7 +118,10 @@ class TestInitialStructureCreation(unittest.TestCase):
 
         servizi = self.portal["servizi"]
         self.assertEqual(servizi.constrain_types_mode, 1)
-        self.assertEqual(servizi.locally_allowed_types, ("Document",))
+        self.assertEqual(
+            servizi.locally_allowed_types,
+            ("Document", "Image", "File", "Link"),
+        )
         self.assertEqual(
             servizi.keys(),
             [
@@ -139,20 +146,28 @@ class TestInitialStructureCreation(unittest.TestCase):
         for child in servizi.listFolderContents():
             self.assertEqual(child.portal_type, "Document")
             self.assertEqual(child.constrain_types_mode, 1)
-            self.assertEqual(child.locally_allowed_types, ("Document",))
+            self.assertEqual(
+                child.locally_allowed_types,
+                ("Document", "Image", "File", "Link"),
+            )
 
     def test_novita_section(self):
 
         folder = self.portal["novita"]
         self.assertEqual(folder.constrain_types_mode, 1)
-        self.assertEqual(folder.locally_allowed_types, ("Document",))
+        self.assertEqual(
+            folder.locally_allowed_types, ("Document", "Image", "File", "Link")
+        )
         self.assertEqual(folder.keys(), ["notizie", "comunicati", "eventi"])
 
         for child in folder.listFolderContents():
             self.assertEqual(child.portal_type, "Document")
             self.assertEqual(child.constrain_types_mode, 1)
             if child.getId() == "eventi":
-                self.assertEqual(child.locally_allowed_types, ("Document",))
+                self.assertEqual(
+                    child.locally_allowed_types,
+                    ("Document", "Image", "File", "Link"),
+                )
             else:
                 self.assertEqual(child.locally_allowed_types, ("News Item",))
 
@@ -160,7 +175,17 @@ class TestInitialStructureCreation(unittest.TestCase):
 
         folder = self.portal["documenti-e-dati"]
         self.assertEqual(folder.constrain_types_mode, 1)
-        self.assertEqual(folder.locally_allowed_types, ("Document",))
+        self.assertEqual(
+            folder.locally_allowed_types,
+            (
+                "Document",
+                "Image",
+                "File",
+                "Link",
+                "Documento",
+                "CartellaModulistica",
+            ),
+        )
         self.assertEqual(
             folder.keys(),
             [
@@ -179,7 +204,17 @@ class TestInitialStructureCreation(unittest.TestCase):
         for child in folder.listFolderContents():
             self.assertEqual(child.portal_type, "Document")
             self.assertEqual(child.constrain_types_mode, 1)
-            self.assertEqual(child.locally_allowed_types, ("Document",))
+            self.assertEqual(
+                child.locally_allowed_types,
+                (
+                    "Document",
+                    "Image",
+                    "File",
+                    "Link",
+                    "Documento",
+                    "CartellaModulistica",
+                ),
+            )
 
     def test_argomenti_section(self):
         folder = self.portal["argomenti"]

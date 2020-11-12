@@ -18,6 +18,7 @@ import design.plone.contenttypes
 import design.plone.policy
 import plone.formwidget.geolocation
 import plone.restapi
+import redturtle.bandi
 import redturtle.volto
 
 
@@ -40,6 +41,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=plone.formwidget.geolocation)
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=redturtle.volto)
+        self.loadZCML(package=redturtle.bandi)
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "design.plone.policy:default")
@@ -89,6 +91,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=plone.formwidget.geolocation)
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=redturtle.volto)
+        self.loadZCML(package=redturtle.bandi)
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "design.plone.policy:default")
