@@ -227,4 +227,3 @@ class TestInitialStructureCreation(unittest.TestCase):
         self.assertEqual(
             folder.locally_allowed_types, ("Document", "Pagina Argomento")
         )
-
