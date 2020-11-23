@@ -69,7 +69,10 @@ def folderSubstructureGenerator(title, types=[]):
                 # restrict_types(context=folder, types=("Event",))
                 pass
             else:
-                restrict_types(context=folder, types=("News Item",))
+                restrict_types(
+                    context=folder,
+                    types=("News Item", "Document", "Image", "File", "Link"),
+                )
 
     elif title == "Amministrazione":
         api.content.create(
@@ -83,7 +86,8 @@ def folderSubstructureGenerator(title, types=[]):
             container=tree_root,
         )
         restrict_types(
-            context=tree_root["personale-amministrativo"], types=("Persona",)
+            context=tree_root["personale-amministrativo"],
+            types=("Document", "Persona",),
         )
 
         api.content.create(
@@ -91,7 +95,7 @@ def folderSubstructureGenerator(title, types=[]):
         )
         restrict_types(
             context=tree_root["organi-di-governo"],
-            types=("UnitaOrganizzativa",),
+            types=("Document", "UnitaOrganizzativa",),
         )
 
         api.content.create(
@@ -99,14 +103,15 @@ def folderSubstructureGenerator(title, types=[]):
         )
         restrict_types(
             context=tree_root["aree-amministrative"],
-            types=("UnitaOrganizzativa",),
+            types=("Document", "UnitaOrganizzativa",),
         )
 
         api.content.create(
             type="Document", title="Uffici", container=tree_root
         )
         restrict_types(
-            context=tree_root["uffici"], types=("UnitaOrganizzativa",)
+            context=tree_root["uffici"],
+            types=("Document", "UnitaOrganizzativa",),
         )
 
         api.content.create(
@@ -114,16 +119,20 @@ def folderSubstructureGenerator(title, types=[]):
         )
         restrict_types(
             context=tree_root["enti-e-fondazioni"],
-            types=("UnitaOrganizzativa",),
+            types=("Document", "UnitaOrganizzativa",),
         )
 
         api.content.create(
             type="Document", title="Luoghi", container=tree_root
         )
-        restrict_types(context=tree_root["luoghi"], types=("Venue",))
+        restrict_types(
+            context=tree_root["luoghi"], types=("Document", "Venue",)
+        )
 
     elif title == "Argomenti":
-        restrict_types(context=tree_root, types=("Pagina Argomento",))
+        restrict_types(
+            context=tree_root, types=("Document", "Pagina Argomento",)
+        )
 
 
 def restrict_types(context, types):

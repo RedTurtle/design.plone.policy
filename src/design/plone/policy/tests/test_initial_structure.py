@@ -65,7 +65,7 @@ class TestInitialStructureCreation(unittest.TestCase):
         )
         self.assertEqual(
             amministrazione["personale-amministrativo"].locally_allowed_types,
-            ("Persona",),
+            ("Document", "Persona"),
         )
 
         self.assertEqual(
@@ -76,7 +76,7 @@ class TestInitialStructureCreation(unittest.TestCase):
         )
         self.assertEqual(
             amministrazione["organi-di-governo"].locally_allowed_types,
-            ("UnitaOrganizzativa",),
+            ("Document", "UnitaOrganizzativa"),
         )
 
         self.assertEqual(
@@ -87,14 +87,14 @@ class TestInitialStructureCreation(unittest.TestCase):
         )
         self.assertEqual(
             amministrazione["aree-amministrative"].locally_allowed_types,
-            ("UnitaOrganizzativa",),
+            ("Document", "UnitaOrganizzativa"),
         )
 
         self.assertEqual(amministrazione["uffici"].portal_type, "Document")
         self.assertEqual(amministrazione["uffici"].constrain_types_mode, 1)
         self.assertEqual(
             amministrazione["uffici"].locally_allowed_types,
-            ("UnitaOrganizzativa",),
+            ("Document", "UnitaOrganizzativa"),
         )
 
         self.assertEqual(
@@ -105,13 +105,14 @@ class TestInitialStructureCreation(unittest.TestCase):
         )
         self.assertEqual(
             amministrazione["enti-e-fondazioni"].locally_allowed_types,
-            ("UnitaOrganizzativa",),
+            ("Document", "UnitaOrganizzativa"),
         )
 
         self.assertEqual(amministrazione["luoghi"].portal_type, "Document")
         self.assertEqual(amministrazione["luoghi"].constrain_types_mode, 1)
         self.assertEqual(
-            amministrazione["luoghi"].locally_allowed_types, ("Venue",)
+            amministrazione["luoghi"].locally_allowed_types,
+            ("Document", "Venue"),
         )
 
     def test_servizi_section(self):
@@ -169,7 +170,10 @@ class TestInitialStructureCreation(unittest.TestCase):
                     ("Document", "Image", "File", "Link"),
                 )
             else:
-                self.assertEqual(child.locally_allowed_types, ("News Item",))
+                self.assertEqual(
+                    child.locally_allowed_types,
+                    ("News Item", "Document", "Image", "File", "Link"),
+                )
 
     def test_documenti_e_dati_section(self):
 
@@ -220,4 +224,7 @@ class TestInitialStructureCreation(unittest.TestCase):
         folder = self.portal["argomenti"]
         self.assertEqual(folder.portal_type, "Document")
         self.assertEqual(folder.constrain_types_mode, 1)
-        self.assertEqual(folder.locally_allowed_types, ("Pagina Argomento",))
+        self.assertEqual(
+            folder.locally_allowed_types, ("Document", "Pagina Argomento")
+        )
+
