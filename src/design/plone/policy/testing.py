@@ -20,6 +20,7 @@ import plone.formwidget.geolocation
 import plone.restapi
 import redturtle.bandi
 import redturtle.volto
+import redturtle.voltoplugin.editablefooter
 
 
 class DesignPlonePolicyLayer(PloneSandboxLayer):
@@ -42,6 +43,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.bandi)
+        self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "design.plone.policy:default")
@@ -92,6 +94,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.bandi)
+        self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "design.plone.policy:default")

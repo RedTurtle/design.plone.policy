@@ -56,7 +56,7 @@ setup(
         "redturtle.rssservice",
         "collective.volto.dropdownmenu",
         "collective.volto.subsites",
-        "redturtle.volto.editablefooter",
+        "redturtle.voltoplugin.editablefooter",
     ],
     extras_require={
         "test": [

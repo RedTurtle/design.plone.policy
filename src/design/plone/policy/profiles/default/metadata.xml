@@ -6,6 +6,6 @@
     <dependency>profile-design.plone.contenttypes:default</dependency>
     <dependency>profile-redturtle.volto:default</dependency>
     <dependency>profile-collective.volto.dropdownmenu:default</dependency>
-    <dependency>profile-redturtle.volto.editablefooter:default</dependency>
+    <dependency>profile-redturtle.voltoplugin.editablefooter:default</dependency>
   </dependencies>
 </metadata>
