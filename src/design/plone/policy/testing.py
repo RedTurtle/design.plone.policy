@@ -13,6 +13,7 @@ import collective.folderishtypes
 import collective.venue
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
+import collective.volto.socialsettings
 import collective.volto.subsites
 import design.plone.contenttypes
 import design.plone.policy
@@ -36,13 +37,14 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
+        self.loadZCML(package=collective.volto.socialsettings)
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=plone.formwidget.geolocation)
         self.loadZCML(package=plone.restapi)
-        self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.bandi)
+        self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
@@ -87,13 +89,14 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
+        self.loadZCML(package=collective.volto.socialsettings)
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=plone.formwidget.geolocation)
         self.loadZCML(package=plone.restapi)
-        self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.bandi)
+        self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
