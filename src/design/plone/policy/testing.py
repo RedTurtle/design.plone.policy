@@ -5,11 +5,12 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import quickInstallProduct
 from plone.restapi.testing import PloneRestApiDXLayer
-
 from plone.testing import z2
 
 import collective.folderishtypes
+import collective.MockMailHost
 import collective.venue
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
@@ -86,6 +87,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         )
 
         self.loadZCML(package=collective.folderishtypes)
+        self.loadZCML(package=collective.MockMailHost)
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
@@ -101,6 +103,8 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "design.plone.policy:default")
+        quickInstallProduct(portal, "collective.MockMailHost")
+        applyProfile(portal, "collective.MockMailHost:default")
 
 
 DESIGN_PLONE_POLICY_API_FIXTURE = DesignPlonePolicyRestApiLayer()

@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <plone:service
+    method="POST"
+    name="@send-action-form"
+    for="plone.restapi.behaviors.IBlocks"
+    factory=".post.SendActionFormPost"
+    permission="zope2.View"
+    />
+
+</configure>
