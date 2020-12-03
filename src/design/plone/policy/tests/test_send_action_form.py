@@ -67,7 +67,7 @@ class SendActionFormEndpoint(unittest.TestCase):
 
     def test_email_not_send_if_block_id_is_not_given(self):
         response = self.submit_form(
-            data={"from": "john@doe.com", "message": "Just want to say hi.",},
+            data={"from": "john@doe.com", "message": "Just want to say hi."},
         )
         transaction.commit()
 
