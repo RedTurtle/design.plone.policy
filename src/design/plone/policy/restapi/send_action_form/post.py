@@ -11,11 +11,8 @@ from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.interface import alsoProvides
-from zope.interface import implementer
-from zope.publisher.interfaces import IPublishTraverse
 
 
-@implementer(IPublishTraverse)
 class SendActionFormPost(Service):
     def reply(self):
         data = json_body(self.request)
