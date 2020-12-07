@@ -58,6 +58,24 @@ Ritorna un json con le sezioni principali e la lista degli argomenti::
         ]
     }
 
+
+@send-action-form
+-----------------
+
+Questo endpoint va chiamato su un contesto con i blocchi abilitati e
+serve al frontend di Volto, per inviare via mail il form compilato::
+
+    > curl -i -X POST http://localhost:8080/Plone/document/@send-action-form -H 'Accept: application/json' -H 'Content-Type: application/json' --data-raw '{"from": "john@doe.com", "message": "Just want to say hi.", "block_id": "123456"}'
+
+All'endpoint vanno passati i seguenti parametri:
+
+- **block_id** [*obbligatorio*]: l'id del blocco di tipo "*form*" che è stato compilato
+- **message** [*obbligatorio*]: il messaggio da inviare
+- **from**: l'indirizzo email del mittente. Se non presente, viene utilizzato il campo *default_from* del blocco
+- **subject**: l'oggetto della mail. Se non presente, viene utilizzato il campo *default_subject* del blocco
+
+Se l'invio va a buon fine, viene tornata una risposta con `204`.
+
 Installazione
 =============
 
