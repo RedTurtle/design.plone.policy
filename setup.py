@@ -57,7 +57,7 @@ setup(
         "collective.volto.dropdownmenu",
         "collective.volto.socialsettings",
         "collective.volto.subsites",
-        "redturtle.voltoplugin.editablefooter",
+        "redturtle.volto_editablefooter",
     ],
     extras_require={
         "test": [
