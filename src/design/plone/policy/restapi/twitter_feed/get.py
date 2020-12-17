@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-from plone.restapi.services import Service
-from zope.interface import implementer
-from zope.publisher.interfaces import IPublishTraverse
-from plone import api
-from plone.restapi.search.utils import unflatten_dotted_dict
 from copy import deepcopy
+from plone import api
 from plone.memoize import ram
-from requests.exceptions import RequestException
-from requests.exceptions import Timeout
+from plone.restapi.search.utils import unflatten_dotted_dict
+from plone.restapi.services import Service
 from time import time
 from urllib.parse import urlencode
+from zope.interface import implementer
+from zope.publisher.interfaces import IPublishTraverse
 
 import logging
 import requests
@@ -52,19 +50,19 @@ class TwitterFeedGet(Service):
         except Exception as e:
             logger.exception(e)
             self.request.response.setStatus(500)
-            return dict(error=dict(message=e.message))
+            msg = getattr(e, "message", e.__str__())
+            return dict(error=dict(message=msg))
         return res
 
     @ram.cache(_feed_cachekey)
     def retrieve_tweets(self, query):
-        logger.info("QUI")
         token = api.portal.get_registry_record(
             name="design.plone.policy.twitter_token"
         )
         resp = requests.get(
             url=ENDPOINT,
             params=query,
-            headers={"Authorization": "Bearer {}".format(token)},
+            headers={"Authorization": "Bearer aa{}".format(token)},
         )
         # raise an exception if resp is not successful
         resp.raise_for_status()
@@ -129,7 +127,7 @@ class TwitterFeedGet(Service):
         )
         #  replace hashtags
         for hashtag in entities.get("hashtags", []):
-            tag_text = text[hashtag["start"] : hashtag["end"]]
+            tag_text = text[hashtag["start"] : hashtag["end"]]  # noqa
             replaced = href_template.format(
                 url="https://twitter.com/hashtag/{}".format(hashtag["tag"]),
                 title=tag_text,
@@ -139,7 +137,7 @@ class TwitterFeedGet(Service):
 
         # replace mentions
         for mention in entities.get("mentions", []):
-            mention_text = text[mention["start"] : mention["end"]]
+            mention_text = text[mention["start"] : mention["end"]]  # noqa
             replaced = href_template.format(
                 url="https://twitter.com/{}".format(mention["username"]),
                 title=mention_text,
@@ -157,7 +155,7 @@ class TwitterFeedGet(Service):
                 occurrences[url] += 1
         for url_data in entities.get("urls", []):
             url = url_data["url"]
-            to_replace = text[url_data["start"] : url_data["end"]]
+            to_replace = text[url_data["start"] : url_data["end"]]  # noqa
             if occurrences[url] > 1:
                 html = html.replace(to_replace, "")
             else:
