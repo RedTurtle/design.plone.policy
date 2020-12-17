@@ -85,7 +85,7 @@ class TwitterFeedGet(Service):
         res = {
             "query": " OR ".join(["from: {}".format(x) for x in authors]),
             # additional infos for tweets
-            "tweet.fields": "entities,source,public_metrics",
+            "tweet.fields": "entities,source,public_metrics,created_at",
             "expansions": "attachments.media_keys,author_id",
             "media.fields": "type,preview_image_url,height,media_key,public_metrics,url,width",  # noqa
             "user.fields": "name,profile_image_url,username",
@@ -106,6 +106,7 @@ class TwitterFeedGet(Service):
                 tweet_data = {
                     "text": html,
                     "id": tweet["id"],
+                    "created_at": tweet["created_at"],
                     "retweet_count": tweet["public_metrics"]["retweet_count"],
                     "reply_count": tweet["public_metrics"]["reply_count"],
                     "like_count": tweet["public_metrics"]["like_count"],
