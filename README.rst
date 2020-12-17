@@ -76,6 +76,14 @@ All'endpoint vanno passati i seguenti parametri:
 
 Se l'invio va a buon fine, viene tornata una risposta con `204`.
 
+
+Amministrazione trasparente
+===========================
+
+La vista "crea_area_trasparenza" crea la struttura per l'area "Amministrazione Trasparente".
+Si può lanciare dalla root del sito.
+
+
 Installazione
 =============
 
