@@ -6,5 +6,6 @@
   <!-- Service registrations below need permissions from CMFCore -->
   <include package=".search_filters"  />
   <include package=".send_action_form"  />
+  <include package=".twitter_feed"  />
 
 </configure>

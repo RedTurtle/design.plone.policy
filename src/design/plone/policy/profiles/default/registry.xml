@@ -8,4 +8,12 @@
             field="show_excluded_items" purge="False">
         <value>False</value>
     </record>
+
+    
+    <record name="design.plone.policy.twitter_token">
+        <field type="plone.registry.field.TextLine">
+            <title>Twitter Bearer token</title>
+        </field>
+        <value></value>
+    </record>
 </registry>
