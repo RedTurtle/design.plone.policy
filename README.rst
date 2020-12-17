@@ -117,6 +117,9 @@ La risposta è una lista di tweet con le informazioni necessarie per essere rend
 
 Il campo `text` contiene già eventuali link ad hashtag, menzioni e link esterni dentro ad un tag <a/>.
 
+**Per evitare troppe chiamate al servizio (c'è un limite di 500000 tweet al mese), c'è della cache: per ogni query
+i risultati rimangono in cache per mezz'ora.**
+
 Installazione
 =============
 

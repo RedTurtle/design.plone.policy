@@ -5,6 +5,11 @@ from zope.publisher.interfaces import IPublishTraverse
 from plone import api
 from plone.restapi.search.utils import unflatten_dotted_dict
 from copy import deepcopy
+from plone.memoize import ram
+from requests.exceptions import RequestException
+from requests.exceptions import Timeout
+from time import time
+from urllib.parse import urlencode
 
 import logging
 import requests
@@ -12,6 +17,17 @@ import six
 
 logger = logging.getLogger(__name__)
 ENDPOINT = "https://api.twitter.com/2/tweets/search/recent"
+
+
+def _feed_cachekey(method, self, query):
+    """
+    method for ramcache that store time and query.
+    Cache time is 30 minutes
+    """
+    timestamp = time() // (60 * 30 * 1)
+    return "{timestamp}:{query}".format(
+        timestamp=timestamp, query=urlencode(query)
+    )
 
 
 @implementer(IPublishTraverse)
@@ -31,12 +47,27 @@ class TwitterFeedGet(Service):
         if query.get("error", ""):
             self.request.response.setStatus(400)
             return dict(error=dict(message=query["error"]))
+        try:
+            res = self.retrieve_tweets(query=query)
+        except Exception as e:
+            logger.exception(e)
+            self.request.response.setStatus(500)
+            return dict(error=dict(message=e.message))
+        return res
 
+    @ram.cache(_feed_cachekey)
+    def retrieve_tweets(self, query):
+        logger.info("QUI")
+        token = api.portal.get_registry_record(
+            name="design.plone.policy.twitter_token"
+        )
         resp = requests.get(
             url=ENDPOINT,
             params=query,
             headers={"Authorization": "Bearer {}".format(token)},
         )
+        # raise an exception if resp is not successful
+        resp.raise_for_status()
         return self.convert_tweets(data=resp.json())
 
     def generate_query(self):
