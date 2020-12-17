@@ -59,10 +59,11 @@ class TwitterFeedGet(Service):
         token = api.portal.get_registry_record(
             name="design.plone.policy.twitter_token"
         )
+
         resp = requests.get(
             url=ENDPOINT,
             params=query,
-            headers={"Authorization": "Bearer aa{}".format(token)},
+            headers={"Authorization": "Bearer {}".format(token)},
         )
         # raise an exception if resp is not successful
         resp.raise_for_status()
