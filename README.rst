@@ -76,6 +76,50 @@ All'endpoint vanno passati i seguenti parametri:
 
 Se l'invio va a buon fine, viene tornata una risposta con `204`.
 
+@twitter-feed
+-------------
+
+Endpoint per poter visualizzare una serie di tweet.
+
+Per poterla utilizzare, bisogna creare un'app su Twitter e impostare il token Bearer dentro al registry Plone nella entry *design.plone.policy.twitter_token*.
+
+Per fare la ricerca, utilizza l'endpoint `recent`_ che permette di visualizzare solo i tweet dell'ultima settimana.
+
+.. _recent: https://developer.twitter.com/en/docs/twitter-api/tweets/search/introduction
+
+Come parametri accetta i seguenti:
+
+- **authors**: una lista di username tra cui ricercare gli ultimi Tweet.
+- **max_results**: un numero tra 10 e 100.
+
+Esempio di chiamata::
+
+    > curl -i -X GET http://localhost:8080/Plone/@twitter-feed?authors=foo&authors=bar -H 'Accept: application/json' -H 'Content-Type: application/json'
+
+La risposta è una lista di tweet con le informazioni necessarie per essere renderizzati::
+
+    [
+        {
+            "author": {
+            "id": "12345678",
+            "name": "John Doe",
+            "profile_image_url": "https://pbs.twimg.com/profile_images/xxx/xxx_normal.jpg",
+            "username": "jdoe"
+            },
+            "id": "xxxxx",
+            "like_count": 1,
+            "reply_count": 0,
+            "retweet_count": 0,
+            "text": "stringa html"
+        },
+        ...
+    ]
+
+Il campo `text` contiene già eventuali link ad hashtag, menzioni e link esterni dentro ad un tag <a/>.
+
+**Per evitare troppe chiamate al servizio (c'è un limite di 500000 tweet al mese), c'è della cache: per ogni query
+i risultati rimangono in cache per mezz'ora.**
+
 
 Amministrazione trasparente
 ===========================

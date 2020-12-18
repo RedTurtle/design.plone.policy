@@ -1,0 +1,15 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+  <genericsetup:upgradeSteps
+    source="1000"
+    destination="1100"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Add twitter_token field in registry"
+        handler=".upgrades.update_registry"
+        />
+  </genericsetup:upgradeSteps>
+  
+</configure>
