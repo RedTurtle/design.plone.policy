@@ -120,6 +120,14 @@ Il campo `text` contiene già eventuali link ad hashtag, menzioni e link esterni
 **Per evitare troppe chiamate al servizio (c'è un limite di 500000 tweet al mese), c'è della cache: per ogni query
 i risultati rimangono in cache per mezz'ora.**
 
+
+Amministrazione trasparente
+===========================
+
+La vista "crea_area_trasparenza" crea la struttura per l'area "Amministrazione Trasparente".
+Si può lanciare dalla root del sito.
+
+
 Installazione
 =============
 
