@@ -5,6 +5,9 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
+- Added view to create trasparenza structure.
+  [daniele]
+
 - Fixed folders creation when installing.
   [daniele]
 
