@@ -11,6 +11,8 @@ Changelog
 - Fixed folders creation when installing.
   [daniele]
 
+- Add twitter-feed endpoint.
+  [cekk]
 
 1.0.0 (2020-12-07)
 ------------------
