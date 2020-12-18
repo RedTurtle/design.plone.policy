@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.1 (unreleased)
+1.0.1 (2020-12-18)
 ------------------
 
 - Added view to create trasparenza structure.
