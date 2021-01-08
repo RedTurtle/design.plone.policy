@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from email.mime.text import MIMEText
+from email.message import EmailMessage
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
 from plone.registry.interfaces import IRegistry
@@ -56,11 +57,25 @@ class SendActionFormPost(Service):
         encoding = registry.get("plone.email_charset", "utf-8")
         host = api.portal.get_tool(name="MailHost")
 
-        message = MIMEText(message, "plain", encoding)
-        message["Reply-To"] = mfrom
+        msg = EmailMessage()
+        msg.set_content(message)
+        msg["Subject"] = subject
+        msg["From"] = mfrom
+        msg["To"] = mto
+
+        # with open("/Users/cekk/Desktop/mappa_ploni.pdf", "rb") as fp:
+        #     data = fp.read()
+        #     msg.add_attachment(
+        #         data,
+        #         maintype="application/pdf",
+        #         subtype="application/pdf",
+        #         filename="mappa_ploni.pdf",
+        #     )
+
+        msg["Reply-To"] = mfrom
         try:
             host.send(
-                message, mto, mfrom, subject=subject, charset=encoding,
+                msg, charset=encoding,
             )
 
         except (SMTPException, RuntimeError):
