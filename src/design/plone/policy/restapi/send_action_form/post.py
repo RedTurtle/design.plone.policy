@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from email.mime.text import MIMEText
 from email.message import EmailMessage
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
