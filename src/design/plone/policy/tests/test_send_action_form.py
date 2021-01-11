@@ -143,7 +143,7 @@ class SendActionFormEndpoint(unittest.TestCase):
         if isinstance(msg, bytes) and bytes is not str:
             # Python 3 with Products.MailHost 4.10+
             msg = msg.decode("utf-8")
-        self.assertIn("Subject: =?utf-8?q?test_subject", msg)
+        self.assertIn("Subject: test subject", msg)
         self.assertIn("From: john@doe.com", msg)
         self.assertIn("To: info@test.org", msg)
         self.assertIn("Reply-To: john@doe.com", msg)
@@ -167,7 +167,7 @@ class SendActionFormEndpoint(unittest.TestCase):
         if isinstance(msg, bytes) and bytes is not str:
             # Python 3 with Products.MailHost 4.10+
             msg = msg.decode("utf-8")
-        self.assertIn("Subject: =?utf-8?q?test_subject", msg)
+        self.assertIn("Subject: test subject", msg)
         self.assertIn("From: john@doe.com", msg)
         self.assertIn("To: info@test.org", msg)
         self.assertIn("Reply-To: john@doe.com", msg)
@@ -196,7 +196,7 @@ class SendActionFormEndpoint(unittest.TestCase):
         if isinstance(msg, bytes) and bytes is not str:
             # Python 3 with Products.MailHost 4.10+
             msg = msg.decode("utf-8")
-        self.assertIn("Subject: =?utf-8?q?test_subject", msg)
+        self.assertIn("Subject: test subject", msg)
         self.assertIn("From: john@doe.com", msg)
         self.assertIn("To: to@block.com", msg)
         self.assertIn("Reply-To: john@doe.com", msg)
@@ -224,7 +224,7 @@ class SendActionFormEndpoint(unittest.TestCase):
         if isinstance(msg, bytes) and bytes is not str:
             # Python 3 with Products.MailHost 4.10+
             msg = msg.decode("utf-8")
-        self.assertIn("Subject: =?utf-8?q?block_subject", msg)
+        self.assertIn("Subject: block subject", msg)
         self.assertIn("From: john@doe.com", msg)
         self.assertIn("To: info@test.org", msg)
         self.assertIn("Reply-To: john@doe.com", msg)

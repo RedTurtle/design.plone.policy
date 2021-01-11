@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from email.mime.text import MIMEText
+from email.message import EmailMessage
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
 from plone.registry.interfaces import IRegistry
@@ -11,6 +11,9 @@ from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.interface import alsoProvides
+
+import codecs
+import six
 
 
 class SendActionFormPost(Service):
@@ -56,11 +59,18 @@ class SendActionFormPost(Service):
         encoding = registry.get("plone.email_charset", "utf-8")
         host = api.portal.get_tool(name="MailHost")
 
-        message = MIMEText(message, "plain", encoding)
-        message["Reply-To"] = mfrom
+        msg = EmailMessage()
+        msg.set_content(message)
+        msg["Subject"] = subject
+        msg["From"] = mfrom
+        msg["To"] = mto
+        msg["Reply-To"] = mfrom
+
+        self.manage_attachments(data=data, msg=msg)
+
         try:
             host.send(
-                message, mto, mfrom, subject=subject, charset=encoding,
+                msg, charset=encoding,
             )
 
         except (SMTPException, RuntimeError):
@@ -87,3 +97,33 @@ class SendActionFormPost(Service):
                 continue
             return block
         return {}
+
+    def manage_attachments(self, data, msg):
+        attachments = data.get("attachments", {})
+        if not attachments:
+            return []
+        for key, value in attachments.items():
+            content_type = "application/octet-stream"
+            filename = None
+            if isinstance(value, dict):
+                file_data = value.get("data", "")
+                if not file_data:
+                    continue
+                content_type = value.get("content-type", content_type)
+                filename = value.get("filename", filename)
+                if isinstance(file_data, six.text_type):
+                    file_data = file_data.encode("utf-8")
+                if "encoding" in value:
+                    file_data = codecs.decode(file_data, value["encoding"])
+                if isinstance(file_data, six.text_type):
+                    file_data = file_data.encode("utf-8")
+            else:
+
+                file_data = value
+            for attachment in attachments:
+                msg.add_attachment(
+                    file_data,
+                    maintype=content_type,
+                    subtype=content_type,
+                    filename=filename,
+                )

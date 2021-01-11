@@ -5,7 +5,8 @@ Changelog
 1.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Manage also attachments in @send-action-form endpoint.
+  [cekk]
 
 
 1.0.1 (2020-12-18)

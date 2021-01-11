@@ -73,6 +73,21 @@ All'endpoint vanno passati i seguenti parametri:
 - **message** [*obbligatorio*]: il messaggio da inviare
 - **from**: l'indirizzo email del mittente. Se non presente, viene utilizzato il campo *default_from* del blocco
 - **subject**: l'oggetto della mail. Se non presente, viene utilizzato il campo *default_subject* del blocco
+- **attachments**: eventuali allegati riferiti a campi "file upload" inseriti nel form.
+
+La struttura degli attachments è la seguente::
+
+    {
+        "block_id": "foo",
+        ...
+        "attachments": {
+            "field_id": {
+                "data": "the content of the file",
+                "content-type": "application/pdf",
+                "filename": "example.pdf"
+            }
+        }
+    }
 
 Se l'invio va a buon fine, viene tornata una risposta con `204`.
 
