@@ -12,6 +12,9 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.interface import alsoProvides
 
+import codecs
+import six
+
 
 class SendActionFormPost(Service):
     def reply(self):
@@ -61,17 +64,10 @@ class SendActionFormPost(Service):
         msg["Subject"] = subject
         msg["From"] = mfrom
         msg["To"] = mto
-
-        # with open("/Users/cekk/Desktop/mappa_ploni.pdf", "rb") as fp:
-        #     data = fp.read()
-        #     msg.add_attachment(
-        #         data,
-        #         maintype="application/pdf",
-        #         subtype="application/pdf",
-        #         filename="mappa_ploni.pdf",
-        #     )
-
         msg["Reply-To"] = mfrom
+
+        self.manage_attachments(data=data, msg=msg)
+
         try:
             host.send(
                 msg, charset=encoding,
@@ -101,3 +97,33 @@ class SendActionFormPost(Service):
                 continue
             return block
         return {}
+
+    def manage_attachments(self, data, msg):
+        attachments = data.get("attachments", {})
+        if not attachments:
+            return []
+        for key, value in attachments.items():
+            content_type = "application/octet-stream"
+            filename = None
+            if isinstance(value, dict):
+                file_data = value.get("data", "")
+                if not file_data:
+                    continue
+                content_type = value.get("content-type", content_type)
+                filename = value.get("filename", filename)
+                if isinstance(file_data, six.text_type):
+                    file_data = file_data.encode("utf-8")
+                if "encoding" in value:
+                    file_data = codecs.decode(file_data, value["encoding"])
+                if isinstance(file_data, six.text_type):
+                    file_data = file_data.encode("utf-8")
+            else:
+
+                file_data = value
+            for attachment in attachments:
+                msg.add_attachment(
+                    file_data,
+                    maintype=content_type,
+                    subtype=content_type,
+                    filename=filename,
+                )
