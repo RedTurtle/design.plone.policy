@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.2 (unreleased)
+1.0.2 (2021-01-11)
 ------------------
 
 - Manage also attachments in @send-action-form endpoint.
