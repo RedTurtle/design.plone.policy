@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from AccessControl.unauthorized import Unauthorized
 from plone.restapi.services import Service
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
@@ -31,7 +32,11 @@ class SearchFiltersGet(Service):
             section_path = "{portal}/{id}".format(
                 portal=portal_path, id=section_id
             )
-            section = api.content.get(section_path)
+            try:
+                section = api.content.get(section_path)
+            except Unauthorized:
+                # private folder
+                continue
             if not section:
                 continue
             sections[section_id] = self.get_basic_data(item=section)
