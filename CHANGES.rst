@@ -5,7 +5,8 @@ Changelog
 1.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Handle Unauthorized in search-filters endpoint.
+  [cekk]
 
 
 1.0.2 (2021-01-11)
