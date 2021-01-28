@@ -38,8 +38,8 @@ setup(
     url="https://github.com/collective/design.plone.policy",
     project_urls={
         "PyPI": "https://pypi.python.org/pypi/design.plone.policy",
-        "Source": "https://github.com/collective/design.plone.policy",
-        "Tracker": "https://github.com/collective/design.plone.policy/issues",
+        "Source": "https://github.com/RedTurtle/design.plone.policy",
+        "Tracker": "https://github.com/RedTurtle/design.plone.policy/issues",
         # 'Documentation': 'https://design.plone.policy.readthedocs.io/en/latest/',
     },
     license="GPL version 2",
