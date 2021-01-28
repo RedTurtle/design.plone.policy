@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.3 (unreleased)
+1.0.3 (2021-01-28)
 ------------------
 
 - Handle Unauthorized in search-filters endpoint.
