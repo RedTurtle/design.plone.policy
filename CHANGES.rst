@@ -5,7 +5,8 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add collective.volto.secondarymenu dependency.
+  [cekk]
 
 
 1.0.3 (2021-01-28)
