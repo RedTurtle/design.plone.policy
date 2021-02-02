@@ -4,8 +4,9 @@ from design.plone.policy.testing import DESIGN_PLONE_POLICY_INTEGRATION_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from Products.CMFPlone.interfaces.controlpanel import INavigationSchema
 from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import ISiteSchema
+from Products.CMFPlone.interfaces.controlpanel import INavigationSchema
 from zope.component import getUtility
 
 import unittest
@@ -32,7 +33,9 @@ class TestSetup(unittest.TestCase):
 
     def test_product_installed(self):
         """Test if design.plone.policy is installed."""
-        self.assertTrue(self.installer.isProductInstalled("design.plone.policy"))
+        self.assertTrue(
+            self.installer.isProductInstalled("design.plone.policy")
+        )
 
     def test_browserlayer(self):
         """Test that IDesignPlonePolicyLayer is registered."""
@@ -47,6 +50,13 @@ class TestSetup(unittest.TestCase):
             INavigationSchema, prefix="plone", check=False
         )
         self.assertFalse(navigation_settings.show_excluded_items)
+
+    def test_sitemap_enabled(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(
+            ISiteSchema, prefix="plone", check=False
+        )
+        self.assertTrue(settings.enable_sitemap)
 
 
 class TestUninstall(unittest.TestCase):
@@ -66,7 +76,9 @@ class TestUninstall(unittest.TestCase):
 
     def test_product_uninstalled(self):
         """Test if design.plone.policy is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled("design.plone.policy"))
+        self.assertFalse(
+            self.installer.isProductInstalled("design.plone.policy")
+        )
 
     def test_browserlayer_removed(self):
         """Test that IDesignPlonePolicyLayer is removed."""

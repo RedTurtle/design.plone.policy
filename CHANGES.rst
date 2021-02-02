@@ -5,7 +5,8 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Enable sitemap by default.
+  [cekk]
 
 
 1.0.3 (2021-01-28)
