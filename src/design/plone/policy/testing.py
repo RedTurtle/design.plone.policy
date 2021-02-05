@@ -14,6 +14,7 @@ import collective.MockMailHost
 import collective.venue
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
+import collective.volto.secondarymenu
 import collective.volto.socialsettings
 import collective.volto.subsites
 import design.plone.contenttypes
@@ -38,6 +39,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
+        self.loadZCML(package=collective.volto.secondarymenu)
         self.loadZCML(package=collective.volto.socialsettings)
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=design.plone.contenttypes)
@@ -91,6 +93,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
+        self.loadZCML(package=collective.volto.secondarymenu)
         self.loadZCML(package=collective.volto.socialsettings)
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=design.plone.contenttypes)

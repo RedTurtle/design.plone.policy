@@ -5,6 +5,8 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
+- Add collective.volto.secondarymenu dependency.
+  [cekk]
 - Enable sitemap by default.
   [cekk]
 
