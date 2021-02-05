@@ -11,5 +11,13 @@
         handler=".upgrades.update_registry"
         />
   </genericsetup:upgradeSteps>
-  
+  <genericsetup:upgradeSteps
+    source="1100"
+    destination="1101"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Enable sitemap"
+        handler=".upgrades.update_registry"
+        />
+  </genericsetup:upgradeSteps>
 </configure>
