@@ -5,7 +5,8 @@ Changelog
 1.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Install collective.volto.socialsettings by default.
+  [cekk]
 
 
 1.0.4 (2021-02-05)
