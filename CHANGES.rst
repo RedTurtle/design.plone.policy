@@ -5,8 +5,8 @@ Changelog
 1.0.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Do not run dependencies when upgrading plone.app.registry.
+  [cekk]
 
 1.0.5 (2021-02-11)
 ------------------

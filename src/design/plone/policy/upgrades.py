@@ -19,7 +19,7 @@ def update_rolemap(context):
 
 
 def update_registry(context):
-    update_profile(context, "plone.app.registry")
+    update_profile(context, "plone.app.registry", run_dependencies=False)
 
 
 def update_catalog(context):
