@@ -5,7 +5,8 @@ Changelog
 1.0.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix typo.
+  [cekk]
 
 
 1.0.6 (2021-02-19)

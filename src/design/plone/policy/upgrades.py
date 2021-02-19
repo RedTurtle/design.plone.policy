@@ -6,8 +6,10 @@ logger = logging.getLogger(__name__)
 DEFAULT_PROFILE = "profile-design.plone.policy:default"
 
 
-def update_profile(context, profile):
-    context.runImportStepFromProfile(DEFAULT_PROFILE, profile)
+def update_profile(context, profile, run_dependencies=True):
+    context.runImportStepFromProfile(
+        DEFAULT_PROFILE, profile, run_dependencies
+    )
 
 
 def update_types(context):
