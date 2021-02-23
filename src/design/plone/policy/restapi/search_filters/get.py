@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 from AccessControl.unauthorized import Unauthorized
+from design.plone.contenttypes.controlpanels.vocabularies import (
+    IVocabulariesControlPanel,
+)
+from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.services import Service
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 from plone import api
+from zope.component import getMultiAdapter
 
-SECTION_IDS = ["amministrazione", "servizi", "novita", "documenti-e-dati"]
+import json
 
 
 @implementer(IPublishTraverse)
@@ -24,28 +29,44 @@ class SearchFiltersGet(Service):
         }
 
     def reply(self):
-        portal_path = "/".join(api.portal.get().getPhysicalPath())
-        sections = {}
+        settings = api.portal.get_registry_record(
+            "search_sections", interface=IVocabulariesControlPanel,
+        )
+        sections = []
         topics = []
-
-        for section_id in SECTION_IDS:
-            section_path = "{portal}/{id}".format(
-                portal=portal_path, id=section_id
-            )
-            try:
-                section = api.content.get(section_path)
-            except Unauthorized:
-                # private folder
-                continue
-            if not section:
-                continue
-            sections[section_id] = self.get_basic_data(item=section)
-            sections[section_id]["items"] = []
-            for children in section.listFolderContents():
-                sections[section_id]["items"].append(
-                    self.get_basic_data(item=children)
-                )
+        if settings:
+            settings = json.loads(settings)
+            for setting in settings:
+                items = []
+                for section_settings in setting.get("items", []):
+                    for uid in section_settings.get("linkUrl", []):
+                        try:
+                            section = api.content.get(UID=uid)
+                        except Unauthorized:
+                            # private folder
+                            continue
+                        if section:
+                            item_infos = getMultiAdapter(
+                                (section, self.request),
+                                ISerializeToJsonSummary,
+                            )()
+                            children = section.listFolderContents()
+                            if children:
+                                item_infos["items"] = []
+                                for children in section.listFolderContents():
+                                    item_infos["items"].append(
+                                        self.get_basic_data(item=children)
+                                    )
+                            if section_settings.get("title", ""):
+                                item_infos["title"] = section_settings["title"]
+                            items.append(item_infos)
+                if items:
+                    sections.append(
+                        {
+                            "rootPath": setting.get("rootPath", ""),
+                            "items": items,
+                        }
+                    )
         for argument in api.content.find(portal_type="Pagina Argomento"):
             topics.append(self.get_basic_data(argument.getObject()))
-        res = {"sections": sections, "topics": topics}
-        return res
+        return {"sections": sections, "topics": topics}

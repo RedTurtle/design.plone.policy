@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
+from design.plone.contenttypes.controlpanels.vocabularies import (
+    IVocabulariesControlPanel,
+)
 from design.plone.policy.utils import folderSubstructureGenerator
+from plone import api
 from Products.CMFPlone.interfaces import INonInstallable
 from zope.interface import implementer
+
+import json
 
 
 @implementer(INonInstallable)
@@ -35,6 +41,21 @@ def post_install(context):
     )
     folderSubstructureGenerator(
         title="Argomenti", types=("Document", "Image", "File", "Link")
+    )
+
+    # set default search folders
+    section_ids = ["amministrazione", "servizi", "novita", "documenti-e-dati"]
+    sections = []
+    portal = api.portal.get()
+    for id in section_ids:
+        item = portal.get(id, None)
+        if item:
+            sections.append({"title": item.title, "linkUrl": [item.UID()]})
+    settings = [{"rootPath": "/", "items": sections}]
+    api.portal.set_registry_record(
+        "search_sections",
+        json.dumps(settings),
+        interface=IVocabulariesControlPanel,
     )
 
 

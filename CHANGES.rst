@@ -5,7 +5,8 @@ Changelog
 1.0.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- On install, set default search sections.
+  [cekk]
 
 
 1.0.7 (2021-02-19)
