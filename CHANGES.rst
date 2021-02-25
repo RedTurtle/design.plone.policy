@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.8 (unreleased)
+1.0.8 (2021-02-25)
 ------------------
 
 - On install, set default search sections.
