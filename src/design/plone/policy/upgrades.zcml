@@ -20,4 +20,13 @@
         handler=".upgrades.update_registry"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="1101"
+    destination="1110"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Install collective.volto.formsupport"
+        handler=".upgrades.to_1110"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

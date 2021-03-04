@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+from plone.app.upgrade.utils import installOrReinstallProduct
+from plone import api
+
 import logging
+
 
 logger = logging.getLogger(__name__)
 
@@ -30,3 +34,7 @@ def update_catalog(context):
 
 def update_controlpanel(context):
     update_profile(context, "controlpanel")
+
+
+def to_1110(context):
+    installOrReinstallProduct(api.portal.get(), "collective.volto.formsupport")
