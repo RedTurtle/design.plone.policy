@@ -26,6 +26,6 @@
     profile="design.plone.policy:default">
     <genericsetup:upgradeStep
         title="Install collective.volto.formsupport"
-        handler=".upgrades.to_1110"
+        handler=".upgrades.to_1200"
         />
 </configure>
