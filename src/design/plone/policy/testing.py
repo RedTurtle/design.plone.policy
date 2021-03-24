@@ -36,7 +36,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
 
-        self.loacZCML(package=collective.volto.formsupport)
+        self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.folderishtypes)
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
