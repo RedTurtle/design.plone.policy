@@ -37,10 +37,6 @@ def update_controlpanel(context):
     update_profile(context, "controlpanel")
 
 
-def to_1110(context):
-    installOrReinstallProduct(api.portal.get(), "collective.volto.formsupport")
-
-
 def to_1200(context):
     def fix_field_name(blocks):
         """
@@ -53,6 +49,7 @@ def to_1200(context):
                 found = True
         return found
 
+    installOrReinstallProduct(api.portal.get(), "collective.volto.formsupport")
     logger.info("Changing form block fields.")
     i = 0
     brains = api.content.find(
