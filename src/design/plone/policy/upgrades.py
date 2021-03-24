@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from copy import deepcopy
 from plone.app.upgrade.utils import installOrReinstallProduct
 from plone import api
 
@@ -38,3 +39,43 @@ def update_controlpanel(context):
 
 def to_1110(context):
     installOrReinstallProduct(api.portal.get(), "collective.volto.formsupport")
+
+
+def to_1200(context):
+    def fix_field_name(blocks):
+        """
+        """
+        found = False
+        for block in blocks.values():
+            if block.get("@type", "") == "form" and block.get("to", ""):
+                block["default_to"] = block.get("to", "")
+                del block["to"]
+                found = True
+        return found
+
+    logger.info("Changing form block fields.")
+    i = 0
+    brains = api.content.find(
+        object_provides="plone.restapi.behaviors.IBlocks"
+    )
+    tot = len(brains)
+    fixed_items = []
+    for brain in brains:
+        i += 1
+        if i % 1000 == 0:
+            logger.info("Progress: {}/{}".format(i, tot))
+        item = brain.getObject()
+        blocks = deepcopy(getattr(item, "blocks", {}))
+        if blocks:
+            to_update = fix_field_name(blocks)
+            if to_update:
+                item.blocks = blocks
+                fixed_items.append(brain.getPath())
+
+    logger.info("Finish")
+    if fixed_items:
+        logger.info("Updated items:")
+        for fixed in fixed_items:
+            logger.info("- {}".format(fixed))
+    else:
+        logger.info("No items affected.")

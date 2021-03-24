@@ -29,4 +29,13 @@
         handler=".upgrades.to_1110"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="1110"
+    destination="1110"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Update form fields"
+        handler=".upgrades.to_1200"
+        />
+  </genericsetup:upgradeSteps>
 </configure>
