@@ -14,6 +14,7 @@ import collective.MockMailHost
 import collective.venue
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
+import collective.volto.formsupport
 import collective.volto.secondarymenu
 import collective.volto.socialsettings
 import collective.volto.subsites
@@ -35,6 +36,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
 
+        self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.folderishtypes)
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
@@ -93,6 +95,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
+        self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.volto.secondarymenu)
         self.loadZCML(package=collective.volto.socialsettings)
         self.loadZCML(package=collective.volto.subsites)

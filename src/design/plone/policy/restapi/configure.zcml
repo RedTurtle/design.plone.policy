@@ -3,9 +3,8 @@
     xmlns:zcml="http://namespaces.zope.org/zcml">
 
   <include package="plone.restapi"  />
-  <!-- Service registrations below need permissions from CMFCore -->
+  
   <include package=".search_filters"  />
-  <include package=".send_action_form"  />
   <include package=".twitter_feed"  />
 
 </configure>

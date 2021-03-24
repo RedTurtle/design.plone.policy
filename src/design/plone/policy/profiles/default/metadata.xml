@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <version>1101</version>
+  <version>1200</version>
   <dependencies>
     <dependency>profile-plone.restapi:default</dependency>
     <dependency>profile-design.plone.contenttypes:default</dependency>
@@ -9,5 +9,6 @@
     <dependency>profile-collective.volto.socialsettings:default</dependency>
     <dependency>profile-collective.volto.secondarymenu:default</dependency>
     <dependency>profile-redturtle.voltoplugin.editablefooter:default</dependency>
+    <dependency>profile-collective.volto.formsupport:default</dependency>
   </dependencies>
 </metadata>

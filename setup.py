@@ -55,6 +55,7 @@ setup(
         "design.plone.contenttypes",
         "redturtle.rssservice",
         "collective.volto.dropdownmenu",
+        "collective.volto.formsupport",
         "collective.volto.secondarymenu",
         "collective.volto.socialsettings",
         "collective.volto.subsites",

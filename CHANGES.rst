@@ -5,7 +5,8 @@ Changelog
 1.0.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove form route and add **collective.volto.formsupport** dependency.
+  [cekk]
 
 
 1.0.8 (2021-02-25)
