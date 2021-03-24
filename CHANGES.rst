@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0.9 (unreleased)
+1.1.0 (2021-03-24)
 ------------------
 
 - Remove form route and add **collective.volto.formsupport** dependency.
