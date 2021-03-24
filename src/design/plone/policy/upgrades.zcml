@@ -28,4 +28,5 @@
         title="Install collective.volto.formsupport"
         handler=".upgrades.to_1200"
         />
+  </genericsetup:upgradeSteps>
 </configure>
