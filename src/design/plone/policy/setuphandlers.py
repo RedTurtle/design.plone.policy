@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from design.plone.contenttypes.controlpanels.vocabularies import (
-    IVocabulariesControlPanel,
+from design.plone.contenttypes.controlpanels.settings import (
+    IDesignPloneSettings,
 )
 from design.plone.policy.utils import folderSubstructureGenerator
 from plone import api
@@ -55,7 +55,7 @@ def post_install(context):
     api.portal.set_registry_record(
         "search_sections",
         json.dumps(settings),
-        interface=IVocabulariesControlPanel,
+        interface=IDesignPloneSettings,
     )
 
 

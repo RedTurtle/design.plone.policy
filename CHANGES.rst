@@ -5,7 +5,8 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update with new settings values from design.plone.contenttypes (version 3.0.0).
+  [cekk]
 
 
 1.1.0 (2021-03-24)
