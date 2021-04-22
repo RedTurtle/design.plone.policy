@@ -31,6 +31,7 @@ def post_install(context):
     folderSubstructureGenerator(
         title="Documenti e dati",
         types=(
+            "Bando",
             "CartellaModulistica",
             "Document",
             "Documento",
