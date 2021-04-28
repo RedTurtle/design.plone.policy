@@ -5,7 +5,8 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- [dev] Fix CI
+  [arsenico13]
 
 
 1.1.0 (2021-03-24)
