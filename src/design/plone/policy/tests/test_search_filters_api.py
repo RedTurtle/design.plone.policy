@@ -6,7 +6,11 @@ from plone.app.testing import setRoles
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.app.testing import TEST_USER_ID
+from plone.registry.interfaces import IRegistry
 from plone.restapi.testing import RelativeSession
+from Products.CMFPlone.interfaces import ISearchSchema
+from zope.component import getUtility
+from transaction import commit
 
 import unittest
 
@@ -55,3 +59,23 @@ class SearchFiltersAPITest(unittest.TestCase):
 
         self.assertIn("topics", response)
         self.assertEqual(response["topics"], [])
+
+    def test_endpoint_return_list_of_searchable_types(self):
+        response = self.api_session.get("/@search-filters").json()
+
+        self.assertIn("portal_types", response)
+        types = [x["value"] for x in response["portal_types"]]
+        self.assertIn("Document", types)
+
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISearchSchema, prefix="plone")
+        settings.types_not_searched = tuple(
+            list(settings.types_not_searched) + ["Document"]
+        )
+        commit()
+
+        response = self.api_session.get("/@search-filters").json()
+
+        self.assertIn("portal_types", response)
+        types = [x["value"] for x in response["portal_types"]]
+        self.assertNotIn("Document", types)

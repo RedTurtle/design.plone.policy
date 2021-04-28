@@ -7,7 +7,8 @@ Changelog
 
 - [dev] Fix CI
   [arsenico13]
-
+- **search-filters** endpoint now return also a list of searchable portal_types.
+  [cekk]
 
 1.1.0 (2021-03-24)
 ------------------
