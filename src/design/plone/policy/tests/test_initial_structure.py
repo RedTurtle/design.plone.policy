@@ -202,12 +202,13 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.assertEqual(
                 child.locally_allowed_types,
                 (
-                    "Document",
-                    "Image",
-                    "File",
-                    "Link",
-                    "Documento",
+                    "Bando",
                     "CartellaModulistica",
+                    "Document",
+                    "Documento",
+                    "File",
+                    "Image",
+                    "Link",
                 ),
             )
 
