@@ -76,3 +76,14 @@ def to_1200(context):
             logger.info("- {}".format(fixed))
     else:
         logger.info("No items affected.")
+
+
+def to_1300(context):
+    """ This upgrade handles that a type "Bando" is now  addmitted by default
+    inside the folder "Documenti e Dati".
+
+    This method just ADD THE CONTENT TYPE to the current list of types that you
+    can add inside that folder.
+    """
+    pc = api.portal.get_tool(name="portal_catalog")
+    import pdb; pdb.set_trace()
