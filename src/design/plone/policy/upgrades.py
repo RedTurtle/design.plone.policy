@@ -86,4 +86,6 @@ def to_1300(context):
     can add inside that folder.
     """
     pc = api.portal.get_tool(name="portal_catalog")
+    if pc:
+        pass
     import pdb; pdb.set_trace()
