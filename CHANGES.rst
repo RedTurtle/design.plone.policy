@@ -5,6 +5,8 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
+- [new] Content type 'Bando' is admitted by default in 'Documenti e dati' folder.
+  [arsenico13]
 - [dev] Fix CI
   [arsenico13]
 

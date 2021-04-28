@@ -34,7 +34,7 @@
     destination="1300"
     profile="design.plone.policy:default">
     <genericsetup:upgradeStep
-        title="Install collective.volto.formsupport"
+        title="Enable type 'Bando' inside 'Documenti e dati' folder"
         handler=".upgrades.to_1300"
         />
   </genericsetup:upgradeSteps>
