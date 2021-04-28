@@ -55,8 +55,8 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, "design.plone.policy:default")
         applyProfile(portal, "plone.app.caching:default")
+        applyProfile(portal, "design.plone.policy:default")
 
 
 DESIGN_PLONE_POLICY_FIXTURE = DesignPlonePolicyLayer()
@@ -112,10 +112,10 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
+        applyProfile(portal, "plone.app.caching:default")
         applyProfile(portal, "design.plone.policy:default")
         quickInstallProduct(portal, "collective.MockMailHost")
         applyProfile(portal, "collective.MockMailHost:default")
-        applyProfile(portal, "plone.app.caching:default")
 
 
 DESIGN_PLONE_POLICY_API_FIXTURE = DesignPlonePolicyRestApiLayer()
