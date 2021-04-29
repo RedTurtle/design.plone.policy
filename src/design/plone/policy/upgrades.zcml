@@ -29,4 +29,13 @@
         handler=".upgrades.to_1200"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="1200"
+    destination="1201"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Add image scales"
+        handler=".upgrades.update_registry"
+        />
+  </genericsetup:upgradeSteps>
 </configure>
