@@ -64,7 +64,7 @@ class SearchFiltersAPITest(unittest.TestCase):
         response = self.api_session.get("/@search-filters").json()
 
         self.assertIn("portal_types", response)
-        types = [x["value"] for x in response["portal_types"]]
+        types = [x["id"] for x in response["portal_types"]]
         self.assertIn("Document", types)
 
         registry = getUtility(IRegistry)
@@ -77,5 +77,5 @@ class SearchFiltersAPITest(unittest.TestCase):
         response = self.api_session.get("/@search-filters").json()
 
         self.assertIn("portal_types", response)
-        types = [x["value"] for x in response["portal_types"]]
+        types = [x["id"] for x in response["portal_types"]]
         self.assertNotIn("Document", types)
