@@ -65,7 +65,7 @@ Ritorna un json con le sezioni principali, la lista degli argomenti e i tipi di 
             ...
             {
               "label": "Document",
-              "value": "Page"
+              "id": "Page"
             }
             ...
         ]
