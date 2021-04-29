@@ -40,7 +40,7 @@ class SearchFiltersGet(Service):
         types = [
             {
                 "label": translate(ttool[t].Title(), context=self.request),
-                "value": t,
+                "id": t,
             }
             for t in ptool.getUserFriendlyTypes()
             if t not in types_not_searched
