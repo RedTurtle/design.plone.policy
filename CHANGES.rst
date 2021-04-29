@@ -7,6 +7,8 @@ Changelog
 
 - [dev] Fix CI
   [arsenico13]
+- Add custom image scales
+  [nzambello]
 
 
 1.1.0 (2021-03-24)
