@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.1 (unreleased)
+2.0.0 (2021-04-30)
 ------------------
 
 - Update with new settings values from design.plone.contenttypes (version 3.0.0).
