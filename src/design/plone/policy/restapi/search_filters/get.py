@@ -3,13 +3,16 @@ from AccessControl.unauthorized import Unauthorized
 from design.plone.contenttypes.controlpanels.settings import (
     IDesignPloneSettings,
 )
+from plone import api
+from plone.registry.interfaces import IRegistry
 from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.services import Service
+from Products.CMFPlone.interfaces import ISearchSchema
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.i18n import translate
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
-from plone import api
-from zope.component import getMultiAdapter
-
 import json
 
 
@@ -27,6 +30,22 @@ class SearchFiltersGet(Service):
             "path": item.virtual_url_path(),
             "UID": item.UID(),
         }
+
+    def get_portal_types(self):
+        ttool = api.portal.get_tool("portal_types")
+        ptool = api.portal.get_tool("plone_utils")
+        registry = getUtility(IRegistry)
+        search_settings = registry.forInterface(ISearchSchema, prefix="plone")
+        types_not_searched = search_settings.types_not_searched
+        types = [
+            {
+                "label": translate(ttool[t].Title(), context=self.request),
+                "id": t,
+            }
+            for t in ptool.getUserFriendlyTypes()
+            if t not in types_not_searched
+        ]
+        return sorted(types, key=lambda k: k["label"])
 
     def reply(self):
         settings = api.portal.get_registry_record(
@@ -69,4 +88,8 @@ class SearchFiltersGet(Service):
                     )
         for argument in api.content.find(portal_type="Pagina Argomento"):
             topics.append(self.get_basic_data(argument.getObject()))
-        return {"sections": sections, "topics": topics}
+        return {
+            "sections": sections,
+            "topics": topics,
+            "portal_types": self.get_portal_types(),
+        }

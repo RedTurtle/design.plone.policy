@@ -4,7 +4,10 @@ from design.plone.contenttypes.controlpanels.settings import (
 )
 from design.plone.policy.utils import folderSubstructureGenerator
 from plone import api
+from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces import INonInstallable
+from Products.CMFPlone.interfaces import ISearchSchema
+from zope.component import getUtility
 from zope.interface import implementer
 
 import json
@@ -57,6 +60,29 @@ def post_install(context):
         json.dumps(settings),
         interface=IDesignPloneSettings,
     )
+
+    disable_searchable_types()
+
+
+def disable_searchable_types():
+    # remove some types from search enabled ones
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(ISearchSchema, prefix="plone")
+    remove_types = [
+        "Folder",
+        "Bando Folder Deepening",
+        "Link",
+        "Collection",
+        "Discussion Item",
+        "Dataset",
+        "Documento Personale",
+        "Messaggio",
+        "Pratica",
+        "RicevutaPagamento",
+    ]
+    types = set(settings.types_not_searched)
+    types.update(remove_types)
+    settings.types_not_searched = tuple(types)
 
 
 def uninstall(context):

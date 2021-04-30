@@ -29,4 +29,13 @@
         handler=".upgrades.to_1200"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="1200"
+    destination="1300"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Disable some searchable types"
+        handler=".upgrades.to_1300"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

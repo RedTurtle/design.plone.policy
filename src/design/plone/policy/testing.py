@@ -20,6 +20,7 @@ import collective.volto.socialsettings
 import collective.volto.subsites
 import design.plone.contenttypes
 import design.plone.policy
+import plone.app.caching
 import plone.formwidget.geolocation
 import plone.restapi
 import redturtle.bandi
@@ -46,6 +47,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=plone.app.caching)
         self.loadZCML(package=plone.formwidget.geolocation)
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=redturtle.bandi)
@@ -53,6 +55,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
+        applyProfile(portal, "plone.app.caching:default")
         applyProfile(portal, "design.plone.policy:default")
 
 
@@ -101,6 +104,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=plone.app.caching)
         self.loadZCML(package=plone.formwidget.geolocation)
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=redturtle.bandi)
@@ -108,6 +112,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
+        applyProfile(portal, "plone.app.caching:default")
         applyProfile(portal, "design.plone.policy:default")
         quickInstallProduct(portal, "collective.MockMailHost")
         applyProfile(portal, "collective.MockMailHost:default")

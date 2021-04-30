@@ -16,6 +16,11 @@ All'installazione di questo prodotto, oltre che l'installazione di tutte le dipe
 viene anche eseguita la creazione in automatico di una serie di cartelle utili per la 
 gestione dei contenuti richiesta da Agid.
 
+Tipi ricercabili
+================
+
+Installando questo prodotto, si disabilitano alcuni tipi ricercabili (così non vengon mostrati in @search-filters).
+
 
 Endpoint per plone.restapi
 ==========================
@@ -27,33 +32,41 @@ Questo endpoint serve al frontend di Volto, per popolare il menu e i filtri per 
 
     > curl -i http://localhost:8080/Plone/@search-filters -H 'Accept: application/json'
 
-Ritorna un json con le sezioni principali e la lista degli argomenti::
+Ritorna un json con le sezioni principali, la lista degli argomenti e i tipi di contenuto ricercabili (tradotti)::
 
     {
-        'sections':{
-            'amministrazione':{
-                '@id': '',
-                'path': '',
-                'title': '',
-                'items': [
+        "sections":{
+            "amministrazione":{
+                "@id": "",
+                "path": "",
+                "title": "",
+                "items": [
                     {
-                        '@id': '',
-                        'path': '',
-                        'title': '',
+                        "@id": "",
+                        "path": "",
+                        "title": "",
                     },
                     ...
                 ]
             }
-            'documenti-e-dati': {...}
-            'novita': {...}
-            'servizi': {...}
+            "documenti-e-dati": {...}
+            "novita": {...}
+            "servizi": {...}
         },
-        'topics': [
+        "topics": [
             {
-                '@id': '',
-                'path': '',
-                'title': '',
+                "@id": "",
+                "path": "",
+                "title": "",
             },
+            ...
+        ],
+        "portal_types": [
+            ...
+            {
+              "label": "Document",
+              "id": "Page"
+            }
             ...
         ]
     }
