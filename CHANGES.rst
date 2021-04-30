@@ -7,9 +7,10 @@ Changelog
 
 - Update with new settings values from design.plone.contenttypes (version 3.0.0).
   [cekk]
-
 - [dev] Fix CI
   [arsenico13]
+- Add custom image scales
+  [nzambello]
 - **search-filters** endpoint now return also a list of searchable portal_types.
   [cekk]
 - Disable some types from *types_not_searched*.

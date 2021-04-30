@@ -37,5 +37,8 @@
         title="Disable some searchable types"
         handler=".upgrades.to_1300"
         />
+    <genericsetup:upgradeStep
+        title="Add image scales"
+        handler=".upgrades.update_registry" />
   </genericsetup:upgradeSteps>
 </configure>
