@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from copy import deepcopy
+from design.plone.policy.setuphandlers import disable_searchable_types
 from plone.app.upgrade.utils import installOrReinstallProduct
 from plone import api
 
@@ -76,3 +77,7 @@ def to_1200(context):
             logger.info("- {}".format(fixed))
     else:
         logger.info("No items affected.")
+
+
+def to_1300(context):
+    disable_searchable_types()
