@@ -5,6 +5,9 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
+- Update with new settings values from design.plone.contenttypes (version 3.0.0).
+  [cekk]
+
 - [dev] Fix CI
   [arsenico13]
 - **search-filters** endpoint now return also a list of searchable portal_types.

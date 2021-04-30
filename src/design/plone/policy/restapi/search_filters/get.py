@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from AccessControl.unauthorized import Unauthorized
-from design.plone.contenttypes.controlpanels.vocabularies import (
-    IVocabulariesControlPanel,
+from design.plone.contenttypes.controlpanels.settings import (
+    IDesignPloneSettings,
 )
 from plone import api
 from plone.registry.interfaces import IRegistry
@@ -49,7 +49,7 @@ class SearchFiltersGet(Service):
 
     def reply(self):
         settings = api.portal.get_registry_record(
-            "search_sections", interface=IVocabulariesControlPanel,
+            "search_sections", interface=IDesignPloneSettings,
         )
         sections = []
         topics = []
