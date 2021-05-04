@@ -17,7 +17,7 @@ import json
 class HiddenProfiles(object):
     def getNonInstallableProfiles(self):
         """Hide uninstall profile from site-creation and quickinstaller."""
-        return ["design.plone.policy:uninstall"]
+        return ["design.plone.policy:uninstall", "design.plone.policy:to_1400"]
 
 
 def post_install(context):

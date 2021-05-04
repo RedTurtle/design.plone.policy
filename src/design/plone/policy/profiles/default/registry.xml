@@ -3,16 +3,12 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="design.plone.policy">
 
+    <records interface="design.plone.policy.interfaces.IDesignPlonePolicySettings"/>
+
     <record name="plone.show_excluded_items"
             interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema"
             field="show_excluded_items" purge="False">
         <value>False</value>
-    </record>
-    <record name="design.plone.policy.twitter_token">
-        <field type="plone.registry.field.TextLine">
-            <title>Twitter Bearer token</title>
-        </field>
-        <value></value>
     </record>
 
     <record name="plone.enable_sitemap">

@@ -5,7 +5,10 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Handle multiple twitter accounts in twitter endpoint.
+  [cekk]
+- Change twitter token field in registry (now is managed with interface).
+  [cekk]
 
 
 2.0.0 (2021-04-30)

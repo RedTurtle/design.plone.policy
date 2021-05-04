@@ -2,6 +2,8 @@
 from copy import deepcopy
 from design.plone.policy.setuphandlers import disable_searchable_types
 from plone.app.upgrade.utils import installOrReinstallProduct
+from design.plone.policy.interfaces import IDesignPlonePolicySettings
+
 from plone import api
 
 import logging
@@ -81,3 +83,15 @@ def to_1200(context):
 
 def to_1300(context):
     disable_searchable_types()
+
+
+def to_1400(context):
+    old = api.portal.get_registry_record(
+        name="design.plone.policy.twitter_token"
+    )
+    context.runAllImportStepsFromProfile("profile-design.plone.policy:to_1400")
+    update_registry(context)
+
+    api.portal.set_registry_record(
+        "twitter_token", old, interface=IDesignPlonePolicySettings
+    )

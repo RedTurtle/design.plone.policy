@@ -3,5 +3,5 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="design.plone.policy">
 
-    <records interface="design.plone.policy.interfaces.IDesignPlonePolicySettings" remove="True" />
+    <record name="design.plone.policy.twitter_token" remove="true" />
 </registry>

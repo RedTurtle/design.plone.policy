@@ -41,4 +41,13 @@
         title="Add image scales"
         handler=".upgrades.update_registry" />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="1300"
+    destination="1400"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Rename twitter registry entry"
+        handler=".upgrades.to_1400"
+        />
+  </genericsetup:upgradeSteps>
 </configure>
