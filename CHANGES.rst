@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.1.1 (unreleased)
+2.1.1 (2021-05-04)
 ------------------
 
 - Fix upgrade-step.

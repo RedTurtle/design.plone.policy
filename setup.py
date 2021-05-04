@@ -16,7 +16,7 @@ long_description = "\n\n".join(
 
 setup(
     name="design.plone.policy",
-    version="2.1.1.dev0",
+    version="2.1.1",
     description="Pacchetto per creare un sito Agid su Plone",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
