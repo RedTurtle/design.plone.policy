@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0.1 (unreleased)
+2.1.0 (2021-05-04)
 ------------------
 
 - Handle multiple twitter accounts in twitter endpoint.
