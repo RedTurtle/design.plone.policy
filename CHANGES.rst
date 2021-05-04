@@ -5,7 +5,8 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix upgrade-step.
+  [cekk]
 
 
 2.1.0 (2021-05-04)

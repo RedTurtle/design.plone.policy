@@ -92,6 +92,7 @@ def to_1400(context):
     context.runAllImportStepsFromProfile("profile-design.plone.policy:to_1400")
     update_registry(context)
 
-    api.portal.set_registry_record(
-        "twitter_token", old, interface=IDesignPlonePolicySettings
-    )
+    if old:
+        api.portal.set_registry_record(
+            "twitter_token", old, interface=IDesignPlonePolicySettings
+        )
