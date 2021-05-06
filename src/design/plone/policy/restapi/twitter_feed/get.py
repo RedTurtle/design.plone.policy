@@ -8,6 +8,7 @@ from time import time
 from urllib.parse import urlencode
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
+from design.plone.policy.interfaces import IDesignPlonePolicySettings
 
 import logging
 import requests
@@ -33,7 +34,7 @@ class TwitterFeedGet(Service):
     def reply(self):
 
         token = api.portal.get_registry_record(
-            name="design.plone.policy.twitter_token"
+            "twitter_token", interface=IDesignPlonePolicySettings
         )
         if not token:
             msg = "BEARER token not set: please set it into plone registry to be able to fetch Tweets."  # noqa
@@ -57,7 +58,7 @@ class TwitterFeedGet(Service):
     @ram.cache(_feed_cachekey)
     def retrieve_tweets(self, query):
         token = api.portal.get_registry_record(
-            name="design.plone.policy.twitter_token"
+            "twitter_token", interface=IDesignPlonePolicySettings
         )
 
         resp = requests.get(
@@ -81,9 +82,9 @@ class TwitterFeedGet(Service):
         if not authors:
             return {"error": "You need to provide at least an author."}
         if isinstance(authors, six.string_types):
-            authors = [authors]
+            authors = authors.split(",")
         res = {
-            "query": " OR ".join(["from: {}".format(x) for x in authors]),
+            "query": "from: {}".format(" OR ".join(authors)),
             # additional infos for tweets
             "tweet.fields": "entities,source,public_metrics,created_at",
             "expansions": "attachments.media_keys,author_id",

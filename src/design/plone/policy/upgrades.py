@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from copy import deepcopy
+from design.plone.policy.interfaces import IDesignPlonePolicySettings
+from design.plone.policy.setuphandlers import disable_searchable_types
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
@@ -80,12 +82,27 @@ def to_1200(context):
 
 
 def to_1300(context):
+    disable_searchable_types()
+
+
+def to_1400(context):
+    old = api.portal.get_registry_record(
+        name="design.plone.policy.twitter_token"
+    )
+    context.runAllImportStepsFromProfile("profile-design.plone.policy:to_1400")
+    update_registry(context)
+
+    if old:
+        api.portal.set_registry_record(
+            "twitter_token", old, interface=IDesignPlonePolicySettings
+        )
+
+
+def to_1500(context):
     """ This upgrade handles that a type "Bando" is now  addmitted by default
     inside the folder "Documenti e Dati".
-
     This method just ADD THE CONTENT TYPE to the current list of types that you
     can add inside that folder only if it's not already there.
-
     tp#17807
     """
 

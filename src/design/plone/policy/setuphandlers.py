@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-from design.plone.contenttypes.controlpanels.vocabularies import (
-    IVocabulariesControlPanel,
+from design.plone.contenttypes.controlpanels.settings import (
+    IDesignPloneSettings,
 )
 from design.plone.policy.utils import folderSubstructureGenerator
 from plone import api
+from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces import INonInstallable
+from Products.CMFPlone.interfaces import ISearchSchema
+from zope.component import getUtility
 from zope.interface import implementer
 
 import json
@@ -14,7 +17,7 @@ import json
 class HiddenProfiles(object):
     def getNonInstallableProfiles(self):
         """Hide uninstall profile from site-creation and quickinstaller."""
-        return ["design.plone.policy:uninstall"]
+        return ["design.plone.policy:uninstall", "design.plone.policy:to_1400"]
 
 
 def post_install(context):
@@ -56,8 +59,31 @@ def post_install(context):
     api.portal.set_registry_record(
         "search_sections",
         json.dumps(settings),
-        interface=IVocabulariesControlPanel,
+        interface=IDesignPloneSettings,
     )
+
+    disable_searchable_types()
+
+
+def disable_searchable_types():
+    # remove some types from search enabled ones
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(ISearchSchema, prefix="plone")
+    remove_types = [
+        "Folder",
+        "Bando Folder Deepening",
+        "Link",
+        "Collection",
+        "Discussion Item",
+        "Dataset",
+        "Documento Personale",
+        "Messaggio",
+        "Pratica",
+        "RicevutaPagamento",
+    ]
+    types = set(settings.types_not_searched)
+    types.update(remove_types)
+    settings.types_not_searched = tuple(types)
 
 
 def uninstall(context):

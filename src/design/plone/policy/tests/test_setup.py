@@ -5,9 +5,11 @@ from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import ISearchSchema
 from Products.CMFPlone.interfaces import ISiteSchema
 from Products.CMFPlone.interfaces.controlpanel import INavigationSchema
 from zope.component import getUtility
+
 
 import unittest
 
@@ -57,6 +59,29 @@ class TestSetup(unittest.TestCase):
             ISiteSchema, prefix="plone", check=False
         )
         self.assertTrue(settings.enable_sitemap)
+
+    def test_searchable_types(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISearchSchema, prefix="plone")
+        self.assertEqual(
+            sorted(settings.types_not_searched),
+            sorted(
+                (
+                    "Documento Personale",
+                    "Bando Folder Deepening",
+                    "Pratica",
+                    "TempFolder",
+                    "Collection",
+                    "RicevutaPagamento",
+                    "Link",
+                    "Messaggio",
+                    "Plone Site",
+                    "Folder",
+                    "Dataset",
+                    "Discussion Item",
+                )
+            ),
+        )
 
 
 class TestUninstall(unittest.TestCase):
