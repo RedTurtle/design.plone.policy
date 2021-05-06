@@ -5,7 +5,8 @@ Changelog
 2.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- [new] Content type 'Bando' is admitted by default in 'Documenti e dati' folder.
+  [arsenico13]
 
 
 2.1.1 (2021-05-04)

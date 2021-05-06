@@ -20,6 +20,7 @@
         handler=".upgrades.update_registry"
         />
   </genericsetup:upgradeSteps>
+
   <genericsetup:upgradeSteps
     source="1101"
     destination="1200"
@@ -29,6 +30,7 @@
         handler=".upgrades.to_1200"
         />
   </genericsetup:upgradeSteps>
+
   <genericsetup:upgradeSteps
     source="1200"
     destination="1300"
@@ -41,6 +43,7 @@
         title="Add image scales"
         handler=".upgrades.update_registry" />
   </genericsetup:upgradeSteps>
+
   <genericsetup:upgradeSteps
     source="1300"
     destination="1400"
@@ -48,6 +51,16 @@
     <genericsetup:upgradeStep
         title="Rename twitter registry entry"
         handler=".upgrades.to_1400"
+        />
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
+    source="1400"
+    destination="1500"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Enable type 'Bando' inside 'Documenti e dati' folder"
+        handler=".upgrades.to_1500"
         />
   </genericsetup:upgradeSteps>
 </configure>

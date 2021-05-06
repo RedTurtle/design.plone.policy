@@ -175,16 +175,11 @@ class TestInitialStructureCreation(unittest.TestCase):
 
         folder = self.portal["documenti-e-dati"]
         self.assertEqual(folder.constrain_types_mode, 1)
+        allowed_types = ('Bando', 'CartellaModulistica', 'Document',
+                         'Documento', 'File', 'Image', 'Link')
         self.assertEqual(
             folder.locally_allowed_types,
-            (
-                "Document",
-                "Image",
-                "File",
-                "Link",
-                "Documento",
-                "CartellaModulistica",
-            ),
+            allowed_types
         )
         self.assertEqual(
             folder.keys(),
@@ -207,12 +202,13 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.assertEqual(
                 child.locally_allowed_types,
                 (
-                    "Document",
-                    "Image",
-                    "File",
-                    "Link",
-                    "Documento",
+                    "Bando",
                     "CartellaModulistica",
+                    "Document",
+                    "Documento",
+                    "File",
+                    "Image",
+                    "Link",
                 ),
             )
 

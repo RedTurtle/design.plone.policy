@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from copy import deepcopy
-from design.plone.policy.setuphandlers import disable_searchable_types
-from plone.app.upgrade.utils import installOrReinstallProduct
 from design.plone.policy.interfaces import IDesignPlonePolicySettings
-
+from design.plone.policy.setuphandlers import disable_searchable_types
 from plone import api
+from plone.app.upgrade.utils import installOrReinstallProduct
+from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 
 import logging
 
@@ -96,3 +96,32 @@ def to_1400(context):
         api.portal.set_registry_record(
             "twitter_token", old, interface=IDesignPlonePolicySettings
         )
+
+
+def to_1500(context):
+    """ This upgrade handles that a type "Bando" is now  addmitted by default
+    inside the folder "Documenti e Dati".
+    This method just ADD THE CONTENT TYPE to the current list of types that you
+    can add inside that folder only if it's not already there.
+    tp#17807
+    """
+
+    doc_brains = api.content.find(portal_type='Document')
+    doc_e_dati_list = [x for x in doc_brains if x.Title == "Documenti e dati"]
+    if len(doc_e_dati_list) == 1:
+        doc_e_dati = doc_e_dati_list[0].getObject()
+
+        constraints = ISelectableConstrainTypes(doc_e_dati)
+        allowed_types = constraints.getLocallyAllowedTypes()
+        if "Bando" not in allowed_types:
+            allowed_types.append("Bando")
+            constraints.setLocallyAllowedTypes(allowed_types)
+
+            logger.info("Enabled 'Bando' inside 'Ducumenti e dati' folder.")
+        else:
+            logger.info("'Bando' already enabled in 'Ducumenti e dati' folder,"
+                        " not changes needed.")
+    else:
+        logger.warning("More than one Document with title 'Documenti e dati'. "
+                       "Type 'Bando' inside 'Ducumenti e dati' folder not "
+                       "enabled.")
