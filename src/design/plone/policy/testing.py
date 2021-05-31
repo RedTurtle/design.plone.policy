@@ -56,7 +56,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "plone.app.caching:default")
-        applyProfile(portal, "design.plone.policy:default")
+        applyProfile(portal, "design.plone.policy:test")
 
 
 DESIGN_PLONE_POLICY_FIXTURE = DesignPlonePolicyLayer()
@@ -113,7 +113,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "plone.app.caching:default")
-        applyProfile(portal, "design.plone.policy:default")
+        applyProfile(portal, "design.plone.policy:test")
         quickInstallProduct(portal, "collective.MockMailHost")
         applyProfile(portal, "collective.MockMailHost:default")
 
