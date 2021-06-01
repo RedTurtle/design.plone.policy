@@ -15,12 +15,12 @@ class BandiSearchFiltersGet(Service):
             bando = brain.getObject()
             for subject in getattr(bando, "subject", []):
                 if subject not in subjects:
-                    subjects.append(subject)
+                    subjects.append({"UID": subject, "title": subject})
             for rel in getattr(bando, "ufficio_responsabile", []):
                 uo = rel.to_object
                 if uo:
                     if api.user.has_permission("View", obj=uo):
-                        uo_data = {"key": uo.UID(), "label": uo.Title()}
+                        uo_data = {"UID": uo.UID(), "title": uo.Title()}
                         if uo_data not in offices:
                             offices.append(uo_data)
         subjects.sort()
