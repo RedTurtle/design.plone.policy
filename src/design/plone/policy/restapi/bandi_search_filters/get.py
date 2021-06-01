@@ -23,8 +23,8 @@ class BandiSearchFiltersGet(Service):
                         uo_data = {"UID": uo.UID(), "title": uo.Title()}
                         if uo_data not in offices:
                             offices.append(uo_data)
-        subjects.sort()
-        offices.sort(key=lambda x: x["label"])
+        subjects.sort(key=lambda x: x["title"])
+        offices.sort(key=lambda x: x["title"])
 
         return {
             "subjects": subjects,
