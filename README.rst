@@ -71,12 +71,12 @@ Ritorna un json con le sezioni principali, la lista degli argomenti e i tipi di 
         ]
     }
 
-@search-bandi-filters
+@bandi-search-filters
 ---------------------
 
 Questo endpoint serve al frontend di Volto, per popolare il menu e i filtri per la ricerca dei bandi::
 
-    > curl -i http://localhost:8080/Plone/@search-bandi-filters -H 'Accept: application/json'
+    > curl -i http://localhost:8080/Plone/@bandi-search-filters -H 'Accept: application/json'
 
 Ritorna un json con la lista degli uffici (UO) referenziati da almeno un Bando e la lista delle parole chiave utilizzate dai Bandi::
 
