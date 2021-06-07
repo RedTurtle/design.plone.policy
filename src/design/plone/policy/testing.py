@@ -29,7 +29,6 @@ import redturtle.volto
 import redturtle.voltoplugin.editablefooter
 
 
-
 class FauxRequest(dict):
     URL = "http://nohost"
 
