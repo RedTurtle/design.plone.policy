@@ -5,7 +5,7 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
-- [new] @search-bandi-filters endpoint
+- [new] @search-bandi-filters endpoint.
   [cekk]
 
 
