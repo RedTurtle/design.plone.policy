@@ -4,6 +4,18 @@ Design Plone Policy
 
 Pacchetto di policy per un sito Plone AGID.
 
+|python| |version| |ci|
+
+.. |python| image:: https://img.shields.io/pypi/pyversions/design.plone.policy.svg
+  :target: https://pypi.python.org/pypi/design.plone.policy/
+
+.. |version| image:: http://img.shields.io/pypi/v/design.plone.policy.svg
+  :target: https://pypi.python.org/pypi/design.plone.policy
+
+.. |ci| image:: https://github.com/RedTurtle/design.plone.policy/actions/workflows/test.yml/badge.svg
+  :target: https://github.com/RedTurtle/design.plone.policy/actions
+
+
 Features
 ========
 
