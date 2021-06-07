@@ -8,6 +8,7 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import quickInstallProduct
 from plone.restapi.testing import PloneRestApiDXLayer
 from plone.testing import z2
+from zope.globalrequest import setRequest
 
 import collective.folderishtypes
 import collective.MockMailHost
@@ -26,6 +27,11 @@ import plone.restapi
 import redturtle.bandi
 import redturtle.volto
 import redturtle.voltoplugin.editablefooter
+
+
+
+class FauxRequest(dict):
+    URL = "http://nohost"
 
 
 class DesignPlonePolicyLayer(PloneSandboxLayer):
@@ -55,6 +61,8 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
+        request = FauxRequest()
+        setRequest(request)
         applyProfile(portal, "plone.app.caching:default")
         applyProfile(portal, "design.plone.policy:test")
 
@@ -112,6 +120,8 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
 
     def setUpPloneSite(self, portal):
+        request = FauxRequest()
+        setRequest(request)
         applyProfile(portal, "plone.app.caching:default")
         applyProfile(portal, "design.plone.policy:test")
         quickInstallProduct(portal, "collective.MockMailHost")
