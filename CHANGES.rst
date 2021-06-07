@@ -5,7 +5,8 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- [new] @search-bandi-filters endpoint
+  [cekk]
 
 
 2.1.2 (2021-05-14)

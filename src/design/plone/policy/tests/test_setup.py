@@ -33,12 +33,6 @@ class TestSetup(unittest.TestCase):
         else:
             self.installer = api.portal.get_tool("portal_quickinstaller")
 
-    def test_product_installed(self):
-        """Test if design.plone.policy is installed."""
-        self.assertTrue(
-            self.installer.isProductInstalled("design.plone.policy")
-        )
-
     def test_browserlayer(self):
         """Test that IDesignPlonePolicyLayer is registered."""
         from design.plone.policy.interfaces import IDesignPlonePolicyLayer

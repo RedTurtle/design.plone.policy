@@ -4,6 +4,7 @@
 
   <include package="plone.restapi"  />
   
+  <include package=".bandi_search_filters"  />
   <include package=".search_filters"  />
   <include package=".twitter_feed"  />
 

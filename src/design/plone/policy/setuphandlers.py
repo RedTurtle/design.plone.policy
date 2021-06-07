@@ -17,7 +17,11 @@ import json
 class HiddenProfiles(object):
     def getNonInstallableProfiles(self):
         """Hide uninstall profile from site-creation and quickinstaller."""
-        return ["design.plone.policy:uninstall", "design.plone.policy:to_1400"]
+        return [
+            "design.plone.policy:uninstall",
+            "design.plone.policy:test",
+            "design.plone.policy:to_1400",
+        ]
 
 
 def post_install(context):
@@ -63,6 +67,16 @@ def post_install(context):
     )
 
     disable_searchable_types()
+
+
+def post_install_test(context):
+    # needed because redturtle.volto sets some caching configs that breaks
+    # test environment
+    api.portal.set_registry_record(
+        "plone.app.caching.interfaces.IPloneCacheSettings.purgedContentTypes",
+        (),
+    )
+    post_install(context)
 
 
 def disable_searchable_types():
