@@ -69,16 +69,6 @@ def post_install(context):
     disable_searchable_types()
 
 
-def post_install_test(context):
-    # needed because redturtle.volto sets some caching configs that breaks
-    # test environment
-    api.portal.set_registry_record(
-        "plone.app.caching.interfaces.IPloneCacheSettings.purgedContentTypes",
-        (),
-    )
-    post_install(context)
-
-
 def disable_searchable_types():
     # remove some types from search enabled ones
     registry = getUtility(IRegistry)

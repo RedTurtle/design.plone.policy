@@ -22,15 +22,6 @@
       />
   
   <genericsetup:registerProfile
-      name="test"
-      title="Design Plone: policy test"
-      directory="profiles/default"
-      description="Installs the design.plone.policy add-on."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.post_install_test"
-      />
-
-  <genericsetup:registerProfile
       name="uninstall"
       title="Design Plone: policy (uninstall)"
       directory="profiles/uninstall"

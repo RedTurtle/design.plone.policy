@@ -63,7 +63,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         request = FauxRequest()
         setRequest(request)
         applyProfile(portal, "plone.app.caching:default")
-        applyProfile(portal, "design.plone.policy:test")
+        applyProfile(portal, "design.plone.policy:default")
 
 
 DESIGN_PLONE_POLICY_FIXTURE = DesignPlonePolicyLayer()
@@ -122,7 +122,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         request = FauxRequest()
         setRequest(request)
         applyProfile(portal, "plone.app.caching:default")
-        applyProfile(portal, "design.plone.policy:test")
+        applyProfile(portal, "design.plone.policy:default")
         quickInstallProduct(portal, "collective.MockMailHost")
         applyProfile(portal, "collective.MockMailHost:default")
 
