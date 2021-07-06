@@ -2,6 +2,7 @@
 from copy import deepcopy
 from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from design.plone.policy.setuphandlers import disable_searchable_types
+from design.plone.policy.setuphandlers import set_default_subsite_colors
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
@@ -106,7 +107,7 @@ def to_1500(context):
     tp#17807
     """
 
-    doc_brains = api.content.find(portal_type='Document')
+    doc_brains = api.content.find(portal_type="Document")
     doc_e_dati_list = [x for x in doc_brains if x.Title == "Documenti e dati"]
     if len(doc_e_dati_list) == 1:
         doc_e_dati = doc_e_dati_list[0].getObject()
@@ -119,9 +120,25 @@ def to_1500(context):
 
             logger.info("Enabled 'Bando' inside 'Ducumenti e dati' folder.")
         else:
-            logger.info("'Bando' already enabled in 'Ducumenti e dati' folder,"
-                        " not changes needed.")
+            logger.info(
+                "'Bando' already enabled in 'Ducumenti e dati' folder,"
+                " not changes needed."
+            )
     else:
-        logger.warning("More than one Document with title 'Documenti e dati'. "
-                       "Type 'Bando' inside 'Ducumenti e dati' folder not "
-                       "enabled.")
+        logger.warning(
+            "More than one Document with title 'Documenti e dati'. "
+            "Type 'Bando' inside 'Ducumenti e dati' folder not "
+            "enabled."
+        )
+
+
+def to_1600(context):
+    installOrReinstallProduct(api.portal.get(), "collective.volto.subsites")
+    set_default_subsite_colors()
+    logger.info("### CHANGE SUBSITE COLOR light-blue => teal")
+    subsites = api.content.find(portal_type="Subsite")
+    for brain in subsites:
+        subsite = brain.getObject()
+        if getattr(subsite, "subsite_css_class", "") == "light-blue":
+            subsite.subsite_css_class = "teal"
+            logger.info("- {}".format(brain.getURL()))
