@@ -73,6 +73,7 @@ class TestSetup(unittest.TestCase):
                     "Folder",
                     "Dataset",
                     "Discussion Item",
+                    "Subsite",
                 )
             ),
         )
