@@ -63,4 +63,13 @@
         handler=".upgrades.to_1500"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="1500"
+    destination="1600"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Install subsites and set default colors"
+        handler=".upgrades.to_1600"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

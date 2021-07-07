@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from collective.volto.subsites.interfaces import IVoltoSubsitesSettings
 from design.plone.contenttypes.controlpanels.settings import (
     IDesignPloneSettings,
 )
@@ -67,6 +68,7 @@ def post_install(context):
     )
 
     disable_searchable_types()
+    set_default_subsite_colors()
 
 
 def disable_searchable_types():
@@ -88,6 +90,30 @@ def disable_searchable_types():
     types = set(settings.types_not_searched)
     types.update(remove_types)
     settings.types_not_searched = tuple(types)
+
+
+def set_default_subsite_colors():
+    colors = [
+        "white",
+        "yellow",
+        "magenta",
+        "teal",
+        "light-yellow",
+        "light-pink",
+        "light-teal",
+        "light-blue",
+    ]
+    old = api.portal.get_registry_record(
+        "available_styles", interface=IVoltoSubsitesSettings, default=[]
+    )
+
+    for color in colors:
+        if color not in old:
+            old.append(color)
+
+    api.portal.set_registry_record(
+        "available_styles", sorted(old), interface=IVoltoSubsitesSettings
+    )
 
 
 def uninstall(context):

@@ -5,7 +5,8 @@ Changelog
 2.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Install collective.volto.subsites by default and add a set of colors.
+  [cekk]
 
 
 2.2.0 (2021-06-08)
