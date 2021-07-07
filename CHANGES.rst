@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.1 (unreleased)
+2.3.0 (2021-07-07)
 ------------------
 
 - Install collective.volto.subsites by default and add a set of colors.
