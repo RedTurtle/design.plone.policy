@@ -5,7 +5,8 @@ Changelog
 2.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add list of available vocabularies for Anonymous.
+  [cekk]
 
 
 2.3.0 (2021-07-07)

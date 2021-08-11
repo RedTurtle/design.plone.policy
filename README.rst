@@ -189,6 +189,13 @@ La vista "crea_area_trasparenza" crea la struttura per l'area "Amministrazione T
 Si può lanciare dalla root del sito.
 
 
+Vocabolari per gli anonimi
+==========================
+
+**redturtle.volto** permette di esporre dei vocabolari anche agli utenti anonimi.
+
+In questo prodotto aggiungiamo quelli che servono per io-comune.
+
 Installazione
 =============
 

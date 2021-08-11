@@ -42,4 +42,10 @@
       name="design.plone.policy-hiddenprofiles"
       />
 
+    <!-- enable vocabularies access for anonymous users -->
+    <utility
+        provides="redturtle.volto.interfaces.IRestapiPublicVocabularies"
+        factory=".enabled_vocabularies.allowed_vocabularies"
+        name="design.plone.policy"
+    />
 </configure>
