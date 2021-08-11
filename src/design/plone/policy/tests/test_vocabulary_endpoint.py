@@ -7,9 +7,6 @@ from plone.app.testing import (
     setRoles,
 )
 from plone.restapi.testing import RelativeSession
-from z3c.relationfield import RelationValue
-from zope.component import getUtility
-from zope.intid.interfaces import IIntIds
 
 import unittest
 import transaction
