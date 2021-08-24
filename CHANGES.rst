@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.3.1 (unreleased)
+2.4.0 (2021-08-24)
 ------------------
 
 - Add list of available vocabularies for Anonymous.
