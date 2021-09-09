@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from AccessControl.unauthorized import Unauthorized
 from plone import api
 from plone.restapi.services import Service
 from zope.interface import implementer
@@ -8,23 +9,31 @@ from zope.publisher.interfaces import IPublishTraverse
 @implementer(IPublishTraverse)
 class BandiSearchFiltersGet(Service):
     def reply(self):
+        subjects_keys = []
+        offices_keys = []
         subjects = []
         offices = []
 
+        # populate with only list from visible bandi
         for brain in api.content.find(portal_type="Bando"):
-            bando = brain.getObject()
-            for subject in getattr(bando, "subject", []):
-                if subject not in subjects:
-                    subjects.append({"UID": subject, "title": subject})
-            for rel in getattr(bando, "ufficio_responsabile", []):
-                uo = rel.to_object
-                if uo:
-                    if api.user.has_permission("View", obj=uo):
-                        uo_data = {"UID": uo.UID(), "title": uo.Title()}
-                        if uo_data not in offices:
-                            offices.append(uo_data)
-        subjects.sort(key=lambda x: x["title"])
+            for subject in brain.Subject_bando:
+                if subject in subjects_keys:
+                    continue
+                subjects_keys.append(subject)
+                subjects.append({"UID": subject, "title": subject})
+            for uid in brain.ufficio_responsabile_bando:
+                if uid in offices_keys:
+                    continue
+                # add also if it's private, so we will not check it anymore
+                offices_keys.append(uid)
+                try:
+                    item = api.content.get(UID=uid)
+                except Unauthorized:
+                    continue
+                if item:
+                    offices.append({"UID": uid, "title": item.Title()})
         offices.sort(key=lambda x: x["title"])
+        subjects.sort(key=lambda x: x["title"])
 
         return {
             "subjects": subjects,

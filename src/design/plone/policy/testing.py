@@ -10,6 +10,7 @@ from plone.restapi.testing import PloneRestApiDXLayer
 from plone.testing import z2
 from zope.globalrequest import setRequest
 
+import collective.dexteritytextindexer
 import collective.folderishtypes
 import collective.MockMailHost
 import collective.venue
@@ -58,6 +59,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=redturtle.bandi)
         self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
+        self.loadZCML(package=collective.dexteritytextindexer)
 
     def setUpPloneSite(self, portal):
         request = FauxRequest()
@@ -96,9 +98,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
-        super(DesignPlonePolicyRestApiLayer, self).setUpZope(
-            app, configurationContext
-        )
+        super(DesignPlonePolicyRestApiLayer, self).setUpZope(app, configurationContext)
 
         self.loadZCML(package=collective.folderishtypes)
         self.loadZCML(package=collective.MockMailHost)

@@ -48,16 +48,14 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
             container=self.portal,
             type="Bando",
             title="Bando 1",
-            subjects=["foo"],
-            ufficio_responsabile=[
-                RelationValue(intids.getId(self.uo_public_1))
-            ],
+            subject=("foo"),
+            ufficio_responsabile=[RelationValue(intids.getId(self.uo_public_1))],
         )
         self.bando_public_2 = api.content.create(
             container=self.portal,
             type="Bando",
             title="Bando 2",
-            subjects=["foo", "bar"],
+            subject=("foo", "bar"),
             ufficio_responsabile=[
                 RelationValue(intids.getId(self.uo_public_2)),
                 RelationValue(intids.getId(self.uo_private)),
@@ -67,8 +65,8 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
             container=self.portal,
             type="Bando",
             title="Bando 3",
-            subjects=["foo", "baz"],
-            ufficio_responsabile=RelationValue(intids.getId(self.uo_public_1)),
+            subject=("foo", "baz"),
+            ufficio_responsabile=[RelationValue(intids.getId(self.uo_public_1))],
         )
 
         api.content.transition(obj=self.uo_public_1, transition="publish")
@@ -86,17 +84,33 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
         response = self.api_session.get("/@bandi-search-filters")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.headers.get("Content-Type"), "application/json"
-        )
+        self.assertEqual(response.headers.get("Content-Type"), "application/json")
 
-    def test_endpoint_return_list_of_subjects_that_users_can_see(self):
-        # use with permissions
+    def test_endpoint_return_list_of_offices_based_on_permissions(self):
+        response = self.api_session.get("/@bandi-search-filters").json()
+
+        self.assertIn("offices", response)
+        offices = response["offices"]
+
+        self.assertEqual(len(offices), 3)
+
+        response = self.anon_api_session.get("/@bandi-search-filters").json()
+
+        self.assertIn("offices", response)
+        offices = response["offices"]
+        self.assertEqual(len(offices), 2)
+
+    def test_endpoint_return_list_of_subjects_based_on_permissions(self):
         response = self.api_session.get("/@bandi-search-filters").json()
 
         self.assertIn("subjects", response)
-        subjects = response["subjects"]
-
+        subjects = [x["UID"] for x in response["subjects"]]
         self.assertEqual(len(subjects), 3)
-        # subjects are sorted
         self.assertEqual(subjects, ["bar", "baz", "foo"])
+
+        response = self.anon_api_session.get("/@bandi-search-filters").json()
+
+        self.assertIn("subjects", response)
+        subjects = [x["UID"] for x in response["subjects"]]
+        self.assertEqual(len(subjects), 2)
+        self.assertEqual(subjects, ["bar", "foo"])
