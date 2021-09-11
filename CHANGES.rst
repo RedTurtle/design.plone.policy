@@ -5,7 +5,8 @@ Changelog
 2.4.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Refactored search filters endpoints to be more efficient.
+  [cekk]
 
 
 2.4.0 (2021-08-24)

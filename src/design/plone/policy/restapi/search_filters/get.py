@@ -22,13 +22,16 @@ class SearchFiltersGet(Service):
         super(SearchFiltersGet, self).__init__(context, request)
 
     def get_basic_data(self, item):
+        import pdb
+
+        pdb.set_trace()
         return {
-            "@id": item.absolute_url(),
-            "title": item.Title(),
+            "@id": item.getURL(),
+            "title": item.Title,
             "description": item.description,
             "@type": item.portal_type,
-            "path": item.virtual_url_path(),
-            "UID": item.UID(),
+            "path": item.getPath(),
+            "UID": item.UID,
         }
 
     def get_portal_types(self):
@@ -49,10 +52,10 @@ class SearchFiltersGet(Service):
 
     def reply(self):
         settings = api.portal.get_registry_record(
-            "search_sections", interface=IDesignPloneSettings,
+            "search_sections",
+            interface=IDesignPloneSettings,
         )
         sections = []
-        topics = []
         if settings:
             settings = json.loads(settings)
             for setting in settings:
@@ -74,7 +77,10 @@ class SearchFiltersGet(Service):
                                 item_infos["items"] = []
                                 for children in section.listFolderContents():
                                     item_infos["items"].append(
-                                        self.get_basic_data(item=children)
+                                        getMultiAdapter(
+                                            (children, self.request),
+                                            ISerializeToJsonSummary,
+                                        )()
                                     )
                             if section_settings.get("title", ""):
                                 item_infos["title"] = section_settings["title"]
@@ -86,8 +92,13 @@ class SearchFiltersGet(Service):
                             "items": items,
                         }
                     )
-        for argument in api.content.find(portal_type="Pagina Argomento"):
-            topics.append(self.get_basic_data(argument.getObject()))
+        topics = [
+            getMultiAdapter(
+                (brain, self.request),
+                ISerializeToJsonSummary,
+            )()
+            for brain in api.content.find(portal_type="Pagina Argomento")
+        ]
         return {
             "sections": sections,
             "topics": topics,
