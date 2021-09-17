@@ -78,7 +78,8 @@ def folderSubstructureGenerator(title, types=[]):
 
     elif title == "Amministrazione":
         api.content.create(type="Document", title="Politici", container=tree_root)
-        restrict_types(context=tree_root["politici"], types=list(types) + ["Persona"])
+        politici_types = tuple(list(types) + ["Persona"])
+        restrict_types(context=tree_root["politici"], types=politici_types)
 
         api.content.create(
             type="Document",
