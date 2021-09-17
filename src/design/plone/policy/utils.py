@@ -44,8 +44,8 @@ def folderSubstructureGenerator(title, types=[]):
     normalizer = getUtility(IIDNormalizer)
     safe_id = normalizer.normalize(title)
 
-    root_path = '/'.join(container.getPhysicalPath())
-    path = root_path + '/' + safe_id
+    root_path = "/".join(container.getPhysicalPath())
+    path = root_path + "/" + safe_id
 
     if api.content.get(path=path):
         return
@@ -78,7 +78,7 @@ def folderSubstructureGenerator(title, types=[]):
 
     elif title == "Amministrazione":
         api.content.create(type="Document", title="Politici", container=tree_root)
-        # restrict_types(context=tree_root['politici'], types=("Persona",))
+        restrict_types(context=tree_root["politici"], types=list(types) + ["Persona"])
 
         api.content.create(
             type="Document",

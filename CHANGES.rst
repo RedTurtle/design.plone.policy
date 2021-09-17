@@ -7,7 +7,8 @@ Changelog
 
 - Refactored search filters endpoints to be more efficient.
   [cekk]
-
+- Can also add "Persona" in Politici folder.
+  [cekk]
 
 2.4.0 (2021-08-24)
 ------------------
