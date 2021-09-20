@@ -72,4 +72,13 @@
         handler=".upgrades.to_1600"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="1600"
+    destination="1700"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Install subfooter plugin"
+        handler=".upgrades.to_1700"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

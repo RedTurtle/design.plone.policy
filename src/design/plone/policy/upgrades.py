@@ -16,9 +16,7 @@ DEFAULT_PROFILE = "profile-design.plone.policy:default"
 
 
 def update_profile(context, profile, run_dependencies=True):
-    context.runImportStepFromProfile(
-        DEFAULT_PROFILE, profile, run_dependencies
-    )
+    context.runImportStepFromProfile(DEFAULT_PROFILE, profile, run_dependencies)
 
 
 def update_types(context):
@@ -43,8 +41,7 @@ def update_controlpanel(context):
 
 def to_1200(context):
     def fix_field_name(blocks):
-        """
-        """
+        """ """
         found = False
         for block in blocks.values():
             if block.get("@type", "") == "form" and block.get("to", ""):
@@ -56,9 +53,7 @@ def to_1200(context):
     installOrReinstallProduct(api.portal.get(), "collective.volto.formsupport")
     logger.info("Changing form block fields.")
     i = 0
-    brains = api.content.find(
-        object_provides="plone.restapi.behaviors.IBlocks"
-    )
+    brains = api.content.find(object_provides="plone.restapi.behaviors.IBlocks")
     tot = len(brains)
     fixed_items = []
     for brain in brains:
@@ -87,9 +82,7 @@ def to_1300(context):
 
 
 def to_1400(context):
-    old = api.portal.get_registry_record(
-        name="design.plone.policy.twitter_token"
-    )
+    old = api.portal.get_registry_record(name="design.plone.policy.twitter_token")
     context.runAllImportStepsFromProfile("profile-design.plone.policy:to_1400")
     update_registry(context)
 
@@ -100,7 +93,7 @@ def to_1400(context):
 
 
 def to_1500(context):
-    """ This upgrade handles that a type "Bando" is now  addmitted by default
+    """This upgrade handles that a type "Bando" is now  addmitted by default
     inside the folder "Documenti e Dati".
     This method just ADD THE CONTENT TYPE to the current list of types that you
     can add inside that folder only if it's not already there.
@@ -142,3 +135,7 @@ def to_1600(context):
         if getattr(subsite, "subsite_css_class", "") == "light-blue":
             subsite.subsite_css_class = "teal"
             logger.info("- {}".format(brain.getURL()))
+
+
+def to_1700(context):
+    installOrReinstallProduct(api.portal.get(), "collective.volto.subfooter")

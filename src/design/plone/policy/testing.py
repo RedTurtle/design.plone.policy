@@ -19,6 +19,7 @@ import collective.volto.dropdownmenu
 import collective.volto.formsupport
 import collective.volto.secondarymenu
 import collective.volto.socialsettings
+import collective.volto.subfooter
 import collective.volto.subsites
 import design.plone.contenttypes
 import design.plone.policy
@@ -60,6 +61,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
         self.loadZCML(package=collective.dexteritytextindexer)
+        self.loadZCML(package=collective.volto.subfooter)
 
     def setUpPloneSite(self, portal):
         request = FauxRequest()
@@ -117,6 +119,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=redturtle.bandi)
         self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
+        self.loadZCML(package=collective.volto.subfooter)
 
     def setUpPloneSite(self, portal):
         request = FauxRequest()

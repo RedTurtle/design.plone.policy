@@ -9,6 +9,8 @@ Changelog
   [cekk]
 - Can also add "Persona" in Politici folder.
   [cekk]
+- Add collective.volto.subfooter as dependency.
+  [cekk]
 
 2.4.0 (2021-08-24)
 ------------------
