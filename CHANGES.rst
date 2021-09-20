@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.4.1 (unreleased)
+2.5.0 (2021-09-20)
 ------------------
 
 - Refactored search filters endpoints to be more efficient.
