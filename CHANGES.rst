@@ -5,7 +5,8 @@ Changelog
 2.5.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove limited content-types in initial structure creation.
+  [cekk]
 
 
 2.5.0 (2021-09-20)

@@ -27,30 +27,11 @@ class HiddenProfiles(object):
 
 def post_install(context):
     """Post install script"""
-    folderSubstructureGenerator(
-        title="Amministrazione", types=("Document", "Image", "File", "Link")
-    )
-    folderSubstructureGenerator(
-        title="Servizi", types=("Document", "Image", "File", "Link")
-    )
-    folderSubstructureGenerator(
-        title="Novità", types=("Document", "Image", "File", "Link")
-    )
-    folderSubstructureGenerator(
-        title="Documenti e dati",
-        types=(
-            "Bando",
-            "CartellaModulistica",
-            "Document",
-            "Documento",
-            "File",
-            "Image",
-            "Link",
-        ),
-    )
-    folderSubstructureGenerator(
-        title="Argomenti", types=("Document", "Image", "File", "Link")
-    )
+    folderSubstructureGenerator(title="Amministrazione")
+    folderSubstructureGenerator(title="Servizi")
+    folderSubstructureGenerator(title="Novità")
+    folderSubstructureGenerator(title="Documenti e dati")
+    folderSubstructureGenerator(title="Argomenti")
 
     # set default search folders
     section_ids = ["amministrazione", "servizi", "novita", "documenti-e-dati"]

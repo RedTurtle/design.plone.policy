@@ -36,6 +36,15 @@ TASSONOMIA_DOCUMENTI = [
 ]
 
 TASSONOMIA_NEWS = ["Notizie", "Comunicati", "Eventi"]
+TASSONOMIA_AMMINISTRAZIONE = [
+    "Politici",
+    "Personale Amministrativo",
+    "Organi di governo",
+    "Aree amministrative",
+    "Uffici",
+    "Enti e fondazioni",
+    "Luoghi",
+]
 
 
 def folderSubstructureGenerator(title, types=[]):
@@ -57,71 +66,19 @@ def folderSubstructureGenerator(title, types=[]):
 
     if title == "Servizi":
         for ts in TASSONOMIA_SERVIZI:
-            folder = api.content.create(container=tree_root, type="Document", title=ts)
-            # temporary disabled
-            # restrict_types(context=folder, types=("Servizio",))
+            api.content.create(container=tree_root, type="Document", title=ts)
 
     elif title == "Documenti e dati":
         for td in TASSONOMIA_DOCUMENTI:
-            folder = api.content.create(container=tree_root, type="Document", title=td)
+            api.content.create(container=tree_root, type="Document", title=td)
 
     elif title == "Novità":
         for tn in TASSONOMIA_NEWS:
-            folder = api.content.create(container=tree_root, type="Document", title=tn)
-
-            if tn == "Eventi":
-                # temporary disabled
-                # restrict_types(context=folder, types=("Event",))
-                pass
-            else:
-                restrict_types(context=folder, types=("News Item",))
+            api.content.create(container=tree_root, type="Document", title=tn)
 
     elif title == "Amministrazione":
-        api.content.create(type="Document", title="Politici", container=tree_root)
-        politici_types = tuple(list(types) + ["Persona"])
-        restrict_types(context=tree_root["politici"], types=politici_types)
-
-        api.content.create(
-            type="Document",
-            title="Personale Amministrativo",
-            container=tree_root,
-        )
-        restrict_types(
-            context=tree_root["personale-amministrativo"], types=("Persona",)
-        )
-
-        api.content.create(
-            type="Document", title="Organi di governo", container=tree_root
-        )
-        restrict_types(
-            context=tree_root["organi-di-governo"],
-            types=("UnitaOrganizzativa",),
-        )
-
-        api.content.create(
-            type="Document", title="Aree amministrative", container=tree_root
-        )
-        restrict_types(
-            context=tree_root["aree-amministrative"],
-            types=("UnitaOrganizzativa",),
-        )
-
-        api.content.create(type="Document", title="Uffici", container=tree_root)
-        restrict_types(context=tree_root["uffici"], types=("UnitaOrganizzativa",))
-
-        api.content.create(
-            type="Document", title="Enti e fondazioni", container=tree_root
-        )
-        restrict_types(
-            context=tree_root["enti-e-fondazioni"],
-            types=("UnitaOrganizzativa",),
-        )
-
-        api.content.create(type="Document", title="Luoghi", container=tree_root)
-        restrict_types(context=tree_root["luoghi"], types=("Venue",))
-
-    elif title == "Argomenti":
-        restrict_types(context=tree_root, types=("Pagina Argomento",))
+        for ta in TASSONOMIA_AMMINISTRAZIONE:
+            api.content.create(container=tree_root, type="Document", title=ta)
 
 
 def restrict_types(context, types):
