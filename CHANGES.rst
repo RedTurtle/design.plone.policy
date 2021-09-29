@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.5.1 (unreleased)
+2.6.0 (2021-09-29)
 ------------------
 
 - Remove limited content-types in initial structure creation.
