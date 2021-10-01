@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.6.1 (unreleased)
+2.6.1 (2021-10-01)
 ------------------
 
 - Updated blocks generation for "crea_area_trasparenza" view.
