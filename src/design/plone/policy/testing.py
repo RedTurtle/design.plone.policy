@@ -23,6 +23,7 @@ import collective.volto.subfooter
 import collective.volto.subsites
 import design.plone.contenttypes
 import design.plone.policy
+import kitconcept.seo
 import plone.app.caching
 import plone.formwidget.geolocation
 import plone.restapi
@@ -54,6 +55,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=kitconcept.seo)
         self.loadZCML(package=plone.app.caching)
         self.loadZCML(package=plone.formwidget.geolocation)
         self.loadZCML(package=plone.restapi)
@@ -113,6 +115,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=kitconcept.seo)
         self.loadZCML(package=plone.app.caching)
         self.loadZCML(package=plone.formwidget.geolocation)
         self.loadZCML(package=plone.restapi)
