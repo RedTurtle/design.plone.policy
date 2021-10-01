@@ -5,8 +5,8 @@ Changelog
 2.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Updated blocks generation for "crea_area_trasparenza" view.
+  [daniele]
 
 2.6.0 (2021-09-29)
 ------------------
