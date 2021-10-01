@@ -144,11 +144,14 @@ def generate_listing_query(obj):
         title_uuid: {"@type": "title"},
         listing_uuid: {
             "@type": "listing",
-            "query": query,
-            "sort_on": obj.get("sort_on", "getObjPositionInParent"),
-            "sort_order": obj.get("sort_reversed", False),
-            "b_size": obj.get("item_count", "30"),
             "block": listing_uuid,
+            "query": [],
+            "querystring": {
+                "query": query,
+                "sort_on": obj.get("sort_on", "getObjPositionInParent"),
+                "sort_order": obj.get("sort_reversed", False),
+                "b_size": obj.get("item_count", "30"),
+            }
         },
     }
     data["blocks_layout"] = {"items": [title_uuid, listing_uuid]}
