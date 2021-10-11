@@ -21,19 +21,6 @@ class SearchFiltersGet(Service):
     def __init__(self, context, request):
         super(SearchFiltersGet, self).__init__(context, request)
 
-    def get_basic_data(self, item):
-        import pdb
-
-        pdb.set_trace()
-        return {
-            "@id": item.getURL(),
-            "title": item.Title,
-            "description": item.description,
-            "@type": item.portal_type,
-            "path": item.getPath(),
-            "UID": item.UID,
-        }
-
     def get_portal_types(self):
         ttool = api.portal.get_tool("portal_types")
         ptool = api.portal.get_tool("plone_utils")

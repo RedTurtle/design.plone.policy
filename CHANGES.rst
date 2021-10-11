@@ -5,7 +5,8 @@ Changelog
 2.6.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- p.a.caching rules for rest api services.
+  [cekk]
 
 
 2.6.1 (2021-10-01)
