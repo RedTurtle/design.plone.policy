@@ -16,12 +16,12 @@ class BandiSearchFiltersGet(Service):
 
         # populate with only list from visible bandi
         for brain in api.content.find(portal_type="Bando"):
-            for subject in brain.Subject_bando or []:
+            for subject in getattr(brain, "Subject_bando", []) or []:
                 if subject in subjects_keys:
                     continue
                 subjects_keys.append(subject)
                 subjects.append({"UID": subject, "title": subject})
-            for uid in brain.ufficio_responsabile_bando or []:
+            for uid in getattr(brain, "ufficio_responsabile_bando", []) or []:
                 if uid in offices_keys:
                     continue
                 # add also if it's private, so we will not check it anymore
