@@ -5,7 +5,8 @@ Changelog
 2.7.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add rer.customersatisfaction dependency.
+  [cekk]
 
 
 2.7.0 (2021-10-11)

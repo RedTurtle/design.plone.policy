@@ -34,6 +34,15 @@ Tipi ricercabili
 Installando questo prodotto, si disabilitano alcuni tipi ricercabili (così non vengon mostrati in @search-filters).
 
 
+Customer satisfaction
+=====================
+
+Viene installato un plugin aggiuntivo (rer.customersatisfaction) per poter esprimere voti sulle pagine del portale Agid.
+
+Per poter usare questo prodotto, va salvata la chiave privata per recaptcha v3 in una variabile d'ambiente (RECAPTCHA_PRIVATE_KEY).
+La chiave pubblica viene usata dal client Volto.
+
+
 Endpoint per plone.restapi
 ==========================
 
