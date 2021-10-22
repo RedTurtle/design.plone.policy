@@ -139,3 +139,7 @@ def to_1600(context):
 
 def to_1700(context):
     installOrReinstallProduct(api.portal.get(), "collective.volto.subfooter")
+
+
+def to_1800(context):
+    installOrReinstallProduct(api.portal.get(), "rer.customersatisfaction")

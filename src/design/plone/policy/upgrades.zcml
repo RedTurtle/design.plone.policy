@@ -81,4 +81,13 @@
         handler=".upgrades.to_1700"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="1700"
+    destination="1800"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Install customer satisfaction plugin"
+        handler=".upgrades.to_1800"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

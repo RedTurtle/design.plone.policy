@@ -60,6 +60,7 @@ setup(
         "collective.volto.subsites",
         "collective.volto.subfooter",
         "redturtle.voltoplugin.editablefooter",
+        "rer.customersatisfaction>=1.1.0",
     ],
     extras_require={
         "test": [
