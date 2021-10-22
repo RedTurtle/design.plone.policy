@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.7.1 (unreleased)
+2.8.0 (2021-10-22)
 ------------------
 
 - Add rer.customersatisfaction dependency.
