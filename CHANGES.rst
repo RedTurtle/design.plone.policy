@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.8.1 (unreleased)
+2.9.0 (2021-11-03)
 ------------------
 
 - Add redturtle.faq dependency (it will not be installed by default).
