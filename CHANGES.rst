@@ -5,8 +5,8 @@ Changelog
 2.8.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Add redturtle.faq dependency (it will not be installed by default).
+  [cekk]
 
 2.8.0 (2021-10-22)
 ------------------

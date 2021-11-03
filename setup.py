@@ -52,7 +52,6 @@ setup(
         "setuptools",
         "redturtle.volto",
         "design.plone.contenttypes",
-        "redturtle.rssservice",
         "collective.volto.dropdownmenu",
         "collective.volto.formsupport",
         "collective.volto.secondarymenu",
@@ -61,6 +60,8 @@ setup(
         "collective.volto.subfooter",
         "redturtle.voltoplugin.editablefooter",
         "rer.customersatisfaction>=1.1.0",
+        "redturtle.faq",
+        "redturtle.rssservice",
     ],
     extras_require={
         "test": [
