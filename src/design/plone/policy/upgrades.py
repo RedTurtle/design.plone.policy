@@ -143,3 +143,7 @@ def to_1700(context):
 
 def to_1800(context):
     installOrReinstallProduct(api.portal.get(), "rer.customersatisfaction")
+
+
+def to_1900(context):
+    installOrReinstallProduct(api.portal.get(), "redturtle.faq")

@@ -90,4 +90,13 @@
         handler=".upgrades.to_1800"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="1800"
+    destination="1900"
+    profile="design.plone.policy:default">
+    <genericsetup:upgradeStep
+        title="Install redturtle.faq"
+        handler=".upgrades.to_1900"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

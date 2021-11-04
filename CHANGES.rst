@@ -5,7 +5,8 @@ Changelog
 2.9.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Install redturtle.faq by default.
+  [cekk]
 
 
 2.9.0 (2021-11-03)

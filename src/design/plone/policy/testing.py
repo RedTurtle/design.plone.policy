@@ -32,6 +32,7 @@ import redturtle.volto
 import redturtle.voltoplugin.editablefooter
 import rer.customersatisfaction
 import souper.plone
+import redturtle.faq
 
 
 class FauxRequest(dict):
@@ -68,6 +69,7 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         self.loadZCML(package=collective.volto.subfooter)
         self.loadZCML(package=rer.customersatisfaction)
         self.loadZCML(package=souper.plone)
+        self.loadZCML(package=redturtle.faq)
 
     def setUpPloneSite(self, portal):
         request = FauxRequest()
@@ -129,6 +131,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=collective.volto.subfooter)
         self.loadZCML(package=rer.customersatisfaction)
         self.loadZCML(package=souper.plone)
+        self.loadZCML(package=redturtle.faq)
 
     def setUpPloneSite(self, portal):
         request = FauxRequest()
