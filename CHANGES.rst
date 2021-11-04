@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.9.1 (unreleased)
+2.9.1 (2021-11-04)
 ------------------
 
 - Install redturtle.faq by default.
