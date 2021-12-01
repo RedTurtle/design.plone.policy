@@ -5,7 +5,8 @@ Changelog
 2.9.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove enabled_vocabularies implementation because in recent plone.restapi (>8.15.2) there is a standard way.
+  [cekk]
 
 
 2.9.1 (2021-11-04)

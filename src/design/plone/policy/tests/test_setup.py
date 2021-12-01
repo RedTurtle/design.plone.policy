@@ -49,9 +49,7 @@ class TestSetup(unittest.TestCase):
 
     def test_sitemap_enabled(self):
         registry = getUtility(IRegistry)
-        settings = registry.forInterface(
-            ISiteSchema, prefix="plone", check=False
-        )
+        settings = registry.forInterface(ISiteSchema, prefix="plone", check=False)
         self.assertTrue(settings.enable_sitemap)
 
     def test_searchable_types(self):
@@ -96,9 +94,7 @@ class TestUninstall(unittest.TestCase):
 
     def test_product_uninstalled(self):
         """Test if design.plone.policy is cleanly uninstalled."""
-        self.assertFalse(
-            self.installer.isProductInstalled("design.plone.policy")
-        )
+        self.assertFalse(self.installer.isProductInstalled("design.plone.policy"))
 
     def test_browserlayer_removed(self):
         """Test that IDesignPlonePolicyLayer is removed."""

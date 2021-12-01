@@ -1,11 +1,12 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:zcml="http://namespaces.zope.org/zcml">
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    >
 
-  <include package="plone.restapi"  />
-  
-  <include package=".bandi_search_filters"  />
-  <include package=".search_filters"  />
-  <include package=".twitter_feed"  />
+  <include package="plone.restapi" />
+
+  <include package=".bandi_search_filters" />
+  <include package=".search_filters" />
+  <include package=".twitter_feed" />
 
 </configure>

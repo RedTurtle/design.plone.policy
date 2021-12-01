@@ -1,20 +1,23 @@
 <configure
-  xmlns="http://namespaces.zope.org/zope"
-  xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    >
 
   <genericsetup:upgradeSteps
-    source="1000"
-    destination="1100"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1000"
+      destination="1100"
+      >
     <genericsetup:upgradeStep
         title="Add twitter_token field in registry"
         handler=".upgrades.update_registry"
         />
   </genericsetup:upgradeSteps>
   <genericsetup:upgradeSteps
-    source="1100"
-    destination="1101"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1100"
+      destination="1101"
+      >
     <genericsetup:upgradeStep
         title="Enable sitemap"
         handler=".upgrades.update_registry"
@@ -22,9 +25,10 @@
   </genericsetup:upgradeSteps>
 
   <genericsetup:upgradeSteps
-    source="1101"
-    destination="1200"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1101"
+      destination="1200"
+      >
     <genericsetup:upgradeStep
         title="Install collective.volto.formsupport"
         handler=".upgrades.to_1200"
@@ -32,22 +36,25 @@
   </genericsetup:upgradeSteps>
 
   <genericsetup:upgradeSteps
-    source="1200"
-    destination="1300"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1200"
+      destination="1300"
+      >
     <genericsetup:upgradeStep
         title="Disable some searchable types"
         handler=".upgrades.to_1300"
         />
     <genericsetup:upgradeStep
         title="Add image scales"
-        handler=".upgrades.update_registry" />
+        handler=".upgrades.update_registry"
+        />
   </genericsetup:upgradeSteps>
 
   <genericsetup:upgradeSteps
-    source="1300"
-    destination="1400"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1300"
+      destination="1400"
+      >
     <genericsetup:upgradeStep
         title="Rename twitter registry entry"
         handler=".upgrades.to_1400"
@@ -55,45 +62,50 @@
   </genericsetup:upgradeSteps>
 
   <genericsetup:upgradeSteps
-    source="1400"
-    destination="1500"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1400"
+      destination="1500"
+      >
     <genericsetup:upgradeStep
         title="Enable type 'Bando' inside 'Documenti e dati' folder"
         handler=".upgrades.to_1500"
         />
   </genericsetup:upgradeSteps>
   <genericsetup:upgradeSteps
-    source="1500"
-    destination="1600"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1500"
+      destination="1600"
+      >
     <genericsetup:upgradeStep
         title="Install subsites and set default colors"
         handler=".upgrades.to_1600"
         />
   </genericsetup:upgradeSteps>
   <genericsetup:upgradeSteps
-    source="1600"
-    destination="1700"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1600"
+      destination="1700"
+      >
     <genericsetup:upgradeStep
         title="Install subfooter plugin"
         handler=".upgrades.to_1700"
         />
   </genericsetup:upgradeSteps>
   <genericsetup:upgradeSteps
-    source="1700"
-    destination="1800"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1700"
+      destination="1800"
+      >
     <genericsetup:upgradeStep
         title="Install customer satisfaction plugin"
         handler=".upgrades.to_1800"
         />
   </genericsetup:upgradeSteps>
   <genericsetup:upgradeSteps
-    source="1800"
-    destination="1900"
-    profile="design.plone.policy:default">
+      profile="design.plone.policy:default"
+      source="1800"
+      destination="1900"
+      >
     <genericsetup:upgradeStep
         title="Install redturtle.faq"
         handler=".upgrades.to_1900"

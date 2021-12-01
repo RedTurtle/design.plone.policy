@@ -2,5 +2,4 @@
 """Init and utils."""
 from zope.i18nmessageid import MessageFactory
 
-
-_ = MessageFactory('design.plone.policy')
+_ = MessageFactory("design.plone.policy")
