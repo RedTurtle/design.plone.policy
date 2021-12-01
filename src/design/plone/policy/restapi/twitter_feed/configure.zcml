@@ -1,17 +1,21 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:cache="http://namespaces.zope.org/cache"
-    xmlns:zcml="http://namespaces.zope.org/zcml">
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    >
 
   <plone:service
-    method="GET"
-    name="@twitter-feed"
-    for="Products.CMFCore.interfaces.ISiteRoot"
-    factory=".get.TwitterFeedGet"
-    permission="zope2.View"
-    />
+      method="GET"
+      factory=".get.TwitterFeedGet"
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      permission="zope2.View"
+      name="@twitter-feed"
+      />
 
-  <cache:ruleset ruleset="plone.content.dynamic" for=".get.TwitterFeedGet" />
+  <cache:ruleset
+      for=".get.TwitterFeedGet"
+      ruleset="plone.content.dynamic"
+      />
 
 </configure>

@@ -1,17 +1,21 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:cache="http://namespaces.zope.org/cache"
-    xmlns:zcml="http://namespaces.zope.org/zcml">
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    >
 
   <plone:service
-    method="GET"
-    name="@search-filters"
-    for="Products.CMFCore.interfaces.ISiteRoot"
-    factory=".get.SearchFiltersGet"
-    permission="zope2.View"
-    />
+      method="GET"
+      factory=".get.SearchFiltersGet"
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      permission="zope2.View"
+      name="@search-filters"
+      />
 
-  <cache:ruleset ruleset="plone.content.dynamic" for=".get.SearchFiltersGet" />
+  <cache:ruleset
+      for=".get.SearchFiltersGet"
+      ruleset="plone.content.dynamic"
+      />
 
 </configure>

@@ -24,9 +24,7 @@ def _feed_cachekey(method, self, query):
     Cache time is 30 minutes
     """
     timestamp = time() // (60 * 30 * 1)
-    return "{timestamp}:{query}".format(
-        timestamp=timestamp, query=urlencode(query)
-    )
+    return "{timestamp}:{query}".format(timestamp=timestamp, query=urlencode(query))
 
 
 @implementer(IPublishTraverse)
@@ -125,9 +123,7 @@ class TwitterFeedGet(Service):
         if not entities:
             return text
         html = deepcopy(text)
-        href_template = (
-            '<a href="{url}" title="{title}" target="_blank">{text}</a>'
-        )
+        href_template = '<a href="{url}" title="{title}" target="_blank">{text}</a>'
         #  replace hashtags
         for hashtag in entities.get("hashtags", []):
             tag_text = text[hashtag["start"] : hashtag["end"]]  # noqa
@@ -136,7 +132,10 @@ class TwitterFeedGet(Service):
                 title=tag_text,
                 text=tag_text,
             )
-            html = html.replace(tag_text, replaced,)
+            html = html.replace(
+                tag_text,
+                replaced,
+            )
 
         # replace mentions
         for mention in entities.get("mentions", []):
@@ -146,7 +145,10 @@ class TwitterFeedGet(Service):
                 title=mention_text,
                 text=mention_text,
             )
-            html = html.replace(mention_text, replaced,)
+            html = html.replace(
+                mention_text,
+                replaced,
+            )
 
         #  replace urls
         occurrences = {}
@@ -170,5 +172,8 @@ class TwitterFeedGet(Service):
                         title=url_data.get("title", url_data["display_url"]),
                         text=url_data["display_url"],
                     )
-                    html = html.replace(to_replace, replaced,)
+                    html = html.replace(
+                        to_replace,
+                        replaced,
+                    )
         return html
