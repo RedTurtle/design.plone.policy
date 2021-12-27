@@ -107,6 +107,8 @@ class TestInitialStructureCreation(unittest.TestCase):
 
         for child in folder.listFolderContents():
             self.assertEqual(child.portal_type, "Document")
+            self.assertEqual(len(child.blocks.values()), 1)
+            self.assertEqual(len(child.blocks_layout["items"]), 1)
 
     def test_argomenti_section(self):
         folder = self.portal["argomenti"]

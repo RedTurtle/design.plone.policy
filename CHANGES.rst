@@ -5,7 +5,8 @@ Changelog
 2.10.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add default blocks to automatically created pages.
+  [cekk]
 
 
 2.10.0 (2021-12-01)
