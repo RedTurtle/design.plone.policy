@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.10.1 (unreleased)
+2.11.0 (2021-12-27)
 -------------------
 
 - Add default blocks to automatically created pages.
