@@ -5,7 +5,8 @@ Changelog
 2.11.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add new image miniature (midi).
+  [cekk]
 
 
 2.11.0 (2021-12-27)

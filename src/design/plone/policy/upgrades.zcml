@@ -111,4 +111,14 @@
         handler=".upgrades.to_1900"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="1900"
+      destination="1910"
+      >
+    <genericsetup:upgradeStep
+        title="Add new miniature"
+        handler=".upgrades.to_1910"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

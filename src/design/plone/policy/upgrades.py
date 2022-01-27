@@ -147,3 +147,10 @@ def to_1800(context):
 
 def to_1900(context):
     installOrReinstallProduct(api.portal.get(), "redturtle.faq")
+
+
+def to_1910(context):
+    allowed_sizes = api.portal.get_registry_record("plone.allowed_sizes")
+    if "midi 300:300" not in allowed_sizes:
+        allowed_sizes.insert(allowed_sizes.index("mini 200:200") + 1, "midi 300:300")
+        api.portal.set_registry_record("plone.allowed_sizes", allowed_sizes)
