@@ -1,12 +1,16 @@
 Changelog
 =========
 
+2.11.2 (2022-01-27)
+-------------------
+
+- Fix image miniature with 65536.
+  [cekk]
+
 2.11.1 (2022-01-27)
 -------------------
 
 - Add new image miniature (midi).
-  [cekk]
-- Fix image miniature with 65536.
   [cekk]
 
 2.11.0 (2021-12-27)
