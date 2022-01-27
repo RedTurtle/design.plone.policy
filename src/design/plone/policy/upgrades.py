@@ -151,6 +151,15 @@ def to_1900(context):
 
 def to_1910(context):
     allowed_sizes = api.portal.get_registry_record("plone.allowed_sizes")
-    if "midi 300:300" not in allowed_sizes:
-        allowed_sizes.insert(allowed_sizes.index("mini 200:200") + 1, "midi 300:300")
-        api.portal.set_registry_record("plone.allowed_sizes", allowed_sizes)
+    new_sizes = []
+    skip = ["listing 16:16", "icon 32:32", "tile 64:64"]
+    for size in allowed_sizes:
+        if size in skip:
+            new_sizes.append(size)
+        else:
+            name_height, width = size.split(":")
+            if width != "65536":
+                new_sizes.append("{}:{}".format(name_height, "65536"))
+    if "midi 300:65536" not in new_sizes:
+        new_sizes.insert(new_sizes.index("mini 200:65536") + 1, "midi 300:65536")
+    api.portal.set_registry_record("plone.allowed_sizes", new_sizes)
