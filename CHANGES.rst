@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.11.3 (unreleased)
+2.11.3 (2022-01-27)
 -------------------
 
 - Fix upgrade-step.
