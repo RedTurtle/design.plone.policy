@@ -4,7 +4,8 @@ Changelog
 2.11.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix upgrade-step.
+  [cekk]
 
 
 2.11.2 (2022-01-27)

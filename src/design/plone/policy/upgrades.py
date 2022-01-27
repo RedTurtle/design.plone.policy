@@ -160,6 +160,8 @@ def to_1910(context):
             name_height, width = size.split(":")
             if width != "65536":
                 new_sizes.append("{}:{}".format(name_height, "65536"))
+            else:
+                new_sizes.append(size)
     if "midi 300:65536" not in new_sizes:
         new_sizes.insert(new_sizes.index("mini 200:65536") + 1, "midi 300:65536")
     api.portal.set_registry_record("plone.allowed_sizes", new_sizes)
