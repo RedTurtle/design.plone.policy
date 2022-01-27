@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.11.1 (unreleased)
+2.11.1 (2022-01-27)
 -------------------
 
 - Add new image miniature (midi).
