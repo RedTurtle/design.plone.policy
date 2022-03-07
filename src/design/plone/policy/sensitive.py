@@ -55,7 +55,6 @@ def apply():
     if SCRUBBING_SENTRY_DATA and error_handler:
         def scrubbing(fun):
             def wrapper(event, hint):
-                import pdb;pdb.set_trace()
                 data = fun(event, hint)
                 # TODO: scrubbing sensitive information
                 if (data.get('extra') or {}).get('cookies'):
@@ -66,7 +65,6 @@ def apply():
                     data['user'] = scrub_user(data['user'])
                 if (data.get('breadcrumbs') or {}).get('values'):
                     data['breadcrumbs']['values'] = scrub_breadcrumbs(data['breadcrumbs']['values'])
-                import pdb; pdb.set_trace()
                 return data
             return wrapper
 
