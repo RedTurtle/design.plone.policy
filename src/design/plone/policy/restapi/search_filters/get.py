@@ -47,8 +47,8 @@ class SearchFiltersGet(Service):
             settings = json.loads(settings)
             for setting in settings:
                 items = []
-                for section_settings in setting.get("items", []):
-                    for uid in section_settings.get("linkUrl", []):
+                for section_settings in setting.get("items") or []:
+                    for uid in section_settings.get("linkUrl") or []:
                         try:
                             section = api.content.get(UID=uid)
                         except Unauthorized:
