@@ -4,7 +4,8 @@ Changelog
 2.11.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- scrub sensitive information for sentry
+  [mamico]
 
 
 2.11.3 (2022-01-27)
