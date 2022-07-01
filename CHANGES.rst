@@ -6,7 +6,8 @@ Changelog
 
 - scrub sensitive information for sentry
   [mamico]
-
+- Improve @bandi-search-filters speed.
+  [cekk]
 
 2.11.3 (2022-01-27)
 -------------------
