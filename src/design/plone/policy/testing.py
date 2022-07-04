@@ -110,6 +110,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
     def setUpZope(self, app, configurationContext):
         super(DesignPlonePolicyRestApiLayer, self).setUpZope(app, configurationContext)
 
+        self.loadZCML(package=collective.dexteritytextindexer)
         self.loadZCML(package=collective.folderishtypes)
         self.loadZCML(package=collective.MockMailHost)
         self.loadZCML(package=collective.venue)
@@ -118,6 +119,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.volto.secondarymenu)
         self.loadZCML(package=collective.volto.socialsettings)
+        self.loadZCML(package=collective.volto.subfooter)
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=design.plone.contenttypes)
         self.loadZCML(package=design.plone.policy)
@@ -126,12 +128,11 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
         self.loadZCML(package=plone.formwidget.geolocation)
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=redturtle.bandi)
+        self.loadZCML(package=redturtle.faq)
         self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
-        self.loadZCML(package=collective.volto.subfooter)
         self.loadZCML(package=rer.customersatisfaction)
         self.loadZCML(package=souper.plone)
-        self.loadZCML(package=redturtle.faq)
 
     def setUpPloneSite(self, portal):
         request = FauxRequest()
