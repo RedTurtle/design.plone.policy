@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.11.4 (unreleased)
+2.12.0 (2022-07-05)
 -------------------
 
 - scrub sensitive information for sentry
