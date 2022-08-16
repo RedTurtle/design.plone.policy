@@ -4,8 +4,8 @@ Changelog
 2.12.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Remove unused dependency in tests.
+  [cekk]
 
 2.12.0 (2022-07-05)
 -------------------
