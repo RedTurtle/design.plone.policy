@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.1 (unreleased)
+4.0.0 (2022-11-07)
 ------------------
 
 - Fix formsupport dependency to use honeypot and upgrade-step to set it in forms.
