@@ -54,7 +54,7 @@ setup(
         "redturtle.volto",
         "design.plone.contenttypes",
         "collective.volto.dropdownmenu",
-        "collective.volto.formsupport",
+        "collective.volto.formsupport[honeypot]",
         "collective.volto.secondarymenu",
         "collective.volto.socialsettings",
         "collective.volto.subsites",

@@ -121,4 +121,14 @@
         handler=".upgrades.to_1910"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="1910"
+      destination="2000"
+      >
+    <genericsetup:upgradeStep
+        title="Fix captcha in forms"
+        handler=".upgrades.to_2000"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

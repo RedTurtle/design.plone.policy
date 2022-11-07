@@ -4,8 +4,8 @@ Changelog
 3.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix formsupport dependency to use honeypot and upgrade-step to set it in forms.
+  [cekk]
 
 3.0.0 (2022-08-16)
 ------------------

@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
+from Acquisition import aq_base
+from collective.volto.blocksfield.field import BlocksField
 from copy import deepcopy
 from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from design.plone.policy.setuphandlers import disable_searchable_types
 from design.plone.policy.setuphandlers import set_default_subsite_colors
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
+from plone.dexterity.utils import iterSchemata
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
+from zope.schema import getFields
 
 import logging
-
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -165,3 +169,66 @@ def to_1910(context):
     if "midi 300:65536" not in new_sizes:
         new_sizes.insert(new_sizes.index("mini 200:65536") + 1, "midi 300:65536")
     api.portal.set_registry_record("plone.allowed_sizes", new_sizes)
+
+
+def to_2000(context):  # noqa: C901
+    logger.info("### START CONVERSION FORMS: enable honeypot ###")
+
+    def fix_block(blocks):
+        found = False
+        for block in blocks.values():
+            if block.get("@type", "") == "form":
+                captcha = block.get("captcha", "")
+                if captcha != "honeypot":
+                    block["captcha"] = "honeypot"
+                    found = True
+        return found
+
+    forms = []
+
+    # fix root
+    portal = api.portal.get()
+    portal_blocks = json.loads(portal.blocks)
+    res = fix_block(portal_blocks)
+    if res:
+        forms.append("site root")
+        portal.blocks = json.dumps(portal_blocks)
+
+    # fix blocks in contents
+    pc = api.portal.get_tool(name="portal_catalog")
+    brains = pc()
+    tot = len(brains)
+    i = 0
+    for brain in brains:
+        i += 1
+        if i % 1000 == 0:
+            logger.info("Progress: {}/{}".format(i, tot))
+        item = aq_base(brain.getObject())
+        for schema in iterSchemata(item):
+            for name, field in getFields(schema).items():
+                if name == "blocks":
+                    blocks = deepcopy(item.blocks)
+                    if blocks:
+                        res = fix_block(blocks)
+                        if res:
+                            forms.append(brain.getURL())
+                            item.blocks = blocks
+                elif isinstance(field, BlocksField):
+                    value = deepcopy(field.get(item))
+                    if not value:
+                        continue
+                    try:
+                        blocks = value.get("blocks", {})
+                    except AttributeError:
+                        logger.warning(
+                            "[RICHTEXT] - {} (not converted)".format(brain.getURL())
+                        )
+                    if blocks:
+                        res = fix_block(blocks)
+                        if res:
+                            forms.append(brain.getURL())
+                            setattr(item, name, value)
+
+    logger.info(f"Found {len(forms)} forms.")
+    for url in forms:
+        logger.info(f"- {url}")
