@@ -4,7 +4,8 @@ Changelog
 4.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add "data-element" to custom attributes in html filters.
+  [cekk]
 
 
 4.0.0 (2022-11-07)

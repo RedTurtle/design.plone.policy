@@ -8,7 +8,10 @@ from design.plone.policy.setuphandlers import set_default_subsite_colors
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
 from plone.dexterity.utils import iterSchemata
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import IFilterSchema
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
+from zope.component import getUtility
 from zope.schema import getFields
 
 import logging
@@ -232,3 +235,9 @@ def to_2000(context):  # noqa: C901
     logger.info(f"Found {len(forms)} forms.")
     for url in forms:
         logger.info(f"- {url}")
+
+
+def to_2010(context):
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(IFilterSchema, prefix="plone")
+    settings.custom_attributes = settings.custom_attributes + ["data-element"]
