@@ -9,18 +9,18 @@ TASSONOMIA_SERVIZI = [
     "Anagrafe e stato civile",
     "Cultura e tempo libero",
     "Vita lavorativa",
-    "Attività produttive e commercio",
-    "Appalti pubblici",
     "Catasto e urbanistica",
     "Turismo",
     "Mobilità e trasporti",
     "Educazione e formazione",
     "Giustizia e sicurezza pubblica",
-    "Tributi e finanze",
+    "Tributi, finanze e contravvenzioni",
     "Ambiente",
     "Salute, benessere e assistenza",
     "Autorizzazioni",
-    "Agricoltura",
+    "Agricoltura e pesca",
+    "Imprese e commercio",
+    "Appalti pubblici",
 ]
 
 TASSONOMIA_DOCUMENTI = [
@@ -32,10 +32,11 @@ TASSONOMIA_DOCUMENTI = [
     "Documenti attività politica",
     "Documenti (tecnici) di supporto",
     "Istanze",
+    "Documenti di programmazione e rendicontazione"
     "Dataset",
 ]
 
-TASSONOMIA_NEWS = ["Notizie", "Comunicati", "Eventi"]
+TASSONOMIA_NEWS = ["Notizie", "Comunicati (stampa)", "Eventi"]
 TASSONOMIA_AMMINISTRAZIONE = [
     "Politici",
     "Personale Amministrativo",
