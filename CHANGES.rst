@@ -1,10 +1,29 @@
 Changelog
 =========
 
-2.12.1 (unreleased)
--------------------
+4.0.2 (unreleased)
+------------------
 
 - remove collective.dexteritytextindexer dependency.
+  [cekk]
+
+4.0.1 (2022-12-07)
+------------------
+
+- Add "data-element" to custom attributes in html filters.
+  [cekk]
+
+
+4.0.0 (2022-11-07)
+------------------
+
+- Fix formsupport dependency to use honeypot and upgrade-step to set it in forms.
+  [cekk]
+
+3.0.0 (2022-08-16)
+------------------
+
+- Remove unused dependency in tests.
   [cekk]
 
 2.12.0 (2022-07-05)

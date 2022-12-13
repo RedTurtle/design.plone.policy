@@ -10,7 +10,7 @@ from plone.restapi.testing import PloneRestApiDXLayer
 from plone.testing import z2
 from zope.globalrequest import setRequest
 
-import collective.folderishtypes
+import collective.dexteritytextindexer
 import collective.MockMailHost
 import collective.venue
 import collective.volto.cookieconsent
@@ -48,7 +48,6 @@ class DesignPlonePolicyLayer(PloneSandboxLayer):
         # layer.
 
         self.loadZCML(package=collective.volto.formsupport)
-        self.loadZCML(package=collective.folderishtypes)
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
@@ -108,7 +107,7 @@ class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
     def setUpZope(self, app, configurationContext):
         super(DesignPlonePolicyRestApiLayer, self).setUpZope(app, configurationContext)
 
-        self.loadZCML(package=collective.folderishtypes)
+        self.loadZCML(package=collective.dexteritytextindexer)
         self.loadZCML(package=collective.MockMailHost)
         self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)

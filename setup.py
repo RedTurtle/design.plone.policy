@@ -16,7 +16,7 @@ long_description = "\n\n".join(
 
 setup(
     name="design.plone.policy",
-    version="2.12.1.dev0",
+    version="4.0.2.dev0",
     description="Pacchetto per creare un sito Agid su Plone",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
@@ -54,7 +54,7 @@ setup(
         "redturtle.volto",
         "design.plone.contenttypes",
         "collective.volto.dropdownmenu",
-        "collective.volto.formsupport",
+        "collective.volto.formsupport[honeypot]",
         "collective.volto.secondarymenu",
         "collective.volto.socialsettings",
         "collective.volto.subsites",
