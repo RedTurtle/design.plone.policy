@@ -4,8 +4,8 @@ Changelog
 4.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- remove collective.dexteritytextindexer dependency.
+  [cekk]
 
 4.0.1 (2022-12-07)
 ------------------
