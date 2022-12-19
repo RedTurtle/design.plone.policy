@@ -59,6 +59,7 @@ setup(
         "collective.volto.socialsettings",
         "collective.volto.subsites",
         "collective.volto.subfooter",
+        "eea.api.taxonomy",
         "redturtle.voltoplugin.editablefooter",
         "rer.customersatisfaction>=1.1.0",
         "redturtle.faq",
