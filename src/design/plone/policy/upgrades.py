@@ -191,11 +191,18 @@ def to_2000(context):  # noqa: C901
 
     # fix root
     portal = api.portal.get()
-    portal_blocks = json.loads(portal.blocks)
-    res = fix_block(portal_blocks)
-    if res:
-        forms.append("site root")
-        portal.blocks = json.dumps(portal_blocks)
+    try:
+        portal_blocks = json.loads(portal.blocks)
+        res = fix_block(portal_blocks)
+        if res:
+            forms.append("site root")
+            portal.blocks = json.dumps(portal_blocks)
+    except TypeError:
+        # This happens when the site was already Plone 6
+        # and the blocks field is already a dictionary.
+        # Since it's Plone 6, the site root will be in the catalog query below,
+        # so just skip this step.
+        pass
 
     # fix blocks in contents
     pc = api.portal.get_tool(name="portal_catalog")
