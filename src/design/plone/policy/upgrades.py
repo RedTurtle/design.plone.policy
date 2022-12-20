@@ -198,8 +198,8 @@ def to_2000(context):  # noqa: C901
             forms.append("site root")
             portal.blocks = json.dumps(portal_blocks)
     except TypeError:
-        # This happens when the site was already Plone 6 and the blocks field
-        # is already an object.
+        # This happens when the site was already Plone 6
+        # and the blocks field is already a dictionary.
         # Since it's Plone 6, the site root will be in the catalog query below,
         # so just skip this step.
         pass
