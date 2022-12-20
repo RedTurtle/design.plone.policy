@@ -32,7 +32,7 @@ TASSONOMIA_DOCUMENTI = [
     "Documenti attività politica",
     "Documenti (tecnici) di supporto",
     "Istanze",
-    "Documenti di programmazione e rendicontazione"
+    "Documenti di programmazione e rendicontazione",
     "Dataset",
 ]
 
