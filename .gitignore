@@ -43,3 +43,4 @@ reports/
 !.gitkeep
 !.travis.yml
 !src/design
+.history

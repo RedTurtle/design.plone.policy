@@ -248,3 +248,54 @@ def to_2010(context):
     registry = getUtility(IRegistry)
     settings = registry.forInterface(IFilterSchema, prefix="plone")
     settings.custom_attributes = settings.custom_attributes + ["data-element"]
+
+
+def update_folders(context, CHANGES=[], NEW_ITEMS=[]):
+    GREEN = "\033[92m"
+    ENDC = "\033[0m"
+
+    portal = api.portal.get()
+    portal_name = portal.getId()
+    for item in CHANGES:
+        folder = portal.restrictedTraverse("{}{}".format(portal_name, item))
+        old_title = folder.title
+        old_path = "/".join(folder.getPhysicalPath())
+        api.content.rename(obj=folder, new_id=CHANGES[item][1])
+        folder.title = CHANGES[item][0]
+        # folder.reindexObject(idx=['id', 'title', 'getId', 'SearchableText'])
+        # Who know the exact number of index we need to update?
+        folder.reindexObject()
+        logger.info(
+            "{} Modificato {} ({}) in {} {}".format(
+                GREEN, old_title, old_path, folder.title, ENDC
+            )
+        )
+
+    for item in NEW_ITEMS:
+        folder = portal.restrictedTraverse("{}{}".format(portal_name, item[0]))
+        new = api.content.create(type="Document", title=item[1], container=folder)
+        logger.info(
+            "{} Creato {} in {} {}".format(
+                GREEN, item[1], "/".join(new.getPhysicalPath()), ENDC
+            )
+        )
+
+
+def update_folders_name_for_pnrr(context):
+    CHANGES = {
+        "/servizi/tributi-e-finanze": (
+            "Tributi, finanze e contravvenzioni",
+            "tributi-finanze-e-contravvenzioni",
+        ),
+        "/servizi/agricoltura": ("Agricoltura e pesca", "agricoltura-e-pesca"),
+    }
+    NEW_ITEMS = [
+        ("/servizi", "Imprese e commercio"),
+    ]
+    update_folders(context, CHANGES, NEW_ITEMS)
+
+
+def to_3000(context):
+    # call upgrade step for design.plone.contenttypes
+    # context.runAllImportStepsFromProfile("profile-design.plone.contenttypes:to_xxxx")
+    update_folders_name_for_pnrr(context)

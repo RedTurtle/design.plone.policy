@@ -141,4 +141,14 @@
         handler=".upgrades.to_2010"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="2010"
+      destination="3000"
+      >
+    <genericsetup:upgradeStep
+        title="To PNRR version"
+        handler=".upgrades.to_3000"
+        />
+  </genericsetup:upgradeSteps>
 </configure>
