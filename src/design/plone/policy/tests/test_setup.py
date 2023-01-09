@@ -10,7 +10,6 @@ from Products.CMFPlone.interfaces import ISiteSchema
 from Products.CMFPlone.interfaces.controlpanel import INavigationSchema
 from zope.component import getUtility
 
-
 import unittest
 
 

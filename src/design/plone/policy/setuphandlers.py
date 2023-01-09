@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from collective.volto.subsites.interfaces import IVoltoSubsitesSettings
-from design.plone.contenttypes.controlpanels.settings import (
-    IDesignPloneSettings,
-)
+from design.plone.contenttypes.controlpanels.settings import IDesignPloneSettings
 from design.plone.policy.utils import folderSubstructureGenerator
 from plone import api
 from plone.registry.interfaces import IRegistry

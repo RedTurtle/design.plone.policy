@@ -2,8 +2,9 @@
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
-from zope.component import getUtility
 from uuid import uuid4
+from zope.component import getUtility
+
 
 TASSONOMIA_SERVIZI = [
     "Anagrafe e stato civile",

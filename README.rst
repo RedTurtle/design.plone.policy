@@ -25,7 +25,7 @@ Creazione struttura del sito
 ============================
 
 All'installazione di questo prodotto, oltre che l'installazione di tutte le dipendenze,
-viene anche eseguita la creazione in automatico di una serie di cartelle utili per la 
+viene anche eseguita la creazione in automatico di una serie di cartelle utili per la
 gestione dei contenuti richiesta da Agid.
 
 Tipi ricercabili

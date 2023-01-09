@@ -39,4 +39,3 @@ list all tox environments:
 run a specific tox env:
 
     $ tox -e py37-Plone52
-

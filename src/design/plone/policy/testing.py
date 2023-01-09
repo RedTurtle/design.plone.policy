@@ -27,11 +27,11 @@ import plone.app.caching
 import plone.formwidget.geolocation
 import plone.restapi
 import redturtle.bandi
+import redturtle.faq
 import redturtle.volto
 import redturtle.voltoplugin.editablefooter
 import rer.customersatisfaction
 import souper.plone
-import redturtle.faq
 
 
 class FauxRequest(dict):

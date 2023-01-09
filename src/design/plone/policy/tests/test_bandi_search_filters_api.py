@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
-from design.plone.policy.testing import (
-    DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING,
-)
+from design.plone.policy.testing import DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING
+from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.app.testing import TEST_USER_ID
 from plone.restapi.testing import RelativeSession
-from zope.component import getUtility
 from transaction import commit
 from z3c.relationfield import RelationValue
+from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
-from plone import api
 
 import unittest
 

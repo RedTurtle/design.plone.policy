@@ -14,8 +14,9 @@ from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from zope.component import getUtility
 from zope.schema import getFields
 
-import logging
 import json
+import logging
+
 
 logger = logging.getLogger(__name__)
 
