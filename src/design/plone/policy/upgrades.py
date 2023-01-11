@@ -254,32 +254,45 @@ def to_2010(context):
 def update_folders(context, CHANGES=[], NEW_ITEMS=[]):
     GREEN = "\033[92m"
     ENDC = "\033[0m"
+    RED = "\033[91m"
 
     portal = api.portal.get()
     portal_name = portal.getId()
     for item in CHANGES:
-        folder = portal.restrictedTraverse("{}{}".format(portal_name, item))
-        old_title = folder.title
-        old_path = "/".join(folder.getPhysicalPath())
-        api.content.rename(obj=folder, new_id=CHANGES[item][1])
-        folder.title = CHANGES[item][0]
-        # folder.reindexObject(idx=['id', 'title', 'getId', 'SearchableText'])
-        # Who know the exact number of index we need to update?
-        folder.reindexObject()
-        logger.info(
-            "{} Modificato {} ({}) in {} {}".format(
-                GREEN, old_title, old_path, folder.title, ENDC
+        try:
+            folder = portal.restrictedTraverse("{}{}".format(portal_name, item))
+            old_title = folder.title
+            old_path = "/".join(folder.getPhysicalPath())
+            api.content.rename(obj=folder, new_id=CHANGES[item][1])
+            folder.title = CHANGES[item][0]
+            # folder.reindexObject(idx=['id', 'title', 'getId', 'SearchableText'])
+            # Who know the exact number of index we need to update?
+            folder.reindexObject()
+            logger.info(
+                "{} Modificato {} ({}) in {} {}".format(
+                    GREEN, old_title, old_path, folder.title, ENDC
+                )
             )
-        )
+        except KeyError:
+            logger.info("{} Impossibile modificare {}{}".format(RED, item, ENDC))
 
     for item in NEW_ITEMS:
         folder = portal.restrictedTraverse("{}{}".format(portal_name, item[0]))
-        new = api.content.create(type="Document", title=item[1], container=folder)
-        logger.info(
-            "{} Creato {} in {} {}".format(
-                GREEN, item[1], "/".join(new.getPhysicalPath()), ENDC
+        if item[2] not in folder:
+            new = api.content.create(
+                type="Document", id=item[2], title=item[1], container=folder
             )
-        )
+            logger.info(
+                "{} Creato {} in {} {}".format(
+                    GREEN, item[1], "/".join(new.getPhysicalPath()), ENDC
+                )
+            )
+        else:
+            logger.info(
+                "{} {} esiste già in {} {}".format(
+                    RED, item[1], "/".join(folder.getPhysicalPath()), ENDC
+                )
+            )
 
 
 def update_folders_name_for_pnrr(context):
@@ -291,7 +304,7 @@ def update_folders_name_for_pnrr(context):
         "/servizi/agricoltura": ("Agricoltura e pesca", "agricoltura-e-pesca"),
     }
     NEW_ITEMS = [
-        ("/servizi", "Imprese e commercio"),
+        ("/servizi", "Imprese e commercio", "imprese-e-commercio"),
     ]
     update_folders(context, CHANGES, NEW_ITEMS)
 
