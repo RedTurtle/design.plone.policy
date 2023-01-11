@@ -29,7 +29,7 @@ def post_install(context):
     folderSubstructureGenerator(title="Servizi")
     folderSubstructureGenerator(title="Novità")
     folderSubstructureGenerator(title="Documenti e dati")
-    folderSubstructureGenerator(title="Argomenti")
+    folderSubstructureGenerator(title="Argomenti", types=["Pagina Argomento"])
 
     # set default search folders
     section_ids = ["amministrazione", "servizi", "novita", "documenti-e-dati"]

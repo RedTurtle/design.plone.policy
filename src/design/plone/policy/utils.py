@@ -48,6 +48,71 @@ TASSONOMIA_AMMINISTRAZIONE = [
     "Luoghi",
 ]
 
+TASSONOMIA_ARGOMENTI = [
+    "Accesso all'informazione",
+    "Acqua",
+    "Agricoltura",
+    "Animale domestico",
+    "Aria",
+    "Assistenza agli invalidi",
+    "Assistenza sociale",
+    "Associazioni",
+    "Bilancio",
+    "Commercio all'ingrosso",
+    "Commercio al minuto",
+    "Commercio ambulante",
+    "Comunicazione istituzionale",
+    "Comunicazione politica",
+    "Concorsi",
+    "Covid-19",
+    "Elezioni",
+    "Energie rinnovabili",
+    "Estero",
+    "Foreste",
+    "Formazione professionale",
+    "Gemellaggi",
+    "Gestione rifiuti",
+    "Giustizia",
+    "Igiene pubblica",
+    "Immigrazione",
+    "Imposte",
+    "Imprese",
+    "Inquinamento",
+    "Integrazione sociale",
+    "Isolamento termico",
+    "Istruzione",
+    "Lavoro",
+    "Matrimonio",
+    "Mercato",
+    "Mobilità sostenibile",
+    "Morte",
+    "Nascita",
+    "Parcheggi",
+    "Patrimonio culturale",
+    "Pesca",
+    "Piano di sviluppo",
+    "Pista ciclabile",
+    "Politica commerciale",
+    "Polizia",
+    "Prodotti alimentari",
+    "Protezione civile",
+    "Residenza",
+    "Risposta alle emergenze",
+    "Sistema giuridico",
+    "Spazio Verde",
+    "Sport",
+    "Sviluppo sostenibile",
+    "Tassa sui servizi",
+    "Tempo libero",
+    "Trasparenza amministrativa",
+    "Trasporto pubblico",
+    "Turismo",
+    "Urbanizzazione",
+    "Viaggi",
+    "Zone pedonali",
+    "ZTL",
+]
+
 
 def folderSubstructureGenerator(title, types=[]):
     container = api.portal.get()
@@ -85,6 +150,13 @@ def folderSubstructureGenerator(title, types=[]):
     elif title == "Amministrazione":
         for ta in TASSONOMIA_AMMINISTRAZIONE:
             child = api.content.create(container=tree_root, type="Document", title=ta)
+            create_default_blocks(context=child)
+
+    elif title == "Argomenti":
+        for ta in TASSONOMIA_ARGOMENTI:
+            child = api.content.create(
+                container=tree_root, type="Pagina Argomento", title=ta
+            )
             create_default_blocks(context=child)
 
 
