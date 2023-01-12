@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a1 (unreleased)
+5.0.0a1 (2023-01-12)
 --------------------
 
 - remove collective.dexteritytextindexer dependency.
