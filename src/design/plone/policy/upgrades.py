@@ -310,6 +310,8 @@ def update_folders_name_for_pnrr(context):
 
 
 def to_3000(context):
-    # call upgrade step for design.plone.contenttypes
-    # context.runAllImportStepsFromProfile("profile-design.plone.contenttypes:to_xxxx")
+    # run design.plone.contenttypes steps
+    context.upgradeProfile(
+        "profile-design.plone.contenttypes:default", dest="7001", quiet=False
+    )
     update_folders_name_for_pnrr(context)
