@@ -1,11 +1,14 @@
 Changelog
 =========
 
-4.0.2 (unreleased)
+5.0.0 (unreleased)
 ------------------
 
 - remove collective.dexteritytextindexer dependency.
   [cekk]
+- adjustments to the pnrr.
+  [deodorhunter, lucabek, eikichi18]
+
 
 4.0.1 (2022-12-07)
 ------------------
