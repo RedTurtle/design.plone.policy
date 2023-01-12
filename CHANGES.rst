@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.0.0 (unreleased)
-------------------
+5.0.0a1 (unreleased)
+--------------------
 
 - remove collective.dexteritytextindexer dependency.
   [cekk]
