@@ -83,7 +83,11 @@ class SearchFiltersGet(Service):
                 (brain, self.request),
                 ISerializeToJsonSummary,
             )()
-            for brain in api.content.find(portal_type="Pagina Argomento")
+            for brain in api.content.find(
+                portal_type="Pagina Argomento",
+                sort_on="sortable_title",
+                sort_order="ascending",
+            )
         ]
         return {
             "sections": sections,
