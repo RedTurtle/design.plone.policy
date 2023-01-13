@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a2 (unreleased)
+5.0.0a2 (2023-01-13)
 --------------------
 
 - Upgrades for new AGID AI
