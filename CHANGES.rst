@@ -4,7 +4,8 @@ Changelog
 5.0.0a2 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Upgrades for new AGID AI
+  [lucabel]
 
 
 5.0.0a1 (2023-01-12)
