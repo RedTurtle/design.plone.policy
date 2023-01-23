@@ -4,6 +4,13 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from uuid import uuid4
 from zope.component import getUtility
+from plone.restapi.serializer.converters import json_compatible
+from redturtle.voltoplugin.editablefooter.interfaces import (
+    IEditableFooterSettings,
+)
+
+import json
+
 
 
 TASSONOMIA_SERVIZI = [
@@ -37,15 +44,26 @@ TASSONOMIA_DOCUMENTI = [
     "Dataset",
 ]
 
-TASSONOMIA_NEWS = ["Notizie", "Comunicati (stampa)", "Eventi"]
+TASSONOMIA_NEWS = ["Notizie", "Comunicati (stampa)", "Avvisi"]
 TASSONOMIA_AMMINISTRAZIONE = [
-    "Politici",
-    "Personale Amministrativo",
     "Organi di governo",
     "Aree amministrative",
     "Uffici",
     "Enti e fondazioni",
+    "Politici",
+    "Personale Amministrativo",
+    "Documenti e dati",
+]
+
+TASSONOMIA_VIVERE_IL_COMUNE = [
     "Luoghi",
+    "Eventi"
+]
+
+TASSONOMIA_ORGANI_GOVERNO = [
+    "Giunta comunale",
+    "Consiglio comunale",
+    "Commissione",
 ]
 
 TASSONOMIA_ARGOMENTI = [
@@ -137,8 +155,8 @@ def folderSubstructureGenerator(title, types=[]):
         for ts in TASSONOMIA_SERVIZI:
             child = api.content.create(container=tree_root, type="Document", title=ts)
             create_default_blocks(context=child)
-    elif title == "Documenti e dati":
-        for td in TASSONOMIA_DOCUMENTI:
+    elif title == "Vivere il comune":
+        for td in TASSONOMIA_VIVERE_IL_COMUNE:
             child = api.content.create(container=tree_root, type="Document", title=td)
             create_default_blocks(context=child)
 
@@ -151,6 +169,22 @@ def folderSubstructureGenerator(title, types=[]):
         for ta in TASSONOMIA_AMMINISTRAZIONE:
             child = api.content.create(container=tree_root, type="Document", title=ta)
             create_default_blocks(context=child)
+            if ta == "Documenti e dati":
+                for tdd in TASSONOMIA_DOCUMENTI:
+                    grandchild = api.content.create(
+                        container=tree_root,
+                        type="Document",
+                        title=tdd
+                    )
+                    create_default_blocks(context=grandchild)
+            elif ta == 'Organi di governo':
+                for tog in TASSONOMIA_ORGANI_GOVERNO:
+                    grandchild = api.content.create(
+                        container=tree_root,
+                        type="Document",
+                        title=tog
+                    )
+                    create_default_blocks(context=grandchild)
 
     elif title == "Argomenti":
         for ta in TASSONOMIA_ARGOMENTI:
@@ -170,3 +204,63 @@ def create_default_blocks(context):
     title_uuid = str(uuid4())
     context.blocks = {title_uuid: {"@type": "title"}}
     context.blocks_layout = {"items": [title_uuid]}
+
+
+def create_footer():
+    # Mocked up payload with generic structure
+    mocked_payload = [{
+        "items": [
+            {
+                "id": 1643103855592,
+                "newsletterSubscribe": False,
+                "showSocial": False,
+                "text": {
+                    "data": "<p>Comune di Nome Comune</p><p>Via Roma 123 - 00100 Comune</p><p>Codice fiscale / P.IVA:000123456789</p><p><br/></p><p>Ufficio Relazioni con il Pubblico</p><p>Numero verde: 800 016 123</p><p>SMS e WhatsApp: +39 320 1234567</p><p>Posta Elettronica Certificata</p><p>Centralino unico: 012 3456</p>"
+                },
+                "title": "Contatti",
+                "titleLink": [],
+                "visible": True
+            },
+            {
+                "id": 1673961753495,
+                "newsletterSubscribe": False,
+                "showSocial": False,
+                "text": {
+                    "data": "<ul keys=\"696me,24qcs,6j5h0,f4p0j\" depth=\"0\"><li><a data-element=\"faq\" href=\"/leggi-le-faq\">Leggi le FAQ</a></li><li><a href=\"/faq\" target=\"_blank\" rel=\"noopener noreferrer\" data-element=\"appointment-booking\">Prenotazione appuntamento</a></li><li><a data-element=\"report-inefficiency\" href=\"/segnalazione-disservizio\">Segnalazione disservizio</a></li><li><a href=\"/richiedi-assistenza\">Richiesta d&#x27;assistenza</a></li></ul>" # noqa
+                },
+                "titleLink": [],
+                "visible": True
+            },
+            {
+                "id": 1673962265420,
+                "newsletterSubscribe": False,
+                "showSocial": False,
+                "text": {
+                    "data": "<ul keys=\"at8uf,f1h7r,d22s9,6lou\" depth=\"0\"><li><a href=\"/amministrazione-trasparente\">Amministrazione trasparente</a></li><li><a data-element=\"privacy-policy-link\" href=\"/privacy-policy\">Informativa privacy</a></li><li>Note legali</li><li><a href=\"https://form.agid.gov.it/view/b3a483ab-9bc7-4cee-8faa-be91ca045ab5/\" target=\"_blank\" rel=\"noopener noreferrer\" data-element=\"accessibility-link\">Dichiarazione di accessibità</a></li></ul>"
+                },
+                "titleLink": [],
+                "visible": True
+            },
+            {
+                "id": 1643104715618,
+                "newsletterSubscribe": False,
+                "showSocial": True,
+                "text": {
+                    "data": "<p><br/></p>"
+                },
+                "title": "Seguici su",
+                "titleLink": [],
+                "visible": True
+            }
+        ],
+        "rootPath": "/"
+    }]
+
+    payload = json.dumps(mocked_payload)
+    api.portal.set_registry_record(
+        "footer_columns", payload, interface=IEditableFooterSettings
+    )
+
+
+def create_menu():
+    mocked_payload = "[{\"rootPath\": \"/\", \"items\": [{\"title\": \"Amministrazione\", \"visible\": true, \"mode\": \"simpleLink\", \"linkUrl\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/amministrazione\", \"image_scales\": null, \"image_field\": null, \"title\": \"Amministrazione\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"amministrazione\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"358963972f504c95aaf02b9a2f9bf3bd\"}], \"blocks_layout\": {\"items\": [\"98cbf210-f12f-4b5e-9feb-3c3b6d18ab46\"]}, \"blocks\": {\"98cbf210-f12f-4b5e-9feb-3c3b6d18ab46\": {\"@type\": \"text\"}}, \"navigationRoot\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/amministrazione\", \"image_scales\": null, \"image_field\": null, \"title\": \"Amministrazione\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"amministrazione\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"358963972f504c95aaf02b9a2f9bf3bd\"}], \"showMoreLink\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/amministrazione\", \"image_scales\": null, \"image_field\": null, \"title\": \"Amministrazione\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"amministrazione\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"358963972f504c95aaf02b9a2f9bf3bd\"}], \"showMoreText\": \"Vedi tutto\", \"id_lighthouse\": \"management\"}, {\"title\": \"Novit\\u00e0\", \"visible\": true, \"mode\": \"simpleLink\", \"linkUrl\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/novita\", \"image_scales\": null, \"image_field\": null, \"title\": \"Novit\\u00e0\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"novita\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"ed4e079dc3ed4abb831d4326f3eb2234\"}], \"blocks_layout\": {\"items\": [\"8fc6a0e2-610f-417a-9a46-15fe33eabdad\"]}, \"blocks\": {\"8fc6a0e2-610f-417a-9a46-15fe33eabdad\": {\"@type\": \"text\"}}, \"navigationRoot\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/novita\", \"image_scales\": null, \"image_field\": null, \"title\": \"Novit\\u00e0\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"novita\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"ed4e079dc3ed4abb831d4326f3eb2234\"}], \"showMoreLink\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/novita\", \"image_scales\": null, \"image_field\": null, \"title\": \"Novit\\u00e0\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"novita\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"ed4e079dc3ed4abb831d4326f3eb2234\"}], \"showMoreText\": \"Vedi tutto\", \"id_lighthouse\": \"news\"}, {\"title\": \"Servizi\", \"visible\": true, \"mode\": \"simpleLink\", \"linkUrl\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/servizi\", \"image_scales\": null, \"image_field\": null, \"title\": \"Servizi\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"servizi\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"b9831cfefc1d4af2a349f9e886e56b0e\"}], \"blocks_layout\": {\"items\": [\"c0f720b7-81e0-4856-b260-59cf278393e7\"]}, \"blocks\": {\"c0f720b7-81e0-4856-b260-59cf278393e7\": {\"@type\": \"text\"}}, \"navigationRoot\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/servizi\", \"image_scales\": null, \"image_field\": null, \"title\": \"Servizi\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"servizi\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"b9831cfefc1d4af2a349f9e886e56b0e\"}], \"showMoreLink\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/servizi\", \"image_scales\": null, \"image_field\": null, \"title\": \"Servizi\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"servizi\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"b9831cfefc1d4af2a349f9e886e56b0e\"}], \"showMoreText\": \"Vedi tutto\", \"id_lighthouse\": \"all-services\"}, {\"title\": \"Vivere Novellara\", \"visible\": true, \"mode\": \"simpleLink\", \"linkUrl\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/vivere-novellara\", \"image_scales\": null, \"image_field\": null, \"title\": \"Vivere Novellara\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"vivere-novellara\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"e916fa5b556c44848518d91b8c79ff54\"}], \"blocks_layout\": {\"items\": [\"bb91a850-0820-4218-890c-2820bd6c01ed\"]}, \"blocks\": {\"bb91a850-0820-4218-890c-2820bd6c01ed\": {\"@type\": \"text\"}}, \"id_lighthouse\": \"live\"}]}]"
