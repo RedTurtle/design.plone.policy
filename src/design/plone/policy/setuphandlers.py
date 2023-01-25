@@ -4,7 +4,9 @@ from design.plone.contenttypes.controlpanels.settings import IDesignPloneSetting
 from design.plone.policy.utils import (
     folderSubstructureGenerator,
     create_footer,
-    create_menu
+    create_menu,
+    create_secondary_menu,
+    TASSONOMIA_PRIMO_LIVELLO,
 )
 from plone import api
 from plone.registry.interfaces import IRegistry
@@ -29,11 +31,11 @@ class HiddenProfiles(object):
 
 def post_install(context):
     """Post install script"""
-    folderSubstructureGenerator(title="Amministrazione")
-    folderSubstructureGenerator(title="Servizi")
-    folderSubstructureGenerator(title="Novità")
-    folderSubstructureGenerator(title="Vivere il comune")
-    folderSubstructureGenerator(title="Argomenti", types=["Pagina Argomento"])
+    for x in TASSONOMIA_PRIMO_LIVELLO:
+        types = []
+        if x == 'Argomenti':
+            types = ["Pagina Argomento"]
+        folderSubstructureGenerator(title="Argomenti", types=types)
 
     # set default search folders
     section_ids = ["amministrazione", "servizi", "novita", "vivere-il-comune"]
@@ -52,8 +54,9 @@ def post_install(context):
 
     disable_searchable_types()
     set_default_subsite_colors()
-    create_footer()
+    # create_footer()
     create_menu()
+    create_secondary_menu()
 
 
 def disable_searchable_types():

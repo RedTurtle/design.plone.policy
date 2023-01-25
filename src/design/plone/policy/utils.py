@@ -4,14 +4,25 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from uuid import uuid4
 from zope.component import getUtility
-from plone.restapi.serializer.converters import json_compatible
+from collective.volto.dropdownmenu.interfaces import IDropDownMenu
+from collective.volto.secondarymenu.interfaces import ISecondaryMenu
 from redturtle.voltoplugin.editablefooter.interfaces import (
     IEditableFooterSettings,
 )
+from plone.restapi.interfaces import ISerializeToJsonSummary
+from zope.component import getMultiAdapter
+from zope.globalrequest import getRequest
 
 import json
 
 
+TASSONOMIA_PRIMO_LIVELLO = [
+    "Amministrazione",
+    "Servizi",
+    "Novità",
+    "Vivere il comune",
+    "Argomenti"
+]
 
 TASSONOMIA_SERVIZI = [
     "Anagrafe e stato civile",
@@ -262,5 +273,74 @@ def create_footer():
     )
 
 
+def create_default_menu_item(context, obj):
+    title_uuid = str(uuid4())
+    title = obj.Title()
+    uid = obj.UID()
+    context["blocks_layout"] = {"items": [title_uuid]}
+    context["blocks"] = {title_uuid: {"@type": "text"}}
+    context["title"] = title
+    context["mode"] = 'simpleLink'
+    context["visible"] = True
+    context["linkUrl"] = [uid]
+    if title == 'Amministrazione':
+        context["id_lighthouse"] = 'management'
+        context["showMoreText"] = 'Vedi tutto'
+        context["navigationRoot"] = [uid]
+        context["showMoreLink"] = [uid]
+    elif title == 'Servizi':
+        context["id_lighthouse"] = 'all-services'
+        context["navigationRoot"] = [uid]
+        context["showMoreLink"] = [uid]
+    elif title == 'Novità':
+        context["id_lighthouse"] = 'news'
+        context["navigationRoot"] = [uid]
+        context["showMoreLink"] = [uid]
+    elif title == 'Vivere il comune':
+        context["id_lighthouse"] = 'live'
+    elif title == 'Argomenti':
+        context["id_lighthouse"] = "all-topics"
+        del context['mode']
+        context["title"] = "Tutti gli argomenti..."
+
+    return context
+
+
 def create_menu():
-    mocked_payload = "[{\"rootPath\": \"/\", \"items\": [{\"title\": \"Amministrazione\", \"visible\": true, \"mode\": \"simpleLink\", \"linkUrl\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/amministrazione\", \"image_scales\": null, \"image_field\": null, \"title\": \"Amministrazione\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"amministrazione\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"358963972f504c95aaf02b9a2f9bf3bd\"}], \"blocks_layout\": {\"items\": [\"98cbf210-f12f-4b5e-9feb-3c3b6d18ab46\"]}, \"blocks\": {\"98cbf210-f12f-4b5e-9feb-3c3b6d18ab46\": {\"@type\": \"text\"}}, \"navigationRoot\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/amministrazione\", \"image_scales\": null, \"image_field\": null, \"title\": \"Amministrazione\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"amministrazione\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"358963972f504c95aaf02b9a2f9bf3bd\"}], \"showMoreLink\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/amministrazione\", \"image_scales\": null, \"image_field\": null, \"title\": \"Amministrazione\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"amministrazione\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"358963972f504c95aaf02b9a2f9bf3bd\"}], \"showMoreText\": \"Vedi tutto\", \"id_lighthouse\": \"management\"}, {\"title\": \"Novit\\u00e0\", \"visible\": true, \"mode\": \"simpleLink\", \"linkUrl\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/novita\", \"image_scales\": null, \"image_field\": null, \"title\": \"Novit\\u00e0\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"novita\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"ed4e079dc3ed4abb831d4326f3eb2234\"}], \"blocks_layout\": {\"items\": [\"8fc6a0e2-610f-417a-9a46-15fe33eabdad\"]}, \"blocks\": {\"8fc6a0e2-610f-417a-9a46-15fe33eabdad\": {\"@type\": \"text\"}}, \"navigationRoot\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/novita\", \"image_scales\": null, \"image_field\": null, \"title\": \"Novit\\u00e0\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"novita\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"ed4e079dc3ed4abb831d4326f3eb2234\"}], \"showMoreLink\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/novita\", \"image_scales\": null, \"image_field\": null, \"title\": \"Novit\\u00e0\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"novita\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"ed4e079dc3ed4abb831d4326f3eb2234\"}], \"showMoreText\": \"Vedi tutto\", \"id_lighthouse\": \"news\"}, {\"title\": \"Servizi\", \"visible\": true, \"mode\": \"simpleLink\", \"linkUrl\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/servizi\", \"image_scales\": null, \"image_field\": null, \"title\": \"Servizi\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"servizi\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"b9831cfefc1d4af2a349f9e886e56b0e\"}], \"blocks_layout\": {\"items\": [\"c0f720b7-81e0-4856-b260-59cf278393e7\"]}, \"blocks\": {\"c0f720b7-81e0-4856-b260-59cf278393e7\": {\"@type\": \"text\"}}, \"navigationRoot\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/servizi\", \"image_scales\": null, \"image_field\": null, \"title\": \"Servizi\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"servizi\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"b9831cfefc1d4af2a349f9e886e56b0e\"}], \"showMoreLink\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/servizi\", \"image_scales\": null, \"image_field\": null, \"title\": \"Servizi\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"servizi\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"b9831cfefc1d4af2a349f9e886e56b0e\"}], \"showMoreText\": \"Vedi tutto\", \"id_lighthouse\": \"all-services\"}, {\"title\": \"Vivere Novellara\", \"visible\": true, \"mode\": \"simpleLink\", \"linkUrl\": [{\"@id\": \"https://comune-novellara.endor.redturtle.it/api/vivere-novellara\", \"image_scales\": null, \"image_field\": null, \"title\": \"Vivere Novellara\", \"@type\": \"Document\", \"description\": \"\", \"review_state\": \"published\", \"id\": \"vivere-novellara\", \"design_italia_meta_type\": \"Pagina\", \"UID\": \"e916fa5b556c44848518d91b8c79ff54\"}], \"blocks_layout\": {\"items\": [\"bb91a850-0820-4218-890c-2820bd6c01ed\"]}, \"blocks\": {\"bb91a850-0820-4218-890c-2820bd6c01ed\": {\"@type\": \"text\"}}, \"id_lighthouse\": \"live\"}]}]"
+    request = getRequest()
+    amministrazione = api.content.get(path="/amministrazione")
+    servizi = api.content.get(path="/servizi")
+    novita = api.content.get(path="/novita")
+    vivere = api.content.get(path="/vivere-il-comune")
+
+    items = []
+    for x in [amministrazione, novita, servizi, vivere]:
+        json_serialized = getMultiAdapter((x, request), ISerializeToJsonSummary)()
+        items.append(create_default_menu_item(context=json_serialized, obj=x))
+
+    mocked_payload = [
+        {
+            "rootPath": "/",
+            "items": items,
+        }
+    ]
+    payload = json.dumps(mocked_payload)
+    api.portal.set_registry_record(
+         "menu_configuration", payload, interface=IDropDownMenu
+    )
+
+
+def create_secondary_menu():
+    request = getRequest()
+    items = []
+    argomenti = api.content.get(path="/argomenti")
+    json_serialized = getMultiAdapter((argomenti, request), ISerializeToJsonSummary)()
+    items.append(create_default_menu_item(context=json_serialized, obj=argomenti))
+    mocked_payload = [{
+        "rootPath": "/",
+        "items": items
+    }]
+    payload = json.dumps(mocked_payload)
+    api.portal.set_registry_record(
+        "secondary_menu_configuration", payload, interface=ISecondaryMenu
+    )
