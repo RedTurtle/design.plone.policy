@@ -87,7 +87,7 @@ class SearchFiltersGet(Service):
             for brain in api.content.find(
                 portal_type="Pagina Argomento",
                 sort_on="sortable_title",
-                sort_order="ascending"
+                sort_order="ascending",
             )
         ]
         return {
