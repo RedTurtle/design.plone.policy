@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.2 (unreleased)
+4.0.2 (2023-01-30)
 ------------------
 
 - Aggiunto ordinamento per il filtro "Argomenti" nella pagina
