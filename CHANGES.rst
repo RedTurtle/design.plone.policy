@@ -4,7 +4,9 @@ Changelog
 4.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Aggiunto ordinamento per il filtro "Argomenti" nella pagina
+  di ricerca.
+  [lucabel]
 
 
 4.0.1 (2022-12-07)
