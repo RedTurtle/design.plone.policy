@@ -4,19 +4,16 @@ from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
-from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import quickInstallProduct
-from plone.restapi.testing import PloneRestApiDXLayer
 from plone.testing import z2
-from zope.globalrequest import setRequest
-from redturtle.volto.testing import (
-    RedturtleVoltoLayer,
-    RedturtleVoltoRestApiLayer
-)
+from redturtle.volto.testing import RedturtleVoltoLayer
+from redturtle.volto.testing import RedturtleVoltoRestApiLayer
 from zope.configuration import xmlconfig
+from zope.globalrequest import setRequest
 
 import collective.dexteritytextindexer
 import collective.MockMailHost
+import collective.taxonomy
 import collective.venue
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
@@ -27,7 +24,7 @@ import collective.volto.subfooter
 import collective.volto.subsites
 import design.plone.contenttypes
 import design.plone.policy
-import kitconcept.seo
+import eea.api.taxonomy
 import plone.app.caching
 import plone.app.contentlisting
 import plone.formwidget.geolocation
@@ -38,21 +35,20 @@ import redturtle.volto
 import redturtle.voltoplugin.editablefooter
 import rer.customersatisfaction
 import souper.plone
-import eea.api.taxonomy
-import collective.taxonomy
 
 
 class FauxRequest(dict):
     URL = "http://nohost"
 
+
 # TODO: dunno how to fix this
-# File "/Users/martina/progetti/docker-compose-dev/src/design.plone.policy/src/design/plone/policy/setuphandlers.py", line 58, in post_install
+# File "/Users/martina/progetti/docker-compose-dev/src/design.plone.policy/src/design/plone/policy/setuphandlers.py", line 58, in post_install # noqa
 #     create_menu()
-#   File "/Users/martina/progetti/docker-compose-dev/src/design.plone.policy/src/design/plone/policy/utils.py", line 318, in create_menu
+#   File "/Users/martina/progetti/docker-compose-dev/src/design.plone.policy/src/design/plone/policy/utils.py", line 318, in create_menu # noqa
 #     json_serialized = getMultiAdapter((x, request), ISerializeToJsonSummary)()
-#   File "/opt/buildoutcache/egg-cache/plone.restapi-8.32.4-py3.8.egg/plone/restapi/serializer/summary.py", line 91, in __call__
+#   File "/opt/buildoutcache/egg-cache/plone.restapi-8.32.4-py3.8.egg/plone/restapi/serializer/summary.py", line 91, in __call__ # noqa
 #     obj = IContentListingObject(self.context)
-# TypeError: ('Could not adapt', None, <InterfaceClass plone.app.contentlisting.interfaces.IContentListingObject>)
+# TypeError: ('Could not adapt', None, <InterfaceClass plone.app.contentlisting.interfaces.IContentListingObject>) # noqa
 class DesignPlonePolicyLayer(RedturtleVoltoLayer):
 
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
