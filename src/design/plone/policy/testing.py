@@ -41,14 +41,6 @@ class FauxRequest(dict):
     URL = "http://nohost"
 
 
-# TODO: dunno how to fix this
-# File "/Users/martina/progetti/docker-compose-dev/src/design.plone.policy/src/design/plone/policy/setuphandlers.py", line 58, in post_install # noqa
-#     create_menu()
-#   File "/Users/martina/progetti/docker-compose-dev/src/design.plone.policy/src/design/plone/policy/utils.py", line 318, in create_menu # noqa
-#     json_serialized = getMultiAdapter((x, request), ISerializeToJsonSummary)()
-#   File "/opt/buildoutcache/egg-cache/plone.restapi-8.32.4-py3.8.egg/plone/restapi/serializer/summary.py", line 91, in __call__ # noqa
-#     obj = IContentListingObject(self.context)
-# TypeError: ('Could not adapt', None, <InterfaceClass plone.app.contentlisting.interfaces.IContentListingObject>) # noqa
 class DesignPlonePolicyLayer(RedturtleVoltoLayer):
 
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
