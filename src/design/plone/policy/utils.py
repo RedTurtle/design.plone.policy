@@ -142,6 +142,37 @@ TASSONOMIA_ARGOMENTI = [
     "ZTL",
 ]
 
+TASSONOMIA_FOOTER = [
+    {
+        "title": "Leggi le FAQ",
+        "type": "CartellaFAQ",
+    },
+    {
+        "title": "Prenotazione appuntamento",
+        "type": "Pagina",
+    },
+    {
+        "title": "Segnalazione disservizio",
+        "type": "Pagina",
+    },
+    {
+        "title": "Richiesta di assistenza",
+        "type": "Pagina",
+    },
+    {
+        "title": "Amministrazione trasparente",
+        "type": "Pagina",
+    },
+    {
+        "title": "Privacy policy",
+        "type": "Pagina",
+    },
+    {
+        "title": "Note legali",
+        "type": "Pagina",
+    },
+]
+
 
 def folderSubstructureGenerator(title, types=[]):
     container = api.portal.get()
@@ -218,6 +249,14 @@ def create_default_blocks(context):
 
 
 def create_footer():
+    container = api.portal.get()
+    # Generate needed pages
+    for obj in TASSONOMIA_FOOTER:
+        api.content.create(
+            container=container,
+            type=obj.get("type", "Pagina"),
+            title=obj.get("title", "Titolo")
+        )
     # Mocked up payload with generic structure
     mocked_payload = [{
         "items": [
@@ -237,7 +276,7 @@ def create_footer():
                 "newsletterSubscribe": False,
                 "showSocial": False,
                 "text": {
-                    "data": "<ul keys=\"696me,24qcs,6j5h0,f4p0j\" depth=\"0\"><li><a data-element=\"faq\" href=\"/leggi-le-faq\">Leggi le FAQ</a></li><li><a href=\"/faq\" target=\"_blank\" rel=\"noopener noreferrer\" data-element=\"appointment-booking\">Prenotazione appuntamento</a></li><li><a data-element=\"report-inefficiency\" href=\"/segnalazione-disservizio\">Segnalazione disservizio</a></li><li><a href=\"/richiedi-assistenza\">Richiesta d&#x27;assistenza</a></li></ul>" # noqa
+                    "data": "<ul keys=\"696me,24qcs,6j5h0,f4p0j\" depth=\"0\"><li><a data-element=\"faq\" href=\"/leggi-le-faq\">Leggi le FAQ</a></li><li><a href=\"/prenotazione-appuntamento\" target=\"_blank\" rel=\"noopener noreferrer\" data-element=\"appointment-booking\">Prenotazione appuntamento</a></li><li><a data-element=\"report-inefficiency\" href=\"/segnalazione-disservizio\">Segnalazione disservizio</a></li><li><a href=\"/richiesta-di-assistenza\">Richiesta d&#x27;assistenza</a></li></ul>" # noqa
                 },
                 "titleLink": [],
                 "visible": True
