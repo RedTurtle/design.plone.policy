@@ -44,3 +44,4 @@ reports/
 !.travis.yml
 !src/design
 .history
+.DS_Store

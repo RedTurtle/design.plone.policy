@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from collective.volto.subsites.interfaces import IVoltoSubsitesSettings
 from design.plone.contenttypes.controlpanels.settings import IDesignPloneSettings
+from design.plone.policy.utils import create_menu
+from design.plone.policy.utils import create_secondary_menu
 from design.plone.policy.utils import folderSubstructureGenerator
+from design.plone.policy.utils import TASSONOMIA_PRIMO_LIVELLO
 from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces import INonInstallable
@@ -25,20 +28,25 @@ class HiddenProfiles(object):
 
 def post_install(context):
     """Post install script"""
-    folderSubstructureGenerator(title="Amministrazione")
-    folderSubstructureGenerator(title="Servizi")
-    folderSubstructureGenerator(title="Novità")
-    folderSubstructureGenerator(title="Documenti e dati")
-    folderSubstructureGenerator(title="Argomenti", types=["Pagina Argomento"])
+    for x in TASSONOMIA_PRIMO_LIVELLO:
+        types = []
+        if x == "Argomenti":
+            types = ["Pagina Argomento"]
+            folderSubstructureGenerator(title="Argomenti", types=types)
+        else:
+            folderSubstructureGenerator(
+                title=x,
+            )
 
     # set default search folders
-    section_ids = ["amministrazione", "servizi", "novita", "documenti-e-dati"]
+    section_ids = ["amministrazione", "servizi", "novita", "vivere-il-comune"]
     sections = []
     portal = api.portal.get()
     for id in section_ids:
         item = portal.get(id, None)
         if item:
             sections.append({"title": item.title, "linkUrl": [item.UID()]})
+
     settings = [{"rootPath": "/", "items": sections}]
     api.portal.set_registry_record(
         "search_sections",
@@ -48,6 +56,9 @@ def post_install(context):
 
     disable_searchable_types()
     set_default_subsite_colors()
+    # create_footer()
+    create_menu()
+    create_secondary_menu()
 
 
 def disable_searchable_types():
