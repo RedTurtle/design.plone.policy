@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 from collective.volto.subsites.interfaces import IVoltoSubsitesSettings
 from design.plone.contenttypes.controlpanels.settings import IDesignPloneSettings
-from design.plone.policy.utils import (
-    folderSubstructureGenerator,
-    create_footer,
-    create_menu,
-    create_secondary_menu,
-    TASSONOMIA_PRIMO_LIVELLO,
-)
+from design.plone.policy.utils import create_footer
+from design.plone.policy.utils import create_menu
+from design.plone.policy.utils import create_secondary_menu
+from design.plone.policy.utils import folderSubstructureGenerator
+from design.plone.policy.utils import TASSONOMIA_PRIMO_LIVELLO
 from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces import INonInstallable
@@ -33,9 +31,9 @@ def post_install(context):
     """Post install script"""
     for x in TASSONOMIA_PRIMO_LIVELLO:
         types = []
-        if x == 'Argomenti':
+        if x == "Argomenti":
             types = ["Pagina Argomento"]
-        folderSubstructureGenerator(title="Argomenti", types=types)
+        folderSubstructureGenerator(title=x, types=types)
 
     # set default search folders
     section_ids = ["amministrazione", "servizi", "novita", "vivere-il-comune"]
@@ -54,7 +52,7 @@ def post_install(context):
 
     disable_searchable_types()
     set_default_subsite_colors()
-    # create_footer()
+    create_footer()
     create_menu()
     create_secondary_menu()
 

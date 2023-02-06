@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from plone.i18n.normalizer.interfaces import IIDNormalizer
-from Products.CMFPlone.interfaces import ISelectableConstrainTypes
-from uuid import uuid4
-from zope.component import getUtility
 from collective.volto.dropdownmenu.interfaces import IDropDownMenu
 from collective.volto.secondarymenu.interfaces import ISecondaryMenu
-from redturtle.voltoplugin.editablefooter.interfaces import (
-    IEditableFooterSettings,
-)
+from collective.volto.subfooter.interfaces import ISubfooter
+from plone import api
+from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.restapi.interfaces import ISerializeToJsonSummary
+from Products.CMFPlone.interfaces import ISelectableConstrainTypes
+from redturtle.voltoplugin.editablefooter.interfaces import IEditableFooterSettings
+from uuid import uuid4
 from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.globalrequest import getRequest
 
 import json
+import time
 
 
 TASSONOMIA_PRIMO_LIVELLO = [
@@ -21,7 +21,7 @@ TASSONOMIA_PRIMO_LIVELLO = [
     "Servizi",
     "Novità",
     "Vivere il comune",
-    "Argomenti"
+    "Argomenti",
 ]
 
 TASSONOMIA_SERVIZI = [
@@ -66,10 +66,7 @@ TASSONOMIA_AMMINISTRAZIONE = [
     "Documenti e dati",
 ]
 
-TASSONOMIA_VIVERE_IL_COMUNE = [
-    "Luoghi",
-    "Eventi"
-]
+TASSONOMIA_VIVERE_IL_COMUNE = ["Luoghi", "Eventi"]
 
 TASSONOMIA_ORGANI_GOVERNO = [
     "Giunta comunale",
@@ -143,33 +140,29 @@ TASSONOMIA_ARGOMENTI = [
 ]
 
 TASSONOMIA_FOOTER = [
-    {
-        "title": "Leggi le FAQ",
-        "type": "CartellaFAQ",
-    },
+    {"title": "Leggi le FAQ", "type": "FaqFolder", "data-element": "faq"},
     {
         "title": "Prenotazione appuntamento",
-        "type": "Pagina",
+        "type": "Document",
+        "data-element": "appointment-bookin",
     },
     {
         "title": "Segnalazione disservizio",
-        "type": "Pagina",
+        "type": "Document",
+        "data-element": "report-inefficiency",
     },
+    {"title": "Richiesta di assistenza", "type": "Document"},
+    {"title": "Amministrazione trasparente", "type": "Document"},
     {
-        "title": "Richiesta di assistenza",
-        "type": "Pagina",
+        "title": "Informativa privacy",
+        "type": "Document",
+        "data-element": "privacy-policy-link",
     },
+    {"title": "Note legali", "type": "Document"},
     {
-        "title": "Amministrazione trasparente",
-        "type": "Pagina",
-    },
-    {
-        "title": "Privacy policy",
-        "type": "Pagina",
-    },
-    {
-        "title": "Note legali",
-        "type": "Pagina",
+        "title": "Dichiarazione di accessiblità",
+        "type": "Link",
+        "data-element": "accessibility-link",
     },
 ]
 
@@ -214,17 +207,13 @@ def folderSubstructureGenerator(title, types=[]):
             if ta == "Documenti e dati":
                 for tdd in TASSONOMIA_DOCUMENTI:
                     grandchild = api.content.create(
-                        container=tree_root,
-                        type="Document",
-                        title=tdd
+                        container=tree_root, type="Document", title=tdd
                     )
                     create_default_blocks(context=grandchild)
-            elif ta == 'Organi di governo':
+            elif ta == "Organi di governo":
                 for tog in TASSONOMIA_ORGANI_GOVERNO:
                     grandchild = api.content.create(
-                        container=tree_root,
-                        type="Document",
-                        title=tog
+                        container=tree_root, type="Document", title=tog
                     )
                     create_default_blocks(context=grandchild)
 
@@ -251,64 +240,113 @@ def create_default_blocks(context):
 def create_footer():
     container = api.portal.get()
     # Generate needed pages
-    for obj in TASSONOMIA_FOOTER:
-        api.content.create(
+    for item in TASSONOMIA_FOOTER:
+        obj = api.content.create(
             container=container,
-            type=obj.get("type", "Pagina"),
-            title=obj.get("title", "Titolo")
+            type=item.get("type", "Pagina"),
+            title=item.get("title", "Titolo"),
         )
-    # Mocked up payload with generic structure
-    mocked_payload = [{
-        "items": [
+        api.content.transition(obj=obj, transition="publish")
+        item["path"] = f"/{obj.getId()}"
+
+    # generate the payload for settings
+    payload_items = [
+        {
+            "id": str(int(time.time() * 1000)) + "1",
+            "newsletterSubscribe": False,
+            "showSocial": False,
+            "text": {"data": "<p><br/></p>"},
+            "title": "Contatti",
+            "titleLink": [],
+            "visible": True,
+        }
+    ]
+    markup = ""
+    for item in TASSONOMIA_FOOTER[: len(TASSONOMIA_FOOTER) // 2]:
+        if "data-element" in item:
+            markup += '<li><a data-element="{}" href="{}">{}</a></li>'.format(
+                item.get("data-element"), item.get("path"), item.get("title")
+            )
+        else:
+            markup += '<li><a href="{}">{}</a></li>'.format(
+                item.get("path"), item.get("title")
+            )
+    text = '<ul keys="696me,24qcs,6j5h0,f4p0j">{}</ul>'.format(markup)
+    payload_items.append(
+        {
+            "id": str(int(time.time() * 1000)) + "2",
+            "newsletterSubscribe": False,
+            "showSocial": False,
+            "text": {"data": text},
+            "titleLink": [],
+            "visible": True,
+        }
+    )
+
+    markup = ""
+    for item in TASSONOMIA_FOOTER[len(TASSONOMIA_FOOTER) // 2 :]:
+        if "data-element" in item:
+            markup += '<li><a data-element="{}" href="{}">{}</a></li>'.format(
+                item.get("data-element"), item.get("path"), item.get("title")
+            )
+        else:
+            markup += '<li><a href="{}">{}</a></li>'.format(
+                item.get("path"), item.get("title")
+            )
+    text = '<ul keys="at8uf,f1h7r,d22s9,6lou">{}</ul>'.format(markup)
+    payload_items.extend(
+        [
             {
-                "id": 1643103855592,
+                "id": str(int(time.time() * 1000)) + "3",
                 "newsletterSubscribe": False,
                 "showSocial": False,
-                "text": {
-                    "data": "<p>Comune di Nome Comune</p><p>Via Roma 123 - 00100 Comune</p><p>Codice fiscale / P.IVA:000123456789</p><p><br/></p><p>Ufficio Relazioni con il Pubblico</p><p>Numero verde: 800 016 123</p><p>SMS e WhatsApp: +39 320 1234567</p><p>Posta Elettronica Certificata</p><p>Centralino unico: 012 3456</p>"
-                },
-                "title": "Contatti",
+                "text": {"data": text},
                 "titleLink": [],
-                "visible": True
+                "visible": True,
             },
             {
-                "id": 1673961753495,
-                "newsletterSubscribe": False,
-                "showSocial": False,
-                "text": {
-                    "data": "<ul keys=\"696me,24qcs,6j5h0,f4p0j\" depth=\"0\"><li><a data-element=\"faq\" href=\"/leggi-le-faq\">Leggi le FAQ</a></li><li><a href=\"/prenotazione-appuntamento\" target=\"_blank\" rel=\"noopener noreferrer\" data-element=\"appointment-booking\">Prenotazione appuntamento</a></li><li><a data-element=\"report-inefficiency\" href=\"/segnalazione-disservizio\">Segnalazione disservizio</a></li><li><a href=\"/richiesta-di-assistenza\">Richiesta d&#x27;assistenza</a></li></ul>" # noqa
-                },
-                "titleLink": [],
-                "visible": True
-            },
-            {
-                "id": 1673962265420,
-                "newsletterSubscribe": False,
-                "showSocial": False,
-                "text": {
-                    "data": "<ul keys=\"at8uf,f1h7r,d22s9,6lou\" depth=\"0\"><li><a href=\"/amministrazione-trasparente\">Amministrazione trasparente</a></li><li><a data-element=\"privacy-policy-link\" href=\"/privacy-policy\">Informativa privacy</a></li><li>Note legali</li><li><a href=\"https://form.agid.gov.it/view/b3a483ab-9bc7-4cee-8faa-be91ca045ab5/\" target=\"_blank\" rel=\"noopener noreferrer\" data-element=\"accessibility-link\">Dichiarazione di accessibità</a></li></ul>"
-                },
-                "titleLink": [],
-                "visible": True
-            },
-            {
-                "id": 1643104715618,
+                "id": str(int(time.time() * 1000)) + "4",
                 "newsletterSubscribe": False,
                 "showSocial": True,
-                "text": {
-                    "data": "<p><br/></p>"
-                },
+                "text": {"data": "<p><br/></p>"},
                 "title": "Seguici su",
                 "titleLink": [],
-                "visible": True
-            }
-        ],
-        "rootPath": "/"
-    }]
+                "visible": True,
+            },
+        ]
+    )
+    payload = [{"items": payload_items, "rootPath": "/"}]
 
-    payload = json.dumps(mocked_payload)
+    payload = json.dumps(payload)
     api.portal.set_registry_record(
         "footer_columns", payload, interface=IEditableFooterSettings
+    )
+
+    # generate content for subfooter
+    # Generate needed pages
+    obj = api.content.create(
+        container=container,
+        type="Document",
+        title="Media Policy",
+    )
+
+    payload = json.dumps(
+        [
+            {
+                "rootPath": "/",
+                "items": [
+                    {
+                        "title": "Media Policy",
+                        "visible": True,
+                        "href": f"/{obj.getId()}",
+                    },
+                    {"title": "Sitemap", "visible": True, "href": "/sitemap"},
+                ],
+            }
+        ]
+    )
+    api.portal.set_registry_record(
+        "subfooter_configuration", payload, interface=ISubfooter
     )
 
 
@@ -319,27 +357,27 @@ def create_default_menu_item(context, obj):
     context["blocks_layout"] = {"items": [title_uuid]}
     context["blocks"] = {title_uuid: {"@type": "text"}}
     context["title"] = title
-    context["mode"] = 'simpleLink'
+    context["mode"] = "simpleLink"
     context["visible"] = True
     context["linkUrl"] = [uid]
-    if title == 'Amministrazione':
-        context["id_lighthouse"] = 'management'
-        context["showMoreText"] = 'Vedi tutto'
+    if title == "Amministrazione":
+        context["id_lighthouse"] = "management"
+        context["showMoreText"] = "Vedi tutto"
         context["navigationRoot"] = [uid]
         context["showMoreLink"] = [uid]
-    elif title == 'Servizi':
-        context["id_lighthouse"] = 'all-services'
+    elif title == "Servizi":
+        context["id_lighthouse"] = "all-services"
         context["navigationRoot"] = [uid]
         context["showMoreLink"] = [uid]
-    elif title == 'Novità':
-        context["id_lighthouse"] = 'news'
+    elif title == "Novità":
+        context["id_lighthouse"] = "news"
         context["navigationRoot"] = [uid]
         context["showMoreLink"] = [uid]
-    elif title == 'Vivere il comune':
-        context["id_lighthouse"] = 'live'
-    elif title == 'Argomenti':
+    elif title == "Vivere il comune":
+        context["id_lighthouse"] = "live"
+    elif title == "Argomenti":
         context["id_lighthouse"] = "all-topics"
-        del context['mode']
+        del context["mode"]
         context["title"] = "Tutti gli argomenti..."
 
     return context
@@ -365,7 +403,7 @@ def create_menu():
     ]
     payload = json.dumps(mocked_payload)
     api.portal.set_registry_record(
-         "menu_configuration", payload, interface=IDropDownMenu
+        "menu_configuration", payload, interface=IDropDownMenu
     )
 
 
@@ -375,10 +413,7 @@ def create_secondary_menu():
     argomenti = api.content.get(path="/argomenti")
     json_serialized = getMultiAdapter((argomenti, request), ISerializeToJsonSummary)()
     items.append(create_default_menu_item(context=json_serialized, obj=argomenti))
-    mocked_payload = [{
-        "rootPath": "/",
-        "items": items
-    }]
+    mocked_payload = [{"rootPath": "/", "items": items}]
     payload = json.dumps(mocked_payload)
     api.portal.set_registry_record(
         "secondary_menu_configuration", payload, interface=ISecondaryMenu

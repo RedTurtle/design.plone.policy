@@ -8,15 +8,14 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import quickInstallProduct
 from plone.restapi.testing import PloneRestApiDXLayer
 from plone.testing import z2
-from zope.globalrequest import setRequest
-from redturtle.volto.testing import (
-    RedturtleVoltoLayer,
-    RedturtleVoltoRestApiLayer
-)
+from redturtle.volto.testing import RedturtleVoltoLayer
+from redturtle.volto.testing import RedturtleVoltoRestApiLayer
 from zope.configuration import xmlconfig
+from zope.globalrequest import setRequest
 
 import collective.dexteritytextindexer
 import collective.MockMailHost
+import collective.taxonomy
 import collective.venue
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
@@ -27,6 +26,7 @@ import collective.volto.subfooter
 import collective.volto.subsites
 import design.plone.contenttypes
 import design.plone.policy
+import eea.api.taxonomy
 import kitconcept.seo
 import plone.app.caching
 import plone.app.contentlisting
@@ -38,12 +38,11 @@ import redturtle.volto
 import redturtle.voltoplugin.editablefooter
 import rer.customersatisfaction
 import souper.plone
-import eea.api.taxonomy
-import collective.taxonomy
 
 
 class FauxRequest(dict):
     URL = "http://nohost"
+
 
 # TODO: dunno how to fix this
 # File "/Users/martina/progetti/docker-compose-dev/src/design.plone.policy/src/design/plone/policy/setuphandlers.py", line 58, in post_install
