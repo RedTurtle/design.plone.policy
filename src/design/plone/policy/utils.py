@@ -247,6 +247,12 @@ def create_footer():
         )
         api.content.transition(obj=obj, transition="publish")
         item["path"] = f"/{obj.getId()}"
+        obj.exclude_from_nav = True
+        if obj.portal_type == "FaqFolder":
+            setattr(obj, "icon", None)
+            obj.reindexObject()
+        if obj.portal_type == "Link":
+            setattr(obj, "remoteUrl", "")
 
     # generate the payload for settings
     payload_items = [
