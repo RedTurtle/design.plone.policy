@@ -25,21 +25,21 @@ TASSONOMIA_PRIMO_LIVELLO = [
 ]
 
 TASSONOMIA_SERVIZI = [
-    "Anagrafe e stato civile",
-    "Cultura e tempo libero",
-    "Vita lavorativa",
-    "Catasto e urbanistica",
-    "Turismo",
-    "Mobilità e trasporti",
     "Educazione e formazione",
+    "Salute, benessere e assistenza",
+    "Vita lavorativa",
+    "Mobilità e trasporti",
+    "Catasto e urbanistica",
+    "Anagrafe e stato civile",
+    "Turismo",
     "Giustizia e sicurezza pubblica",
     "Tributi, finanze e contravvenzioni",
+    "Cultura e tempo libero",
     "Ambiente",
-    "Salute, benessere e assistenza",
-    "Autorizzazioni",
-    "Agricoltura e pesca",
     "Imprese e commercio",
+    "Autorizzazioni",
     "Appalti pubblici",
+    "Agricoltura e pesca",
 ]
 
 TASSONOMIA_DOCUMENTI = [
@@ -55,7 +55,7 @@ TASSONOMIA_DOCUMENTI = [
     "Dataset",
 ]
 
-TASSONOMIA_NEWS = ["Notizie", "Comunicati (stampa)", "Avvisi"]
+TASSONOMIA_NEWS = ["Notizie", "Comunicati", "Avvisi"]
 TASSONOMIA_AMMINISTRAZIONE = [
     "Organi di governo",
     "Aree amministrative",
@@ -334,6 +334,8 @@ def create_footer():
         type="Document",
         title="Media Policy",
     )
+    obj.exclude_from_nav = True
+    obj.reindexObject()
 
     payload = json.dumps(
         [
