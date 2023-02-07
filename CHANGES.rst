@@ -4,7 +4,8 @@ Changelog
 5.0.0a3 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Upgrade footer initialization
+  [lucabel]
 
 
 5.0.0a2 (2023-01-13)

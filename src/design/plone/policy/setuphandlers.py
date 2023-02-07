@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from collective.volto.subsites.interfaces import IVoltoSubsitesSettings
 from design.plone.contenttypes.controlpanels.settings import IDesignPloneSettings
+from design.plone.policy.utils import create_footer
 from design.plone.policy.utils import create_menu
 from design.plone.policy.utils import create_secondary_menu
 from design.plone.policy.utils import folderSubstructureGenerator
@@ -56,7 +57,7 @@ def post_install(context):
 
     disable_searchable_types()
     set_default_subsite_colors()
-    # create_footer()
+    create_footer()
     create_menu()
     create_secondary_menu()
 
