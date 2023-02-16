@@ -32,6 +32,14 @@ Changelog
   [deodorhunter, lucabek, eikichi18]
 
 
+4.0.2 (2023-01-30)
+------------------
+
+- Aggiunto ordinamento per il filtro "Argomenti" nella pagina
+  di ricerca.
+  [lucabel]
+
+
 4.0.1 (2022-12-07)
 ------------------
 
