@@ -6,6 +6,8 @@ Changelog
 
 - Upgrade footer initialization
   [lucabel]
+- Add collective.feedback to setup.py
+  [eikichi18]
 
 
 5.0.0a2 (2023-01-13)

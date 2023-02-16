@@ -53,6 +53,7 @@ setup(
         "setuptools",
         "redturtle.volto",
         "design.plone.contenttypes",
+        "collective.feedback",
         "collective.volto.dropdownmenu",
         "collective.volto.formsupport[honeypot]",
         "collective.volto.secondarymenu",
