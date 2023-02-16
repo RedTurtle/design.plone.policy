@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a3 (unreleased)
+5.0.0a3 (2023-02-16)
 --------------------
 
 - Upgrade footer initialization
