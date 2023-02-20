@@ -31,7 +31,6 @@ def _feed_cachekey(method, self, query):
 @implementer(IPublishTraverse)
 class TwitterFeedGet(Service):
     def reply(self):
-
         token = api.portal.get_registry_record(
             "twitter_token", interface=IDesignPlonePolicySettings
         )

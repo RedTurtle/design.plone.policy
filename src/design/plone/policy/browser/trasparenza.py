@@ -9,7 +9,6 @@ from uuid import uuid4
 from zope.component import queryUtility
 from zope.interface import alsoProvides
 
-
 import logging
 
 
@@ -47,7 +46,6 @@ class CreaTrasparenza(BrowserView):
 
 
 def _createObjects(parent, children):
-
     wftool = getToolByName(parent, "portal_workflow")
 
     for new_obj in children:

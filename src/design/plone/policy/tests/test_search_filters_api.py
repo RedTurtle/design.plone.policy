@@ -15,7 +15,6 @@ import unittest
 
 
 class SearchFiltersAPITest(unittest.TestCase):
-
     layer = DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING
 
     def setUp(self):
@@ -61,7 +60,6 @@ class SearchFiltersAPITest(unittest.TestCase):
         self.assertEqual(response["topics"], [])
 
     def test_endpoint_return_list_of_topics_based_on_roles(self):
-
         api.content.create(
             container=self.portal, type="Pagina Argomento", title="private topic"
         )

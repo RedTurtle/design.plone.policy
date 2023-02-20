@@ -54,7 +54,6 @@ class FauxRequest(dict):
 # TypeError: ('Could not adapt', None,
 # <InterfaceClass plone.app.contentlisting.interfaces.IContentListingObject>)
 class DesignPlonePolicyLayer(RedturtleVoltoLayer):
-
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
@@ -125,7 +124,6 @@ DESIGN_PLONE_POLICY_ACCEPTANCE_TESTING = FunctionalTesting(
 
 
 class DesignPlonePolicyRestApiLayer(RedturtleVoltoRestApiLayer):
-
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):

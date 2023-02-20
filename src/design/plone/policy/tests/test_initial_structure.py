@@ -15,7 +15,6 @@ import unittest
 
 # TODO: rework tests
 class TestInitialStructureCreation(unittest.TestCase):
-
     layer = DESIGN_PLONE_POLICY_INTEGRATION_TESTING
 
     def setUp(self):
@@ -64,7 +63,6 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.check_initial_blocks(child)
 
     def test_servizi_section(self):
-
         servizi = self.portal["servizi"]
         self.assertEqual(
             servizi.keys(),
@@ -76,7 +74,6 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.check_initial_blocks(child)
 
     def test_novita_section(self):
-
         folder = self.portal["novita"]
         self.assertEqual(
             folder.keys(), [self.normalize_ids(x) for x in TASSONOMIA_NEWS]
@@ -87,7 +84,6 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.check_initial_blocks(child)
 
     def test_documenti_e_dati_section(self):
-
         folder = self.portal["documenti-e-dati"]
         self.assertEqual(
             folder.keys(),

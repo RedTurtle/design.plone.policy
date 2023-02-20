@@ -15,7 +15,6 @@ import unittest
 
 
 class BandiSearchFiltersAPITest(unittest.TestCase):
-
     layer = DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING
 
     def setUp(self):
