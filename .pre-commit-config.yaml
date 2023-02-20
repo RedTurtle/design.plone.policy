@@ -29,7 +29,7 @@ repos:
         entry: flake8
         additional_dependencies: ["flake8-django==0.0.4", "pylint-django==2.0.11"]
         types: [python]
-        args: ["--max-complexity=30", "--max-line-length=88", "--ignore=DJ01,DJ08,W503,ANN101", "--exclude=docs/*", "src/", "setup.py"]
+        args: ["--max-complexity=30", "--max-line-length=88", "--ignore=E203,DJ01,DJ08,W503,ANN101", "--exclude=docs/*", "src/", "setup.py"]
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1
     hooks:
