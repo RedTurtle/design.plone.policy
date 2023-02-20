@@ -4,7 +4,9 @@ Changelog
 5.0.0a4 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Upgrade script to generate first and second level menu
+  due to a couple of typo
+  [lucabel]
 
 
 5.0.0a3 (2023-02-16)
