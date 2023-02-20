@@ -36,6 +36,13 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.check_initial_blocks(child)
 
     def test_first_level_created(self):
+        no_blocks = [
+            'prenotazione-appuntamento',
+            'segnalazione-disservizio',
+            'richiesta-di-assistenza',
+            'amministrazione-trasparente',
+            'informativa-privacy',
+            'note-legali', 'media-policy']
         for child in self.portal.listFolderContents():
             if child.id == 'leggi-le-faq':
                 self.assertEqual(child.portal_type, "FaqFolder")
@@ -43,13 +50,7 @@ class TestInitialStructureCreation(unittest.TestCase):
                 self.assertEqual(child.portal_type, "Link")
             else:
                 self.assertEqual(child.portal_type, "Document")
-                if child.id not in [
-                    'prenotazione-appuntamento',
-                    'segnalazione-disservizio',
-                    'richiesta-di-assistenza',
-                    'amministrazione-trasparente',
-                    'informativa-privacy',
-                    'note-legali', 'media-policy']:
+                if child.id not in no_blocks:
                     self.assertEqual(len(child.blocks.values()), 1)
                     self.assertEqual(len(child.blocks_layout["items"]), 1)
 
