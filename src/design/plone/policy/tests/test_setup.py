@@ -78,7 +78,6 @@ class TestSetup(unittest.TestCase):
 
 
 class TestUninstall(unittest.TestCase):
-
     layer = DESIGN_PLONE_POLICY_INTEGRATION_TESTING
 
     def setUp(self):

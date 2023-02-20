@@ -4,8 +4,8 @@ Changelog
 4.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix test dependencies.
+  [cekk]
 
 4.0.2 (2023-01-30)
 ------------------
