@@ -9,10 +9,11 @@ from plone.app.testing import quickInstallProduct
 from plone.restapi.testing import PloneRestApiDXLayer
 from plone.testing import z2
 from zope.globalrequest import setRequest
+from design.plone.contenttypes.testing import DesignPloneContenttypesLayer
+from design.plone.contenttypes.testing import DesignPloneContenttypesRestApiLayer
 
 import collective.dexteritytextindexer
 import collective.MockMailHost
-import collective.venue
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
 import collective.volto.formsupport
@@ -22,12 +23,6 @@ import collective.volto.subfooter
 import collective.volto.subsites
 import design.plone.contenttypes
 import design.plone.policy
-import kitconcept.seo
-import plone.app.caching
-import plone.formwidget.geolocation
-import plone.restapi
-import redturtle.bandi
-import redturtle.volto
 import redturtle.voltoplugin.editablefooter
 import rer.customersatisfaction
 import souper.plone
@@ -38,32 +33,21 @@ class FauxRequest(dict):
     URL = "http://nohost"
 
 
-class DesignPlonePolicyLayer(PloneSandboxLayer):
-
-    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
-
+class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
     def setUpZope(self, app, configurationContext):
         # Load any other ZCML that is required for your tests.
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
 
+        super().setUpZope(app, configurationContext)
+        self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=collective.volto.formsupport)
-        self.loadZCML(package=collective.venue)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
         self.loadZCML(package=collective.volto.secondarymenu)
         self.loadZCML(package=collective.volto.socialsettings)
         self.loadZCML(package=collective.volto.subsites)
-        self.loadZCML(package=design.plone.contenttypes)
-        self.loadZCML(package=design.plone.policy)
-        self.loadZCML(package=kitconcept.seo)
-        self.loadZCML(package=plone.app.caching)
-        self.loadZCML(package=plone.formwidget.geolocation)
-        self.loadZCML(package=plone.restapi)
-        self.loadZCML(package=redturtle.bandi)
-        self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
-        self.loadZCML(package=collective.dexteritytextindexer)
         self.loadZCML(package=collective.volto.subfooter)
         self.loadZCML(package=rer.customersatisfaction)
         self.loadZCML(package=souper.plone)
@@ -101,35 +85,25 @@ DESIGN_PLONE_POLICY_ACCEPTANCE_TESTING = FunctionalTesting(
 )
 
 
-class DesignPlonePolicyRestApiLayer(PloneRestApiDXLayer):
+class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
 
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
-        super(DesignPlonePolicyRestApiLayer, self).setUpZope(app, configurationContext)
+        super().setUpZope(app, configurationContext)
 
-        self.loadZCML(package=collective.dexteritytextindexer)
-        self.loadZCML(package=collective.MockMailHost)
-        self.loadZCML(package=collective.venue)
+        self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
-        self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.volto.secondarymenu)
         self.loadZCML(package=collective.volto.socialsettings)
-        self.loadZCML(package=collective.volto.subfooter)
         self.loadZCML(package=collective.volto.subsites)
-        self.loadZCML(package=design.plone.contenttypes)
-        self.loadZCML(package=design.plone.policy)
-        self.loadZCML(package=kitconcept.seo)
-        self.loadZCML(package=plone.app.caching)
-        self.loadZCML(package=plone.formwidget.geolocation)
-        self.loadZCML(package=plone.restapi)
-        self.loadZCML(package=redturtle.bandi)
-        self.loadZCML(package=redturtle.faq)
-        self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
+        self.loadZCML(package=collective.volto.subfooter)
         self.loadZCML(package=rer.customersatisfaction)
         self.loadZCML(package=souper.plone)
+        self.loadZCML(package=redturtle.faq)
 
     def setUpPloneSite(self, portal):
         request = FauxRequest()
