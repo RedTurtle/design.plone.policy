@@ -84,7 +84,6 @@ DESIGN_PLONE_POLICY_ACCEPTANCE_TESTING = FunctionalTesting(
 
 
 class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
-
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
