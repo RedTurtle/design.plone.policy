@@ -20,7 +20,7 @@ TASSONOMIA_PRIMO_LIVELLO = [
     "Amministrazione",
     "Novità",
     "Servizi",
-    "Vivere il comune",
+    "Vivere il Comune",
     "Argomenti",
 ]
 
@@ -190,7 +190,7 @@ def folderSubstructureGenerator(title, types=[]):
         for ts in TASSONOMIA_SERVIZI:
             child = api.content.create(container=tree_root, type="Document", title=ts)
             create_default_blocks(context=child)
-    elif title == "Vivere il comune":
+    elif title == "Vivere il Comune":
         for td in TASSONOMIA_VIVERE_IL_COMUNE:
             child = api.content.create(container=tree_root, type="Document", title=td)
             create_default_blocks(context=child)
@@ -380,7 +380,7 @@ def create_default_menu_item(context, obj):
         context["id_lighthouse"] = "news"
         context["navigationRoot"] = [uid]
         context["showMoreLink"] = [uid]
-    elif title == "Vivere il comune":
+    elif title == "Vivere il Comune":
         context["id_lighthouse"] = "live"
     elif title == "Argomenti":
         context["id_lighthouse"] = "all-topics"
