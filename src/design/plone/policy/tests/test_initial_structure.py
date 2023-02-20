@@ -107,4 +107,3 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.assertEqual(len(child.blocks.values()), 1)
             self.assertEqual(len(child.blocks_layout["items"]), 1)
 
-
