@@ -18,8 +18,8 @@ import time
 
 TASSONOMIA_PRIMO_LIVELLO = [
     "Amministrazione",
-    "Servizi",
     "Novità",
+    "Servizi",
     "Vivere il comune",
     "Argomenti",
 ]
