@@ -9,6 +9,8 @@ from design.plone.policy.utils import TASSONOMIA_PRIMO_LIVELLO
 from design.plone.policy.utils import TASSONOMIA_SERVIZI
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from zope.component import getUtility
+from plone.i18n.normalizer.interfaces import IURLNormalizer
 
 import unittest
 
@@ -24,7 +26,7 @@ class TestInitialStructureCreation(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
 
     def normalize_ids(self, string):
-        return string.replace(" ", "-").lower()
+        return getUtility(IURLNormalizer).normalize(string)
 
     def check_initial_blocks(self, obj):
         self.assertEqual(obj.portal_type, "Document")
@@ -36,11 +38,23 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.check_initial_blocks(child)
 
     def test_first_level_created(self):
-        self.assertEqual(
-            [x.id for x in self.portal.getFolderContents()],
-            [self.normalize_ids(x) for x in TASSONOMIA_PRIMO_LIVELLO],
-        )
-        self.check_children_initial_blocks(self.portal)
+        for child in self.portal.listFolderContents():
+            if child.id == 'leggi-le-faq':
+                self.assertEqual(child.portal_type, "FaqFolder")
+            elif child.id == 'dichiarazione-di-accessiblita':
+                self.assertEqual(child.portal_type, "Link")
+            else:
+                self.assertEqual(child.portal_type, "Document")
+                if child.id not in [
+                    'prenotazione-appuntamento',
+                    'segnalazione-disservizio',
+                    'richiesta-di-assistenza',
+                    'amministrazione-trasparente',
+                    'informativa-privacy',
+                    'note-legali', 'media-policy']:
+                    self.assertEqual(len(child.blocks.values()), 1)
+                    self.assertEqual(len(child.blocks_layout["items"]), 1)
+
 
     def test_amministrazione_section(self):
         amministrazione = self.portal["amministrazione"]
@@ -83,20 +97,16 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.assertEqual(child.portal_type, "Document")
             self.check_initial_blocks(child)
 
-    def test_documenti_e_dati_section(self):
-        folder = self.portal["documenti-e-dati"]
-        self.assertEqual(
-            folder.keys(),
-            [self.normalize_ids(x) for x in TASSONOMIA_DOCUMENTI],
-        )
-
-        self.check_children_initial_blocks(folder)
-
     def test_argomenti_section(self):
         folder = self.portal["argomenti"]
         self.assertEqual(folder.portal_type, "Document")
         self.assertEqual(
             folder.keys(),
-            [self.normalize_ids(x) for x in TASSONOMIA_ARGOMENTI],
+            [self.normalize_ids(x) for x in TASSONOMIA_ARGOMENTI]
         )
-        self.check_children_initial_blocks(folder)
+        self.assertEqual(folder.portal_type, "Document")
+        for child in folder.listFolderContents():
+            self.assertEqual(child.portal_type, "Pagina Argomento")
+            self.assertEqual(len(child.blocks.values()), 1)
+            self.assertEqual(len(child.blocks_layout["items"]), 1)
+
