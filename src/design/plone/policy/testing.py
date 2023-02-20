@@ -6,9 +6,6 @@ from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import quickInstallProduct
 from plone.testing import z2
-from redturtle.volto.testing import RedturtleVoltoLayer
-from redturtle.volto.testing import RedturtleVoltoRestApiLayer
-from zope.configuration import xmlconfig
 from zope.globalrequest import setRequest
 from design.plone.contenttypes.testing import DesignPloneContenttypesLayer
 from design.plone.contenttypes.testing import DesignPloneContenttypesRestApiLayer
