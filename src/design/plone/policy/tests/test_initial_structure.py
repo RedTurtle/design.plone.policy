@@ -53,7 +53,6 @@ class TestInitialStructureCreation(unittest.TestCase):
                     self.assertEqual(len(child.blocks.values()), 1)
                     self.assertEqual(len(child.blocks_layout["items"]), 1)
 
-
     def test_amministrazione_section(self):
         amministrazione = self.portal["amministrazione"]
         self.assertEqual(
@@ -107,4 +106,5 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.assertEqual(child.portal_type, "Pagina Argomento")
             self.assertEqual(len(child.blocks.values()), 1)
             self.assertEqual(len(child.blocks_layout["items"]), 1)
+
 
