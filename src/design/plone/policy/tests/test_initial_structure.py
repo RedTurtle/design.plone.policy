@@ -7,8 +7,8 @@ from design.plone.policy.utils import TASSONOMIA_ORGANI_GOVERNO
 from design.plone.policy.utils import TASSONOMIA_SERVIZI
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from zope.component import getUtility
 from plone.i18n.normalizer.interfaces import IURLNormalizer
+from zope.component import getUtility
 
 import unittest
 
@@ -37,16 +37,18 @@ class TestInitialStructureCreation(unittest.TestCase):
 
     def test_first_level_created(self):
         no_blocks = [
-            'prenotazione-appuntamento',
-            'segnalazione-disservizio',
-            'richiesta-di-assistenza',
-            'amministrazione-trasparente',
-            'informativa-privacy',
-            'note-legali', 'media-policy']
+            "prenotazione-appuntamento",
+            "segnalazione-disservizio",
+            "richiesta-di-assistenza",
+            "amministrazione-trasparente",
+            "informativa-privacy",
+            "note-legali",
+            "media-policy",
+        ]
         for child in self.portal.listFolderContents():
-            if child.id == 'leggi-le-faq':
+            if child.id == "leggi-le-faq":
                 self.assertEqual(child.portal_type, "FaqFolder")
-            elif child.id == 'dichiarazione-di-accessiblita':
+            elif child.id == "dichiarazione-di-accessiblita":
                 self.assertEqual(child.portal_type, "Link")
             else:
                 self.assertEqual(child.portal_type, "Document")
@@ -99,8 +101,7 @@ class TestInitialStructureCreation(unittest.TestCase):
         folder = self.portal["argomenti"]
         self.assertEqual(folder.portal_type, "Document")
         self.assertEqual(
-            folder.keys(),
-            [self.normalize_ids(x) for x in TASSONOMIA_ARGOMENTI]
+            folder.keys(), [self.normalize_ids(x) for x in TASSONOMIA_ARGOMENTI]
         )
         self.assertEqual(folder.portal_type, "Document")
         for child in folder.listFolderContents():

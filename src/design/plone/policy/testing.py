@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from design.plone.contenttypes.testing import DesignPloneContenttypesLayer
+from design.plone.contenttypes.testing import DesignPloneContenttypesRestApiLayer
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
@@ -7,10 +9,7 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import quickInstallProduct
 from plone.testing import z2
 from zope.globalrequest import setRequest
-from design.plone.contenttypes.testing import DesignPloneContenttypesLayer
-from design.plone.contenttypes.testing import DesignPloneContenttypesRestApiLayer
 
-import collective.z3cform.datagridfield
 import collective.MockMailHost
 import collective.taxonomy
 import collective.volto.cookieconsent
@@ -20,6 +19,7 @@ import collective.volto.secondarymenu
 import collective.volto.socialsettings
 import collective.volto.subfooter
 import collective.volto.subsites
+import collective.z3cform.datagridfield
 import design.plone.contenttypes
 import design.plone.policy
 import eea.api.taxonomy
@@ -34,7 +34,6 @@ class FauxRequest(dict):
 
 
 class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
-
     def setUpZope(self, app, configurationContext):
         # Load any other ZCML that is required for your tests.
         # The z3c.autoinclude feature is disabled in the Plone fixture base
