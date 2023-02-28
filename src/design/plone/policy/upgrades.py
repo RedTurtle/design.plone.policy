@@ -315,3 +315,16 @@ def to_3000(context):
         "profile-design.plone.contenttypes:default", dest="7001", quiet=False
     )
     update_folders_name_for_pnrr(context)
+
+
+def to_3001(context):
+    # run design.plone.contenttypes steps
+    context.upgradeProfile(
+        "profile-design.plone.contenttypes:default", dest="7008", quiet=False
+    )
+    context.runImportStepFromProfile(
+        "profile-design.plone.contenttypes:default",
+        "plone.app.registry",
+        run_dependencies=False,
+    )
+    installOrReinstallProduct(api.portal.get(), "collective.feedback")
