@@ -64,6 +64,7 @@ setup(
         "redturtle.voltoplugin.editablefooter",
         "redturtle.faq",
         "redturtle.rssservice",
+        "collective.feedback",
     ],
     extras_require={
         "test": [
