@@ -4,7 +4,10 @@ Changelog
 5.0.0a5 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Update upgrade scripts to call design.plone.contenttypes
+  upgrade steps to version 7008
+  Install collective.feedback when install design.plone.policy
+  [lucabel]
 
 
 5.0.0a4 (2023-02-20)
