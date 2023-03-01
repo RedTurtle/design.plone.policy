@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a5 (unreleased)
+5.0.0a5 (2023-03-01)
 --------------------
 
 - Update upgrade scripts to call design.plone.contenttypes
