@@ -30,7 +30,6 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
         self.api_session.auth = (SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
 
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-
         intids = getUtility(IIntIds)
         self.uo_public_1 = api.content.create(
             container=self.portal, type="UnitaOrganizzativa", title="UO 1"
