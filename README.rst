@@ -4,13 +4,29 @@ Design Plone Policy
 
 Pacchetto di policy per un sito Plone AGID.
 
-[![Latest Version](https://img.shields.io/pypi/v/design.plone.policy.svg)](https://pypi.python.org/pypi/design.plone.policy/)
-[![Supported - Python Versions](https://img.shields.io/pypi/pyversions/design.plone.policy.svg?style=plastic)](https://pypi.python.org/pypi/design.plone.policy/)
-[![Number of PyPI downloads](https://img.shields.io/pypi/dm/design.plone.policy.svg)](https://pypi.python.org/pypi/design.plone.policy/)
-[![License](https://img.shields.io/pypi/l/design.plone.policy.svg)](https://pypi.python.org/pypi/design.plone.policy/)
-[![Tests](https://github.com/collective/design.plone.policy/actions/workflows/tests.yml/badge.svg)](https://github.com/collective/design.plone.policy/actions)
-[![Coverage](https://coveralls.io/repos/github/collective/design.plone.policy/badge.svg?branch=master)](https:
+.. image:: https://img.shields.io/pypi/v/design.plone.policy.svg
+    :target: https://pypi.org/project/design.plone.policy/
+    :alt: Latest Version
 
+.. image:: https://img.shields.io/pypi/pyversions/design.plone.policy.svg?style=plastic
+    :target: https://pypi.org/project/design.plone.policy/
+    :alt: Supported - Python Versions
+
+.. image:: https://img.shields.io/pypi/dm/design.plone.policy.svg
+    :target: https://pypi.org/project/design.plone.policy/
+    :alt: Number of PyPI downloads
+
+.. image:: https://img.shields.io/pypi/l/design.plone.policy.svg
+    :target: https://pypi.org/project/design.plone.policy/
+    :alt: License
+
+.. image:: https://github.com/collective/design.plone.policy/actions/workflows/tests.yml/badge.svg
+    :target: https://github.com/collective/design.plone.policy/actions
+    :alt: Tests
+
+.. image:: https://coveralls.io/repos/github/collective/design.plone.policy/badge.svg?branch=master
+    :target: https://coveralls.io/github/collective/design.plone.policy?branch=master
+    :alt: Coverage
 
 Features
 ========
