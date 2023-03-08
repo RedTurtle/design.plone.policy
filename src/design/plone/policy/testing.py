@@ -11,6 +11,7 @@ from plone.testing import z2
 from zope.globalrequest import setRequest
 
 import collective.MockMailHost
+import collective.feedback
 import collective.taxonomy
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
@@ -40,8 +41,8 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
         # layer.
 
         super().setUpZope(app, configurationContext)
-        self.loadZCML(package=collective.z3cform.datagridfield)
         self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=collective.feedback)
         self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
@@ -61,10 +62,6 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
         super().setUpPloneSite(portal)
         request = portal.REQUEST
         setRequest(request)
-        applyProfile(portal, "collective.z3cform.datagridfield:default")
-        applyProfile(portal, "plone.app.caching:default")
-        applyProfile(portal, "collective.taxonomy:default")
-        applyProfile(portal, "eea.api.taxonomy:default")
         applyProfile(portal, "design.plone.policy:default")
 
 
@@ -100,6 +97,7 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
         super().setUpZope(app, configurationContext)
         self.loadZCML(package=collective.z3cform.datagridfield)
         self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=collective.feedback)
         self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
@@ -121,12 +119,7 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
         super().setUpPloneSite(portal)
         request = portal.REQUEST
         setRequest(request)
-        applyProfile(portal, "collective.z3cform.datagridfield:default")
-        applyProfile(portal, "plone.app.caching:default")
         applyProfile(portal, "design.plone.policy:default")
-        quickInstallProduct(portal, "collective.MockMailHost")
-        applyProfile(portal, "eea.api.taxonomy:default")
-        applyProfile(portal, "collective.taxonomy:default")
 
 
 DESIGN_PLONE_POLICY_API_FIXTURE = DesignPlonePolicyRestApiLayer()
