@@ -27,7 +27,7 @@ jobs:
           cp test_plone${{ matrix.plone }}.cfg buildout.cfg
       - name: Install buildout
         run: |
-          buildout -N -t 3 -vvvv code-analysis:return-status-codes=True
+          buildout -N -t 3 code-analysis:return-status-codes=True
       - name: Run tests
         run: |
           bin/test-coverage
