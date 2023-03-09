@@ -20,12 +20,12 @@ Pacchetto di policy per un sito Plone AGID.
     :target: https://pypi.org/project/design.plone.policy/
     :alt: License
 
-.. image:: https://github.com/collective/design.plone.policy/actions/workflows/tests.yml/badge.svg
-    :target: https://github.com/collective/design.plone.policy/actions
+.. image:: https://github.com/RedTurtle/design.plone.policy/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/RedTurtle/design.plone.policy/actions
     :alt: Tests
 
-.. image:: https://coveralls.io/repos/github/collective/design.plone.policy/badge.svg?branch=master
-    :target: https://coveralls.io/github/collective/design.plone.policy?branch=master
+.. image:: https://coveralls.io/repos/github/RedTurtle/design.plone.policy/badge.svg?branch=master
+    :target: https://coveralls.io/github/RedTurtle/design.plone.policy?branch=master
     :alt: Coverage
 
 Features
