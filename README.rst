@@ -40,6 +40,12 @@ All'installazione di questo prodotto, oltre che l'installazione di tutte le dipe
 viene anche eseguita la creazione in automatico di una serie di cartelle utili per la
 gestione dei contenuti richiesta da Agid.
 
+Compatibilità
+=============
+
+* Plone 6.0 => design.plone.policy 5.*
+* Plone 5.2 => design.plone.policy 4.*
+
 Tipi ricercabili
 ================
 
