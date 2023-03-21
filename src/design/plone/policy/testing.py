@@ -9,8 +9,8 @@ from plone.app.testing import IntegrationTesting
 from plone.testing import z2
 from zope.globalrequest import setRequest
 
-import collective.MockMailHost
 import collective.feedback
+import collective.MockMailHost
 import collective.taxonomy
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
@@ -94,6 +94,7 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
 
     def setUpZope(self, app, configurationContext):
         super().setUpZope(app, configurationContext)
+
         self.loadZCML(package=collective.z3cform.datagridfield)
         self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=collective.feedback)
@@ -113,6 +114,7 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
         self.loadZCML(package=plone.app.contentlisting)
         self.loadZCML(package=redturtle.faq)
         self.loadZCML(package=souper.plone)
+        self.loadZCML(package=redturtle.faq)
 
     def setUpPloneSite(self, portal):
         super().setUpPloneSite(portal)

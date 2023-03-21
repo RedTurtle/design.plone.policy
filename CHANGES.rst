@@ -4,8 +4,8 @@ Changelog
 5.0.0a6 (unreleased)
 --------------------
 
-- Nothing changed yet.
-
+- Fix test dependencies.
+  [cekk]
 
 5.0.0a5 (2023-03-01)
 --------------------
