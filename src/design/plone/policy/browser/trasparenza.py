@@ -1,15 +1,16 @@
-from Products.Five.browser import BrowserView
-from Products.CMFCore.WorkflowCore import WorkflowException
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import _createObjectByType
-from zope.component import queryUtility
+from design.plone.policy.browser.config import STRUTTURA
 from plone.i18n.normalizer.interfaces import IURLNormalizer
 from plone.protect.interfaces import IDisableCSRFProtection
-from zope.interface import alsoProvides
-from design.plone.policy.browser.config import STRUTTURA
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.WorkflowCore import WorkflowException
+from Products.CMFPlone.utils import _createObjectByType
+from Products.Five.browser import BrowserView
 from uuid import uuid4
+from zope.component import queryUtility
+from zope.interface import alsoProvides
 
 import logging
+
 
 logger = logging.getLogger("trasparenza")
 

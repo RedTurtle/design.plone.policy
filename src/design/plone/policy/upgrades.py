@@ -14,8 +14,9 @@ from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from zope.component import getUtility
 from zope.schema import getFields
 
-import logging
 import json
+import logging
+
 
 logger = logging.getLogger(__name__)
 
@@ -191,11 +192,18 @@ def to_2000(context):  # noqa: C901
 
     # fix root
     portal = api.portal.get()
-    portal_blocks = json.loads(portal.blocks)
-    res = fix_block(portal_blocks)
-    if res:
-        forms.append("site root")
-        portal.blocks = json.dumps(portal_blocks)
+    try:
+        portal_blocks = json.loads(portal.blocks)
+        res = fix_block(portal_blocks)
+        if res:
+            forms.append("site root")
+            portal.blocks = json.dumps(portal_blocks)
+    except TypeError:
+        # This happens when the site was already Plone 6
+        # and the blocks field is already a dictionary.
+        # Since it's Plone 6, the site root will be in the catalog query below,
+        # so just skip this step.
+        pass
 
     # fix blocks in contents
     pc = api.portal.get_tool(name="portal_catalog")
@@ -241,3 +249,82 @@ def to_2010(context):
     registry = getUtility(IRegistry)
     settings = registry.forInterface(IFilterSchema, prefix="plone")
     settings.custom_attributes = settings.custom_attributes + ["data-element"]
+
+
+def update_folders(context, CHANGES=[], NEW_ITEMS=[]):
+    GREEN = "\033[92m"
+    ENDC = "\033[0m"
+    RED = "\033[91m"
+
+    portal = api.portal.get()
+    portal_name = portal.getId()
+    for item in CHANGES:
+        try:
+            folder = portal.restrictedTraverse("{}{}".format(portal_name, item))
+            old_title = folder.title
+            old_path = "/".join(folder.getPhysicalPath())
+            api.content.rename(obj=folder, new_id=CHANGES[item][1])
+            folder.title = CHANGES[item][0]
+            # folder.reindexObject(idx=['id', 'title', 'getId', 'SearchableText'])
+            # Who know the exact number of index we need to update?
+            folder.reindexObject()
+            logger.info(
+                "{} Modificato {} ({}) in {} {}".format(
+                    GREEN, old_title, old_path, folder.title, ENDC
+                )
+            )
+        except KeyError:
+            logger.info("{} Impossibile modificare {}{}".format(RED, item, ENDC))
+
+    for item in NEW_ITEMS:
+        folder = portal.restrictedTraverse("{}{}".format(portal_name, item[0]))
+        if item[2] not in folder:
+            new = api.content.create(
+                type="Document", id=item[2], title=item[1], container=folder
+            )
+            logger.info(
+                "{} Creato {} in {} {}".format(
+                    GREEN, item[1], "/".join(new.getPhysicalPath()), ENDC
+                )
+            )
+        else:
+            logger.info(
+                "{} {} esiste già in {} {}".format(
+                    RED, item[1], "/".join(folder.getPhysicalPath()), ENDC
+                )
+            )
+
+
+def update_folders_name_for_pnrr(context):
+    CHANGES = {
+        "/servizi/tributi-e-finanze": (
+            "Tributi, finanze e contravvenzioni",
+            "tributi-finanze-e-contravvenzioni",
+        ),
+        "/servizi/agricoltura": ("Agricoltura e pesca", "agricoltura-e-pesca"),
+    }
+    NEW_ITEMS = [
+        ("/servizi", "Imprese e commercio", "imprese-e-commercio"),
+    ]
+    update_folders(context, CHANGES, NEW_ITEMS)
+
+
+def to_3000(context):
+    # run design.plone.contenttypes steps
+    context.upgradeProfile(
+        "profile-design.plone.contenttypes:default", dest="7001", quiet=False
+    )
+    update_folders_name_for_pnrr(context)
+
+
+def to_3001(context):
+    # run design.plone.contenttypes steps
+    context.upgradeProfile(
+        "profile-design.plone.contenttypes:default", dest="7008", quiet=False
+    )
+    context.runImportStepFromProfile(
+        "profile-design.plone.contenttypes:default",
+        "plone.app.registry",
+        run_dependencies=False,
+    )
+    installOrReinstallProduct(api.portal.get(), "collective.feedback")

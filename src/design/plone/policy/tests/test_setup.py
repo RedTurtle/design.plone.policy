@@ -10,7 +10,6 @@ from Products.CMFPlone.interfaces import ISiteSchema
 from Products.CMFPlone.interfaces.controlpanel import INavigationSchema
 from zope.component import getUtility
 
-
 import unittest
 
 
@@ -88,12 +87,12 @@ class TestUninstall(unittest.TestCase):
             self.installer = api.portal.get_tool("portal_quickinstaller")
         roles_before = api.user.get_roles(TEST_USER_ID)
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-        self.installer.uninstallProducts(["design.plone.policy"])
+        self.installer.uninstall_product("design.plone.policy")
         setRoles(self.portal, TEST_USER_ID, roles_before)
 
     def test_product_uninstalled(self):
         """Test if design.plone.policy is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled("design.plone.policy"))
+        self.assertFalse(self.installer.is_product_installed("design.plone.policy"))
 
     def test_browserlayer_removed(self):
         """Test that IDesignPlonePolicyLayer is removed."""

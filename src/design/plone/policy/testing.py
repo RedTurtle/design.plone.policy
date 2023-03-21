@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
+from design.plone.contenttypes.testing import DesignPloneContenttypesLayer
+from design.plone.contenttypes.testing import DesignPloneContenttypesRestApiLayer
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
-from plone.app.testing import quickInstallProduct
 from plone.testing import z2
 from zope.globalrequest import setRequest
 from design.plone.contenttypes.testing import DesignPloneContenttypesLayer
 from design.plone.contenttypes.testing import DesignPloneContenttypesRestApiLayer
 
-import collective.dexteritytextindexer
 import collective.MockMailHost
+import collective.feedback
+import collective.taxonomy
 import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
 import collective.volto.formsupport
@@ -19,12 +21,14 @@ import collective.volto.secondarymenu
 import collective.volto.socialsettings
 import collective.volto.subfooter
 import collective.volto.subsites
+import collective.z3cform.datagridfield
 import design.plone.contenttypes
 import design.plone.policy
-import redturtle.voltoplugin.editablefooter
-import rer.customersatisfaction
-import souper.plone
+import eea.api.taxonomy
+import plone.app.contentlisting
 import redturtle.faq
+import redturtle.voltoplugin.editablefooter
+import souper.plone
 
 
 class FauxRequest(dict):
@@ -39,6 +43,7 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
 
         super().setUpZope(app, configurationContext)
         self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=collective.feedback)
         self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
@@ -47,14 +52,17 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
         self.loadZCML(package=collective.volto.subfooter)
-        self.loadZCML(package=rer.customersatisfaction)
+        self.loadZCML(package=collective.taxonomy)
+        self.loadZCML(package=eea.api.taxonomy)
+        self.loadZCML(name="overrides.zcml", package=design.plone.contenttypes)
+        self.loadZCML(package=plone.app.contentlisting)
         self.loadZCML(package=souper.plone)
         self.loadZCML(package=redturtle.faq)
 
     def setUpPloneSite(self, portal):
-        request = FauxRequest()
+        super().setUpPloneSite(portal)
+        request = portal.REQUEST
         setRequest(request)
-        applyProfile(portal, "plone.app.caching:default")
         applyProfile(portal, "design.plone.policy:default")
 
 
@@ -88,8 +96,10 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
 
     def setUpZope(self, app, configurationContext):
         super().setUpZope(app, configurationContext)
-
+        
+        self.loadZCML(package=collective.z3cform.datagridfield)
         self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=collective.feedback)
         self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
@@ -98,17 +108,21 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
         self.loadZCML(package=collective.volto.subfooter)
-        self.loadZCML(package=rer.customersatisfaction)
+        self.loadZCML(package=redturtle.volto)
+        self.loadZCML(package=collective.taxonomy)
+        self.loadZCML(package=eea.api.taxonomy)
+        self.loadZCML(name="overrides.zcml", package=design.plone.contenttypes)
+        self.loadZCML(package=design.plone.policy)
+        self.loadZCML(package=plone.app.contentlisting)
+        self.loadZCML(package=redturtle.faq)
         self.loadZCML(package=souper.plone)
         self.loadZCML(package=redturtle.faq)
 
     def setUpPloneSite(self, portal):
-        request = FauxRequest()
+        super().setUpPloneSite(portal)
+        request = portal.REQUEST
         setRequest(request)
-        applyProfile(portal, "plone.app.caching:default")
         applyProfile(portal, "design.plone.policy:default")
-        quickInstallProduct(portal, "collective.MockMailHost")
-        applyProfile(portal, "collective.MockMailHost:default")
 
 
 DESIGN_PLONE_POLICY_API_FIXTURE = DesignPlonePolicyRestApiLayer()

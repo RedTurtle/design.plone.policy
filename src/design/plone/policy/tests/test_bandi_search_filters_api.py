@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
-from design.plone.policy.testing import (
-    DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING,
-)
+from design.plone.policy.testing import DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING
+from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.app.testing import TEST_USER_ID
 from plone.restapi.testing import RelativeSession
-from zope.component import getUtility
 from transaction import commit
 from z3c.relationfield import RelationValue
+from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
-from plone import api
 
 import unittest
 
@@ -32,7 +30,6 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
         self.api_session.auth = (SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
 
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-
         intids = getUtility(IIntIds)
         self.uo_public_1 = api.content.create(
             container=self.portal, type="UnitaOrganizzativa", title="UO 1"

@@ -1,11 +1,53 @@
 Changelog
 =========
 
-4.0.3 (unreleased)
-------------------
+5.0.0a6 (unreleased)
+--------------------
 
 - Fix test dependencies.
   [cekk]
+
+5.0.0a5 (2023-03-01)
+--------------------
+
+- Update upgrade scripts to call design.plone.contenttypes
+  upgrade steps to version 7008
+  Install collective.feedback when install design.plone.policy
+  [lucabel]
+
+
+5.0.0a4 (2023-02-20)
+--------------------
+
+- Upgrade script to generate first and second level menu
+  due to a couple of typo
+  [lucabel]
+
+
+5.0.0a3 (2023-02-16)
+--------------------
+
+- Upgrade footer initialization
+  [lucabel]
+- Add collective.feedback to setup.py
+  [eikichi18]
+
+
+5.0.0a2 (2023-01-13)
+--------------------
+
+- Upgrades for new AGID AI
+  [lucabel]
+
+
+5.0.0a1 (2023-01-12)
+--------------------
+
+- remove collective.dexteritytextindexer dependency.
+  [cekk]
+- adjustments to the pnrr.
+  [deodorhunter, lucabek, eikichi18]
+
 
 4.0.2 (2023-01-30)
 ------------------

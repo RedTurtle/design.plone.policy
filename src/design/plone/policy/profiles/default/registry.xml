@@ -1,40 +1,49 @@
-<?xml version="1.0"?>
-<registry
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="design.plone.policy">
+<?xml version="1.0" encoding="utf-8"?>
+<registry xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="design.plone.policy"
+>
 
-    <records interface="design.plone.policy.interfaces.IDesignPlonePolicySettings"/>
+  <records interface="design.plone.policy.interfaces.IDesignPlonePolicySettings" />
 
-    <record name="plone.show_excluded_items"
-            interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema"
-            field="show_excluded_items" purge="False">
-        <value>False</value>
-    </record>
+  <record field="show_excluded_items"
+          interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema"
+          name="plone.show_excluded_items"
+          purge="False"
+  >
+    <value>False</value>
+  </record>
 
-    <record name="plone.enable_sitemap">
-        <value>True</value>
-    </record>
+  <record name="plone.enable_sitemap">
+    <value>True</value>
+  </record>
 
-    <record name="plone.allowed_sizes" interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema" field="allowed_sizes">
-      <value purge="true">
-        <element>listing 16:16</element>
-        <element>icon 32:32</element>
-        <element>tile 64:64</element>
-        <element>thumb 128:65536</element>
-        <element>mini 200:65536</element>
-        <element>midi 300:65536</element>
-        <element>preview 400:65536</element>
-        <element>teaser 600:65536</element>
-        <element>large 800:65536</element>
-        <element>larger 1000:65536</element>
-        <element>great 1200:65536</element>
-        <element>huge 1600:65536</element>
-      </value>
-    </record>
+  <record field="allowed_sizes"
+          interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema"
+          name="plone.allowed_sizes"
+  >
+    <value purge="true">
+      <element>listing 16:16</element>
+      <element>icon 32:32</element>
+      <element>tile 64:64</element>
+      <element>thumb 128:65536</element>
+      <element>mini 200:65536</element>
+      <element>midi 300:65536</element>
+      <element>preview 400:65536</element>
+      <element>teaser 600:65536</element>
+      <element>large 800:65536</element>
+      <element>larger 1000:65536</element>
+      <element>great 1200:65536</element>
+      <element>huge 1600:65536</element>
+    </value>
+  </record>
 
-    <records interface="Products.CMFPlone.interfaces.controlpanel.IFilterSchema" prefix="plone">
-      <value key="custom_attributes" purge="false">
-        <element>data-element</element>
-      </value>
-    </records>
+  <records interface="Products.CMFPlone.interfaces.controlpanel.IFilterSchema"
+           prefix="plone"
+  >
+    <value key="custom_attributes"
+           purge="false"
+    >
+      <element>data-element</element>
+    </value>
+  </records>
 </registry>

@@ -2,6 +2,7 @@
 pyvenv.cfg
 .python-version
 .coverage
+coverage.json
 *.egg-info
 *.log
 *.mo
@@ -31,6 +32,7 @@ log.html
 output.xml
 pip-selfcheck.json
 report.html
+.idea/
 .vscode/
 .tox/
 reports/
@@ -42,3 +44,5 @@ reports/
 !.gitkeep
 !.travis.yml
 !src/design
+.history
+.DS_Store

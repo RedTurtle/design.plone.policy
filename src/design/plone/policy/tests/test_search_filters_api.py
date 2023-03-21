@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from design.plone.policy.testing import (
-    DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING,
-)
+from design.plone.policy.testing import DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import SITE_OWNER_NAME
@@ -53,13 +51,13 @@ class SearchFiltersAPITest(unittest.TestCase):
         self.assertEqual("Amministrazione", sections[0]["items"][0]["title"])
         self.assertEqual("Servizi", sections[0]["items"][1]["title"])
         self.assertEqual("Novità", sections[0]["items"][2]["title"])
-        self.assertEqual("Documenti e dati", sections[0]["items"][3]["title"])
+        self.assertEqual("Vivere il Comune", sections[0]["items"][3]["title"])
 
     def test_endpoint_return_list_of_topics_empty_if_no_topics(self):
         response = self.api_session.get("/@search-filters").json()
 
         self.assertIn("topics", response)
-        self.assertEqual(response["topics"], [])
+        self.assertEqual(len(response["topics"]), 62)
 
     def test_endpoint_return_list_of_topics_based_on_roles(self):
         api.content.create(
@@ -73,7 +71,7 @@ class SearchFiltersAPITest(unittest.TestCase):
 
         response = self.api_session.get("/@search-filters").json()
         self.assertIn("topics", response)
-        self.assertEqual(len(response["topics"]), 2)
+        self.assertEqual(len(response["topics"]), 64)
 
         response = self.api_session_anon.get("/@search-filters").json()
 

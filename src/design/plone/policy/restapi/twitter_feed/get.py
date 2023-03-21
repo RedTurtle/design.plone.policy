@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from copy import deepcopy
+from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from plone import api
 from plone.memoize import ram
 from plone.restapi.search.utils import unflatten_dotted_dict
@@ -8,11 +9,11 @@ from time import time
 from urllib.parse import urlencode
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
-from design.plone.policy.interfaces import IDesignPlonePolicySettings
 
 import logging
 import requests
 import six
+
 
 logger = logging.getLogger(__name__)
 ENDPOINT = "https://api.twitter.com/2/tweets/search/recent"

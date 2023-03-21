@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <metadata>
-  <version>2010</version>
+  <version>3001</version>
   <dependencies>
     <dependency>profile-plone.restapi:default</dependency>
     <dependency>profile-design.plone.contenttypes:default</dependency>
@@ -12,7 +12,8 @@
     <dependency>profile-redturtle.voltoplugin.editablefooter:default</dependency>
     <dependency>profile-collective.volto.formsupport:default</dependency>
     <dependency>profile-collective.volto.subfooter:default</dependency>
-    <dependency>profile-rer.customersatisfaction:default</dependency>
+    <dependency>profile-eea.api.taxonomy:default</dependency>
     <dependency>profile-redturtle.faq:default</dependency>
+    <dependency>profile-collective.feedback:default</dependency>
   </dependencies>
 </metadata>
