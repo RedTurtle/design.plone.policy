@@ -53,7 +53,7 @@ setup(
     install_requires=[
         "setuptools",
         "redturtle.volto",
-        "design.plone.contenttypes",
+        "design.plone.contenttypes>=6.0.0.dev0",
         "collective.feedback",
         "collective.volto.dropdownmenu",
         "collective.volto.formsupport[honeypot]",

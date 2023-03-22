@@ -43,8 +43,8 @@ gestione dei contenuti richiesta da Agid.
 Compatibilità
 =============
 
-* Plone 6.0 => design.plone.policy 5.*
-* Plone 5.2 => design.plone.policy 4.*
+* Plone 6.0, design.plone.policy 5.*, design.plone.contenttypes 6.*
+* Plone 5.2, design.plone.policy 4.*, design.plone.contenttypes 5.*
 
 Tipi ricercabili
 ================
