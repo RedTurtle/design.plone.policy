@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a6 (unreleased)
+5.0.0 (unreleased)
 --------------------
 
 - Fix test dependencies.
