@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.0.0 (unreleased)
---------------------
+5.0.0 (2023-03-24)
+------------------
 
 - Fix test dependencies.
   [cekk]
