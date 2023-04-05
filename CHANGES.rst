@@ -4,7 +4,8 @@ Changelog
 5.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Customize Access inactive portal content permission.
+  [cekk]
 
 
 5.0.0 (2023-03-24)
