@@ -6,6 +6,8 @@ Changelog
 
 - Fix test dependencies.
   [cekk]
+- Customize Access inactive portal content permission.
+  [cekk]
 
 4.0.2 (2023-01-30)
 ------------------
