@@ -223,6 +223,14 @@ Vocabolari per gli anonimi
 
 In questo prodotto aggiungiamo quelli che servono per io-comune.
 
+
+Access inactive portal content
+==============================
+
+**redturtle.volto** personalizza questo ruolo per permettere ad utenti redazioniali di accedere a contenuti
+con data di pubblicazione nel futuro o scaduti (di base quel permesso ce l'hanno solo gli admin).
+
+
 Installazione
 =============
 
