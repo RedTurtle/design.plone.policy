@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.3 (unreleased)
+4.0.3 (2023-04-05)
 ------------------
 
 - Fix test dependencies.
