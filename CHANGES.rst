@@ -4,7 +4,8 @@ Changelog
 5.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Customize Access inactive portal content permission to allow access these contents also for not manager users.
+  [cekk]
 
 
 5.0.0 (2023-03-24)
