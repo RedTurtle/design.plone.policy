@@ -144,7 +144,7 @@ TASSONOMIA_FOOTER = [
     {
         "title": "Prenotazione appuntamento",
         "type": "Document",
-        "data-element": "appointment-bookin",
+        "data-element": "appointment-booking",
     },
     {
         "title": "Segnalazione disservizio",
