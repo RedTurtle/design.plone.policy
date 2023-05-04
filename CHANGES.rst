@@ -4,6 +4,8 @@ Changelog
 5.0.1 (unreleased)
 ------------------
 
+- Add X-ForceAuth header and iw.rejectanonymous
+  [mamico]
 - Customize Access inactive portal content permission to allow access these contents also for not manager users.
   [cekk]
 

@@ -65,6 +65,7 @@ setup(
         "redturtle.voltoplugin.editablefooter",
         "redturtle.faq",
         "redturtle.rssservice",
+        "iw.rejectanonymous",
     ],
     extras_require={
         "test": [
@@ -81,7 +82,5 @@ setup(
     entry_points="""
     [z3c.autoinclude.plugin]
     target = plone
-    [console_scripts]
-    update_locale = design.plone.policy.locales.update:update_locale
     """,
 )
