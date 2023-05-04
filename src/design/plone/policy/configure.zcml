@@ -43,4 +43,10 @@
       name="design.plone.policy-hiddenprofiles"
       />
 
+  <subscriber
+      handler=".rejectanonymous.insertRejectAnonymousHook"
+      for="Products.CMFCore.interfaces.ISiteRoot
+          zope.traversing.interfaces.IBeforeTraverseEvent"
+  />
+
 </configure>
