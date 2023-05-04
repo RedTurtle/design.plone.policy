@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.1 (unreleased)
+5.0.1 (2023-05-04)
 ------------------
 
 - Add X-ForceAuth header and iw.rejectanonymous
