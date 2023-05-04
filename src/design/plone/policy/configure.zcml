@@ -44,9 +44,9 @@
       />
 
   <subscriber
-      handler=".rejectanonymous.insertRejectAnonymousHook"
       for="Products.CMFCore.interfaces.ISiteRoot
-          zope.traversing.interfaces.IBeforeTraverseEvent"
-  />
+           zope.traversing.interfaces.IBeforeTraverseEvent"
+      handler=".rejectanonymous.insertRejectAnonymousHook"
+      />
 
 </configure>
