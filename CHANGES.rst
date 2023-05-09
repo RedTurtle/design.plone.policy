@@ -4,7 +4,8 @@ Changelog
 5.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix setuphandlers' utils for robotframework
+  [mamico]
 
 
 5.0.1 (2023-05-04)

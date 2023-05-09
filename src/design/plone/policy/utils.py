@@ -399,7 +399,9 @@ def create_menu():
 
     items = []
     for x in [amministrazione, novita, servizi, vivere]:
-        json_serialized = getMultiAdapter((x, request), ISerializeToJsonSummary)()
+        json_serialized = getMultiAdapter(
+            (x, request or x.REQUEST), ISerializeToJsonSummary
+        )()
         items.append(create_default_menu_item(context=json_serialized, obj=x))
 
     mocked_payload = [
@@ -418,7 +420,9 @@ def create_secondary_menu():
     request = getRequest()
     items = []
     argomenti = api.content.get(path="/argomenti")
-    json_serialized = getMultiAdapter((argomenti, request), ISerializeToJsonSummary)()
+    json_serialized = getMultiAdapter(
+        (argomenti, request or argomenti.REQUEST), ISerializeToJsonSummary
+    )()
     items.append(create_default_menu_item(context=json_serialized, obj=argomenti))
     mocked_payload = [{"rootPath": "/", "items": items}]
     payload = json.dumps(mocked_payload)
