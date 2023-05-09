@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.2 (unreleased)
+5.0.2 (2023-05-09)
 ------------------
 
 - Fix setuphandlers' utils for robotframework
