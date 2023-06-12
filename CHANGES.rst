@@ -4,7 +4,10 @@ Changelog
 5.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix creation script: now set default blocks and blocks_layout.
+  [cekk]
+- Upgrade-step to fix all contents with broken blocks_layout.
+  [cekk]
 
 
 5.0.2 (2023-05-09)

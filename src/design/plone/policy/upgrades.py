@@ -334,21 +334,34 @@ def to_3001(context):
 
 
 def to_3100(context):
-    for tassonomia in TASSONOMIA_FOOTER:
-        brains = api.content.find(
-            title=tassonomia["title"], object_provides=IBlocks.__identifier__
-        )
-        for brain in brains:
-            item = brain.getObject().aq_inner
-            blocks = getattr(item, "blocks", {})
-            blocks_layout = getattr(item, "blocks_layout", {})
-            if blocks and not blocks_layout:
-                # case where document has been created without blocks, and has been modified
-                item.blocks_layout = {"items": [x for x in blocks.keys()]}
-                logger.info(
-                    f"[{brain.getPath()}] - Add blocks_layout from blocks keys. Check order."
-                )
-                continue
-            if not blocks and not blocks_layout:
-                create_default_blocks(item)
-                logger.info(f"[{brain.getPath()}] - Add default blocks.")
+    already_modified = []
+    not_modified = []
+    brains = api.content.find(object_provides=IBlocks.__identifier__)
+    tot = len(brains)
+    i = 0
+    for brain in brains:
+        i += 1
+        if i % 1000 == 0:
+            logger.info(f"Progress: {i}/{tot}")
+        item = brain.getObject().aq_base
+        blocks = getattr(item, "blocks", {})
+        blocks_layout = getattr(item, "blocks_layout", {})
+
+        if blocks and blocks_layout == {"items": []}:
+            # case where document has been created without blocks, and has been modified
+            item.blocks_layout = {"items": [x for x in blocks.keys()]}
+            already_modified.append(brain.getPath())
+            continue
+        if not blocks and blocks_layout == {"items": []}:
+            create_default_blocks(item)
+            not_modified.append(brain.getPath())
+
+    if already_modified:
+        logger.info("### Items that were already modified ###")
+        for i, path in enumerate(already_modified):
+            logger.info(f"[{i+1}/{len(already_modified)}] - {path}")
+
+    if not_modified:
+        logger.info("### Items that were not modified ###")
+        for i, path in enumerate(not_modified):
+            logger.info(f"[{i+1}/{len(not_modified)}] - {path}")
