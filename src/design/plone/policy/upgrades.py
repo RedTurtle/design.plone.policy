@@ -5,7 +5,6 @@ from copy import deepcopy
 from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from design.plone.policy.setuphandlers import disable_searchable_types
 from design.plone.policy.setuphandlers import set_default_subsite_colors
-from design.plone.policy.utils import TASSONOMIA_FOOTER
 from design.plone.policy.utils import create_default_blocks
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
