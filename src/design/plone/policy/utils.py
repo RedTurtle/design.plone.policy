@@ -4,6 +4,7 @@ from collective.volto.secondarymenu.interfaces import ISecondaryMenu
 from collective.volto.subfooter.interfaces import ISubfooter
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from plone.restapi.behaviors import IBlocks
 from plone.restapi.interfaces import ISerializeToJsonSummary
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from redturtle.voltoplugin.editablefooter.interfaces import IEditableFooterSettings
@@ -231,9 +232,10 @@ def restrict_types(context, types):
 
 
 def create_default_blocks(context):
-    title_uuid = str(uuid4())
-    context.blocks = {title_uuid: {"@type": "title"}}
-    context.blocks_layout = {"items": [title_uuid]}
+    if IBlocks.providedBy(context):
+        title_uuid = str(uuid4())
+        context.blocks = {title_uuid: {"@type": "title"}}
+        context.blocks_layout = {"items": [title_uuid]}
 
 
 def create_footer():
@@ -245,6 +247,7 @@ def create_footer():
             type=item.get("type", "Pagina"),
             title=item.get("title", "Titolo"),
         )
+        create_default_blocks(context=obj)
         api.content.transition(obj=obj, transition="publish")
         item["path"] = f"/{obj.getId()}"
         obj.exclude_from_nav = True
@@ -334,6 +337,7 @@ def create_footer():
         type="Document",
         title="Media Policy",
     )
+    create_default_blocks(context=obj)
     obj.exclude_from_nav = True
     obj.reindexObject()
 

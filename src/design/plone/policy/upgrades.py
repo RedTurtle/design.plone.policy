@@ -5,10 +5,13 @@ from copy import deepcopy
 from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from design.plone.policy.setuphandlers import disable_searchable_types
 from design.plone.policy.setuphandlers import set_default_subsite_colors
+from design.plone.policy.utils import TASSONOMIA_FOOTER
+from design.plone.policy.utils import create_default_blocks
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
 from plone.dexterity.utils import iterSchemata
 from plone.registry.interfaces import IRegistry
+from plone.restapi.behaviors import IBlocks
 from Products.CMFPlone.interfaces import IFilterSchema
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from zope.component import getUtility
@@ -328,3 +331,21 @@ def to_3001(context):
         run_dependencies=False,
     )
     installOrReinstallProduct(api.portal.get(), "collective.feedback")
+
+
+def to_3100(context):
+    for tassonomia in TASSONOMIA_FOOTER:
+        brains = api.content.find(title=tassonomia['title'], object_provides=IBlocks.__identifier__)
+        for brain in brains:
+            item = brain.getObject().aq_inner
+            blocks = getattr(item, 'blocks', {})
+            blocks_layout = getattr(item, 'blocks_layout', {})
+            if blocks and not blocks_layout:
+                # case where document has been created without blocks, and has been modified
+                item.blocks_layout = {"items": [x for x in blocks.keys()]}
+                logger.info(f"[{brain.getPath()}] - Add blocks_layout from blocks keys. Check order.")
+                continue
+            if not blocks and not blocks_layout:
+                create_default_blocks(item)
+                logger.info(f"[{brain.getPath()}] - Add default blocks.")
+    
