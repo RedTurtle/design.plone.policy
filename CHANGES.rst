@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.3 (unreleased)
+5.0.3 (2023-06-13)
 ------------------
 
 - Fix creation script: now set default blocks and blocks_layout.
