@@ -111,7 +111,8 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.assertEqual(len(child.blocks_layout["items"]), 1)
 
     def test_enabled_blocks_contents_have_defaults(self):
-
-        brains = self.portal.portal_catalog(object_provides="plone.restapi.behaviors.IBlocks")
+        brains = self.portal.portal_catalog(
+            object_provides="plone.restapi.behaviors.IBlocks"
+        )
         for brain in brains:
             self.check_initial_blocks(brain.getObject())
