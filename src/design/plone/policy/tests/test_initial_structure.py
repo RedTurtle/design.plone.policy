@@ -7,6 +7,7 @@ from design.plone.policy.utils import TASSONOMIA_ORGANI_GOVERNO
 from design.plone.policy.utils import TASSONOMIA_SERVIZI
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.restapi.behaviors import IBlocks
 from plone.i18n.normalizer.interfaces import IURLNormalizer
 from zope.component import getUtility
 
@@ -27,7 +28,7 @@ class TestInitialStructureCreation(unittest.TestCase):
         return getUtility(IURLNormalizer).normalize(string)
 
     def check_initial_blocks(self, obj):
-        self.assertEqual(obj.portal_type, "Document")
+        self.assertTrue(IBlocks.providedBy(obj))
         self.assertEqual(len(obj.blocks.values()), 1)
         self.assertEqual(len(obj.blocks_layout["items"]), 1)
 
@@ -108,3 +109,10 @@ class TestInitialStructureCreation(unittest.TestCase):
             self.assertEqual(child.portal_type, "Pagina Argomento")
             self.assertEqual(len(child.blocks.values()), 1)
             self.assertEqual(len(child.blocks_layout["items"]), 1)
+
+    def test_enabled_blocks_contents_have_defaults(self):
+        brains = self.portal.portal_catalog(
+            object_provides="plone.restapi.behaviors.IBlocks"
+        )
+        for brain in brains:
+            self.check_initial_blocks(brain.getObject())
