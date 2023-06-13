@@ -5,3 +5,4 @@ global-exclude *.pyc
 include *.GPL
 include *.txt
 exclude .flake8
+exclude .pre-commit-config.yaml
