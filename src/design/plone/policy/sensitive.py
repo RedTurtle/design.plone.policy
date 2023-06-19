@@ -56,7 +56,7 @@ def scrub_breadcrumbs(values):
 
 
 def apply():
-    if SCRUBBING_SENTRY_DATA and error_handler:
+    if error_handler and SCRUBBING_SENTRY_DATA and error_handler:
 
         def scrubbing(fun):
             def wrapper(event, hint):
