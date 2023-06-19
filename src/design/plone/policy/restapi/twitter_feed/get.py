@@ -3,10 +3,13 @@ from copy import deepcopy
 from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from plone import api
 from plone.memoize import ram
+from plone.protect.interfaces import IDisableCSRFProtection
 from plone.restapi.search.utils import unflatten_dotted_dict
 from plone.restapi.services import Service
+from Products.CMFCore.permissions import ModifyPortalContent
 from time import time
 from urllib.parse import urlencode
+from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 
@@ -58,31 +61,64 @@ class TwitterFeedGet(Service):
         token = api.portal.get_registry_record(
             "twitter_token", interface=IDesignPlonePolicySettings
         )
-
         resp = requests.get(
             url=ENDPOINT,
             params=query,
             headers={"Authorization": "Bearer {}".format(token)},
         )
-        # raise an exception if resp is not successful
-        resp.raise_for_status()
+        if not resp:
+            # raise an exception if resp is not successful
+            logger.error(
+                "invalid request to twitter api for %s: %s %s",
+                query, resp.status_code, resp.text
+            )
+            self.request.response.setStatus(resp.status_code)
+            return dict(error=dict(message="invalid request to twitter api"))
+        # resp.raise_for_status()
         return self.convert_tweets(data=resp.json())
 
     def generate_query(self):
-        query = self.request.form.copy()
-        query = unflatten_dotted_dict(query)
+        query = unflatten_dotted_dict(self.request.form)
         if not query:
             return {"error": "You need to provide at least an author."}
+        # TODO: where max_results is used?
         max_results = int(query.get("max_results", "10"))
         if max_results < 10 or max_results > 100:
             return {"error": "max_results should be between 10 and 100."}
         authors = query.get("authors", [])
         if not authors:
             return {"error": "You need to provide at least an author."}
+        # XXX: if authenticated, we can ask for everything, otherwise we are limited
+        #      to registered authors
         if isinstance(authors, six.string_types):
             authors = authors.split(",")
+        allowed_authors = api.portal.get_registry_record(
+            name="design.plone.policy.twitter_allowed_authors") or []
+        if api.user.has_permission(ModifyPortalContent, obj=self.context):
+            # write authors in annotation
+            update = False
+            for author in authors:
+                if author not in allowed_authors:
+                    allowed_authors.append(author)
+                    update = True
+            if update:
+                alsoProvides(self.request, IDisableCSRFProtection)
+                api.portal.set_registry_record(
+                    name="design.plone.policy.twitter_allowed_authors",
+                    value=allowed_authors,
+                )
+            filtered_authors = authors
+        else:
+            # filter authors
+            filtered_authors = []
+            for author in authors:
+                if author in allowed_authors:
+                    filtered_authors.append(author)
+                else:
+                    logger.warning(
+                        "invalid request for twitter author %s - %s", author, query)
         res = {
-            "query": "from: {}".format(" OR ".join(authors)),
+            "query": "from: {}".format(" OR ".join(filtered_authors)),
             # additional infos for tweets
             "tweet.fields": "entities,source,public_metrics,created_at",
             "expansions": "attachments.media_keys,author_id",
