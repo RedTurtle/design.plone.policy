@@ -70,7 +70,9 @@ class TwitterFeedGet(Service):
             # raise an exception if resp is not successful
             logger.error(
                 "invalid request to twitter api for %s: %s %s",
-                query, resp.status_code, resp.text
+                query,
+                resp.status_code,
+                resp.text,
             )
             self.request.response.setStatus(resp.status_code)
             return dict(error=dict(message="invalid request to twitter api"))
@@ -92,8 +94,12 @@ class TwitterFeedGet(Service):
         #      to registered authors
         if isinstance(authors, six.string_types):
             authors = authors.split(",")
-        allowed_authors = api.portal.get_registry_record(
-            name="design.plone.policy.twitter_allowed_authors") or []
+        allowed_authors = (
+            api.portal.get_registry_record(
+                name="design.plone.policy.twitter_allowed_authors"
+            )
+            or []
+        )
         if api.user.has_permission(ModifyPortalContent, obj=self.context):
             # write authors in annotation
             update = False
@@ -116,7 +122,8 @@ class TwitterFeedGet(Service):
                     filtered_authors.append(author)
                 else:
                     logger.warning(
-                        "invalid request for twitter author %s - %s", author, query)
+                        "invalid request for twitter author %s - %s", author, query
+                    )
         res = {
             "query": "from: {}".format(" OR ".join(filtered_authors)),
             # additional infos for tweets
