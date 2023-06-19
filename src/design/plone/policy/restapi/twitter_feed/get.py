@@ -101,7 +101,7 @@ class TwitterFeedGet(Service):
             or []
         )
         if api.user.has_permission(ModifyPortalContent, obj=self.context):
-            # write authors in annotation
+            # add authors in registry
             update = False
             for author in authors:
                 if author not in allowed_authors:
