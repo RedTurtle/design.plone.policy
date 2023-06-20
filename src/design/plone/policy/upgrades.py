@@ -2,7 +2,6 @@
 from Acquisition import aq_base
 from collective.volto.blocksfield.field import BlocksField
 from copy import deepcopy
-from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from design.plone.policy.setuphandlers import disable_searchable_types
 from design.plone.policy.setuphandlers import set_default_subsite_colors
 from design.plone.policy.utils import create_default_blocks
@@ -26,7 +25,9 @@ DEFAULT_PROFILE = "profile-design.plone.policy:default"
 
 
 def update_profile(context, profile, run_dependencies=True):
-    context.runImportStepFromProfile(DEFAULT_PROFILE, profile, run_dependencies)
+    context.runImportStepFromProfile(
+        DEFAULT_PROFILE, profile, run_dependencies
+    )
 
 
 def update_types(context):
@@ -63,7 +64,9 @@ def to_1200(context):
     installOrReinstallProduct(api.portal.get(), "collective.volto.formsupport")
     logger.info("Changing form block fields.")
     i = 0
-    brains = api.content.find(object_provides="plone.restapi.behaviors.IBlocks")
+    brains = api.content.find(
+        object_provides="plone.restapi.behaviors.IBlocks"
+    )
     tot = len(brains)
     fixed_items = []
     for brain in brains:
@@ -166,7 +169,9 @@ def to_1910(context):
             else:
                 new_sizes.append(size)
     if "midi 300:65536" not in new_sizes:
-        new_sizes.insert(new_sizes.index("mini 200:65536") + 1, "midi 300:65536")
+        new_sizes.insert(
+            new_sizes.index("mini 200:65536") + 1, "midi 300:65536"
+        )
     api.portal.set_registry_record("plone.allowed_sizes", new_sizes)
 
 
@@ -227,7 +232,9 @@ def to_2000(context):  # noqa: C901
                         blocks = value.get("blocks", {})
                     except AttributeError:
                         logger.warning(
-                            "[RICHTEXT] - {} (not converted)".format(brain.getURL())
+                            "[RICHTEXT] - {} (not converted)".format(
+                                brain.getURL()
+                            )
                         )
                     if blocks:
                         res = fix_block(blocks)
@@ -255,7 +262,9 @@ def update_folders(context, CHANGES=[], NEW_ITEMS=[]):
     portal_name = portal.getId()
     for item in CHANGES:
         try:
-            folder = portal.restrictedTraverse("{}{}".format(portal_name, item))
+            folder = portal.restrictedTraverse(
+                "{}{}".format(portal_name, item)
+            )
             old_title = folder.title
             old_path = "/".join(folder.getPhysicalPath())
             api.content.rename(obj=folder, new_id=CHANGES[item][1])
@@ -269,7 +278,9 @@ def update_folders(context, CHANGES=[], NEW_ITEMS=[]):
                 )
             )
         except KeyError:
-            logger.info("{} Impossibile modificare {}{}".format(RED, item, ENDC))
+            logger.info(
+                "{} Impossibile modificare {}{}".format(RED, item, ENDC)
+            )
 
     for item in NEW_ITEMS:
         folder = portal.restrictedTraverse("{}{}".format(portal_name, item[0]))
