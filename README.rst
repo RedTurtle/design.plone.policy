@@ -20,7 +20,7 @@ Pacchetto di policy per un sito Plone AGID.
     :target: https://pypi.org/project/design.plone.policy/
     :alt: License
 
-.. image:: https://github.com/RedTurtle/design.plone.policy/actions/workflows/test.yml/badge.svg
+.. image:: https://github.com/RedTurtle/design.plone.policy/actions/workflows/tests.yml/badge.svg
     :target: https://github.com/RedTurtle/design.plone.policy/actions
     :alt: Tests
 
