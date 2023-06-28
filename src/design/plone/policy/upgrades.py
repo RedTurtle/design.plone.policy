@@ -2,10 +2,10 @@
 from Acquisition import aq_base
 from collective.volto.blocksfield.field import BlocksField
 from copy import deepcopy
-from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from design.plone.policy.setuphandlers import disable_searchable_types
 from design.plone.policy.setuphandlers import set_default_subsite_colors
 from design.plone.policy.utils import create_default_blocks
+from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
 from plone.dexterity.utils import iterSchemata
@@ -15,6 +15,7 @@ from Products.CMFPlone.interfaces import IFilterSchema
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from zope.component import getUtility
 from zope.schema import getFields
+
 
 import json
 import logging
@@ -364,3 +365,33 @@ def to_3100(context):
         logger.info("### Items that were not modified ###")
         for i, path in enumerate(not_modified):
             logger.info(f"[{i+1}/{len(not_modified)}] - {path}")
+
+
+def to_3101(context):
+    def remove_twitter(blocks_orig):
+        blocks = deepcopy(blocks_orig)
+        for key, block in blocks.items():
+            if block.get("@type", "") == "twitter_posts":
+                del blocks[key]
+
+        return blocks
+
+    for brain in api.portal.get_tool("portal_catalog")():
+        item = aq_base(brain.getObject())
+        for schema in iterSchemata(item):
+            for name, field in getFields(schema).items():
+                if name == "blocks":
+                    item.blocks = remove_twitter(item.blocks)
+
+                elif isinstance(field, BlocksField):
+                    value = deepcopy(field.get(item))
+                    if not value:
+                        continue
+                    try:
+                        blocks = value.get("blocks", {})
+                    except AttributeError:
+                        logger.warning(
+                            "[BLOCK] - {} (not converted)".format(brain.getURL())
+                        )
+                    if blocks:
+                        item.blocks = remove_twitter(blocks)
