@@ -7,3 +7,4 @@ include =
 omit =
     */test*
     */upgrades/*
+    */extras/*
