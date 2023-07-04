@@ -352,6 +352,11 @@ def create_footer():
                         "href": f"/{obj.getId()}",
                     },
                     {"title": "Sitemap", "visible": True, "href": "/sitemap"},
+                    {
+                        "title": "Credits",
+                        "visible": True,
+                        "href": "https://www.io-comune.it/",
+                    },
                 ],
             }
         ]

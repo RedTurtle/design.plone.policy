@@ -4,6 +4,8 @@ Changelog
 5.0.4 (unreleased)
 ------------------
 
+- Add "Credits" with href https://www.io-comune.it.
+  [lucabel]
 - Remove twitter feeds.
   [folix-01]
 
