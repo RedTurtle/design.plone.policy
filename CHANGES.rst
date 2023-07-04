@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.4 (unreleased)
+5.0.4 (2023-07-04)
 ------------------
 
 - Add "Credits" with href https://www.io-comune.it.
