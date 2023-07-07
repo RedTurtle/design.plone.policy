@@ -11,4 +11,4 @@ class IDesignPlonePolicyLayer(IDefaultBrowserLayer):
 
 
 class IDesignPlonePolicySettings(Interface):
-    twitter_token = schema.TextLine(title="Twitter Bearer token")
+    """IDesignPlonePolicySettings interface"""

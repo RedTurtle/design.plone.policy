@@ -4,7 +4,8 @@ Changelog
 4.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove twitter feeds.
+  [folix-01]
 
 
 4.0.3 (2023-04-05)
