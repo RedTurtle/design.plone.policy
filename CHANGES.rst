@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.4 (unreleased)
+4.0.4 (2023-07-07)
 ------------------
 
 - Remove twitter feeds.
