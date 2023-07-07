@@ -3,7 +3,6 @@
 
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope.interface import Interface
-from zope import schema
 
 
 class IDesignPlonePolicyLayer(IDefaultBrowserLayer):
@@ -11,4 +10,4 @@ class IDesignPlonePolicyLayer(IDefaultBrowserLayer):
 
 
 class IDesignPlonePolicySettings(Interface):
-    twitter_token = schema.TextLine(title="Twitter Bearer token")
+    """IDesignPlonePolicySettings interface"""
