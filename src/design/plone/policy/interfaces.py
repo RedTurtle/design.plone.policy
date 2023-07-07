@@ -3,7 +3,6 @@
 
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope.interface import Interface
-from zope import schema
 
 
 class IDesignPlonePolicyLayer(IDefaultBrowserLayer):
