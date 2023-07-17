@@ -4,6 +4,10 @@ Changelog
 4.0.5 (unreleased)
 ------------------
 
+- Add X-ForceAuth header and iw.rejectanonymous
+  backport from 5.0.0 #48
+  [mamico]
+
 - Remove twitter feeds.
   [folix-01]
 

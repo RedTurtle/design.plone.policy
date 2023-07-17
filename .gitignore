@@ -2,6 +2,7 @@
 pyvenv.cfg
 .python-version
 .coverage
+coverage.json
 *.egg-info
 *.log
 *.mo
@@ -9,6 +10,7 @@ pyvenv.cfg
 *.swp
 # dirs
 bin/
+share/
 buildout-cache/
 develop-eggs/
 eggs/
