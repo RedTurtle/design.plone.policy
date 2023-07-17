@@ -48,5 +48,5 @@
            zope.traversing.interfaces.IBeforeTraverseEvent"
       handler=".rejectanonymous.insertRejectAnonymousHook"
       />
-      
+
 </configure>
