@@ -27,8 +27,8 @@ setup(
         "Framework :: Plone :: Addon",
         "Framework :: Plone :: 5.2",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
@@ -63,6 +63,7 @@ setup(
         "rer.customersatisfaction>=1.1.0",
         "redturtle.faq",
         "redturtle.rssservice",
+        "iw.rejectanonymous",
     ],
     extras_require={
         "test": [
@@ -79,7 +80,5 @@ setup(
     entry_points="""
     [z3c.autoinclude.plugin]
     target = plone
-    [console_scripts]
-    update_locale = design.plone.policy.locales.update:update_locale
     """,
 )

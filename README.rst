@@ -178,6 +178,14 @@ e poi lanciare il buildout con ``bin/buildout``.
 
 Successivamente va installato dal pannello di controllo di Plone.
 
+Forzare autenticazione
+----------------------
+
+Se le richieste arrivano con un header X-ForceAuth Plone forza l'autenticazione per quelle richieste,
+il meccanismo è utile ad esempiop se si vuole fare accedere alla ZMI o alle interfacce Plone legacy
+senza però esporle pubblicamente.
+
+
 Test con Volto standalone
 -------------------------
 
