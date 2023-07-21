@@ -4,7 +4,8 @@ Changelog
 5.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix bad upgrade step.
+  [folix-01]
 
 
 5.0.4 (2023-07-04)
