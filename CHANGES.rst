@@ -7,6 +7,8 @@ Changelog
 - Add X-ForceAuth header and iw.rejectanonymous
   backport from 5.0.0 #48
   [mamico]
+- Set plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info to False by default.
+  [folix-01]
 
 - Remove twitter feeds.
   [folix-01]
