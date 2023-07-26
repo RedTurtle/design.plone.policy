@@ -39,8 +39,8 @@
   </records>
 
   <record field="show_author_info"
-	  interface="plone.base.interfaces.syndication.ISiteSyndicationSettings"
-          name="plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info"
+	  interface="Products.CMFPlone.interfaces.syndication.ISiteSyndicationSettings"
+          name="Products.CMFPlone.interfaces.syndication.ISiteSyndicationSettings.show_author_info"
           purge="True"
   >
     <value>False</value>

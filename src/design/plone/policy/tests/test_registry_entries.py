@@ -22,6 +22,6 @@ class TestInitialStructureCreation(unittest.TestCase):
     ):
         self.assertFalse(
             api.portal.get_registry_record(
-                "plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info"
+                "Products.CMFPlone.interfaces.syndication.ISiteSyndicationSettings.show_author_info"
             )
         )
