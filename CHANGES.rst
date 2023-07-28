@@ -4,7 +4,8 @@ Changelog
 5.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Set plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info to False by default.
+  [folix-01]
 
 
 5.0.4 (2023-07-04)

@@ -191,4 +191,14 @@
         handler=".upgrades.to_3101"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="3101"
+      destination="3102"
+      >
+    <genericsetup:upgradeStep
+        title="Set plone.base.plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info to False"
+        handler=".upgrades.update_registry"
+        />
+  </genericsetup:upgradeSteps>
 </configure>
