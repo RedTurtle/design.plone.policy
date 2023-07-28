@@ -4,7 +4,10 @@ Changelog
 5.0.5 (unreleased)
 ------------------
 
-- Fix bad upgrade step.
+- Fix bad upgrade step (remove blocks with twitter feed)
+  [folix-01]
+
+- Set plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info to False by default.
   [folix-01]
 
 
