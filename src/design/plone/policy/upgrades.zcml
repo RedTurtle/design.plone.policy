@@ -151,4 +151,14 @@
         handler=".upgrades.update_rolemap"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="2020"
+      destination="2021"
+      >
+    <genericsetup:upgradeStep
+        title="Set plone.base.plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info to False"
+        handler=".upgrades.update_registry"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

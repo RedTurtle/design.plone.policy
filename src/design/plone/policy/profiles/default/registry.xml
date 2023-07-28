@@ -32,9 +32,18 @@
       </value>
     </record>
 
-    <records interface="Products.CMFPlone.interfaces.controlpanel.IFilterSchema" prefix="plone">
-      <value key="custom_attributes" purge="false">
-        <element>data-element</element>
-      </value>
-    </records>
+  <records interface="Products.CMFPlone.interfaces.controlpanel.IFilterSchema" prefix="plone">
+    <value key="custom_attributes" purge="false">
+      <element>data-element</element>
+    </value>
+  </records>
+
+  <record field="show_author_info"
+	  interface="Products.CMFPlone.interfaces.syndication.ISiteSyndicationSettings"
+          name="Products.CMFPlone.interfaces.syndication.ISiteSyndicationSettings.show_author_info"
+          purge="True"
+  >
+    <value>False</value>
+  </record>
+
 </registry>

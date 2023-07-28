@@ -4,10 +4,11 @@ Changelog
 4.0.5 (unreleased)
 ------------------
 
+- Set plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info to False by default.
+  [folix-01]
 - Add X-ForceAuth header and iw.rejectanonymous
   backport from 5.0.0 #48
   [mamico]
-
 - Remove twitter feeds.
   [folix-01]
 
