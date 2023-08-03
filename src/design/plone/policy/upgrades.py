@@ -368,20 +368,33 @@ def to_3100(context):
 
 
 def to_3101(context):
-    def remove_twitter(blocks_orig):
-        blocks = deepcopy(blocks_orig)
-        for key, block in blocks.items():
-            if block.get("@type", "") == "twitter_posts":
-                del blocks[key]
-
-        return blocks
-
     for brain in api.portal.get_tool("portal_catalog")():
         item = aq_base(brain.getObject())
+
         for schema in iterSchemata(item):
             for name, field in getFields(schema).items():
                 if name == "blocks":
-                    item.blocks = remove_twitter(item.blocks)
+                    logger.info(
+                        f"[3100 - 3101] Deleting twitter blocks if exist from {'/'.join(item.getPhysicalPath())}"
+                    )
+
+                    twitter_block_uids = []
+                    blocks = deepcopy(item.blocks)
+                    blocks_layout = deepcopy(getattr(item, "blocks_layout", {}))
+
+                    for key, block in deepcopy(blocks).items():
+                        if block.get("@type", "") == "twitter_posts":
+                            twitter_block_uids.append(key)
+                            del blocks[key]
+
+                    for block_uid in [*item.blocks_layout.get("items", [])]:
+                        if block_uid in twitter_block_uids:
+                            blocks_layout["items"].remove(block_uid)
+
+                    item.blocks = blocks
+
+                    if blocks_layout:
+                        item.blocks_layout = blocks_layout
 
                 elif isinstance(field, BlocksField):
                     value = deepcopy(field.get(item))
@@ -389,9 +402,30 @@ def to_3101(context):
                         continue
                     try:
                         blocks = value.get("blocks", {})
+
                     except AttributeError:
                         logger.warning(
                             "[BLOCK] - {} (not converted)".format(brain.getURL())
                         )
+
                     if blocks:
-                        item.blocks = remove_twitter(blocks)
+                        logger.info(
+                            f"[3100 - 3101] Deleting twitter blocks if exist from {'/'.join(item.getPhysicalPath())}"
+                        )
+                        twitter_block_uids = []
+                        blocks = deepcopy(item.blocks)
+                        blocks_layout = deepcopy(getattr(item, "blocks_layout", {}))
+
+                        for key, block in deepcopy(blocks).items():
+                            if block.get("@type", "") == "twitter_posts":
+                                twitter_block_uids.append(key)
+                                del blocks[key]
+
+                        for block_uid in [*item.blocks_layout.get("items", [])]:
+                            if block_uid in twitter_block_uids:
+                                blocks_layout["items"].remove(block_uid)
+
+                        item.blocks = blocks
+
+                        if blocks_layout:
+                            item.blocks_layout = blocks_layout
