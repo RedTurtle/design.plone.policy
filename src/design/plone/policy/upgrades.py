@@ -241,3 +241,67 @@ def to_2010(context):
     registry = getUtility(IRegistry)
     settings = registry.forInterface(IFilterSchema, prefix="plone")
     settings.custom_attributes = settings.custom_attributes + ["data-element"]
+
+
+def to_2022(context):
+    for brain in api.portal.get_tool("portal_catalog")():
+        item = aq_base(brain.getObject())
+
+        for schema in iterSchemata(item):
+            for name, field in getFields(schema).items():
+                if name == "blocks":
+                    logger.info(
+                        f"[3100 - 3101] Deleting twitter blocks if exist from {'/'.join(item.getPhysicalPath())}"
+                    )
+
+                    twitter_block_uids = []
+                    blocks = deepcopy(item.blocks)
+                    blocks_layout = deepcopy(getattr(item, "blocks_layout", {}))
+
+                    for key, block in deepcopy(blocks).items():
+                        if block.get("@type", "") == "twitter_posts":
+                            twitter_block_uids.append(key)
+                            del blocks[key]
+
+                    for block_uid in [*item.blocks_layout.get("items", [])]:
+                        if block_uid in twitter_block_uids:
+                            blocks_layout["items"].remove(block_uid)
+
+                    item.blocks = blocks
+
+                    if blocks_layout:
+                        item.blocks_layout = blocks_layout
+
+                elif isinstance(field, BlocksField):
+                    value = deepcopy(field.get(item))
+                    if not value:
+                        continue
+                    try:
+                        blocks = value.get("blocks", {})
+
+                    except AttributeError:
+                        logger.warning(
+                            "[BLOCK] - {} (not converted)".format(brain.getURL())
+                        )
+
+                    if blocks:
+                        logger.info(
+                            f"[3100 - 3101] Deleting twitter blocks if exist from {'/'.join(item.getPhysicalPath())}"
+                        )
+                        twitter_block_uids = []
+                        blocks = deepcopy(item.blocks)
+                        blocks_layout = deepcopy(getattr(item, "blocks_layout", {}))
+
+                        for key, block in deepcopy(blocks).items():
+                            if block.get("@type", "") == "twitter_posts":
+                                twitter_block_uids.append(key)
+                                del blocks[key]
+
+                        for block_uid in [*item.blocks_layout.get("items", [])]:
+                            if block_uid in twitter_block_uids:
+                                blocks_layout["items"].remove(block_uid)
+
+                        item.blocks = blocks
+
+                        if blocks_layout:
+                            item.blocks_layout = blocks_layout

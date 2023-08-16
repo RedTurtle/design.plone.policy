@@ -161,4 +161,14 @@
         handler=".upgrades.update_registry"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="2021"
+      destination="2022"
+      >
+    <genericsetup:upgradeStep
+        title="Remove twitter blocks from contents"
+        handler=".upgrades.to_2022"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

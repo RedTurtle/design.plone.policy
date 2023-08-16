@@ -4,6 +4,8 @@ Changelog
 4.0.5 (unreleased)
 ------------------
 
+- Upgrade step to remove the twitter feeds
+  [folix-01]
 - Set plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info to False by default.
   [folix-01]
 - Add X-ForceAuth header and iw.rejectanonymous
