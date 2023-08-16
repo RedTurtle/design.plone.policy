@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.5 (unreleased)
+5.0.5 (2023-08-16)
 ------------------
 
 - Fix bad upgrade step (remove blocks with twitter feed)
