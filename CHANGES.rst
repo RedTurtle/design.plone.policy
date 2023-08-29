@@ -4,7 +4,8 @@ Changelog
 5.0.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix to 3001 upgrade step.
+  [folix-01]
 
 
 5.0.5 (2023-08-16)
