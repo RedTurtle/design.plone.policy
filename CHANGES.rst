@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.6 (unreleased)
+5.0.6 (2023-08-29)
 ------------------
 
 - Fix to 3001 upgrade step.
