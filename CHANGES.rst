@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.6 (unreleased)
+4.0.6 (2023-09-08)
 ------------------
 
 - Fixed to 2022 upgrade step.
