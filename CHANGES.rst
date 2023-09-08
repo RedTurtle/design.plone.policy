@@ -4,7 +4,8 @@ Changelog
 4.0.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed to 2022 upgrade step.
+  [folix-01]
 
 
 4.0.5 (2023-08-16)
