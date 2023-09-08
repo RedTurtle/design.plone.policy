@@ -243,7 +243,7 @@ def to_2010(context):
     settings.custom_attributes = settings.custom_attributes + ["data-element"]
 
 
-def to_2022(context):
+def to_2022(context): # noqa
     for brain in api.portal.get_tool("portal_catalog")():
         item = aq_base(brain.getObject())
 
