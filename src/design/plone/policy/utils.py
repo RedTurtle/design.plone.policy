@@ -161,7 +161,7 @@ TASSONOMIA_FOOTER = [
     },
     {"title": "Note legali", "type": "Document"},
     {
-        "title": "Dichiarazione di accessiblità",
+        "title": "Dichiarazione di accessibilità",
         "type": "Link",
         "data-element": "accessibility-link",
     },
