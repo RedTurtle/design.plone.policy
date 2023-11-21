@@ -38,12 +38,8 @@ class SearchFiltersGet(Service):
         return sorted(types, key=lambda k: k["label"])
 
     def reply(self):
-        settings = (
-            api.portal.get_registry_record(
-                "search_sections",
-                interface=IDesignPloneSettings,
-            )
-            or "[]"
+        settings = api.portal.get_registry_record(
+            "search_sections", interface=IDesignPloneSettings, default="[]"
         )
         utils = getToolByName(self.context, "plone_utils")
 
