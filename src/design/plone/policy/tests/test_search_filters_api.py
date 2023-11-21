@@ -97,3 +97,32 @@ class SearchFiltersAPITest(unittest.TestCase):
         self.assertIn("portal_types", response)
         types = [x["id"] for x in response["portal_types"]]
         self.assertNotIn("Document", types)
+
+    def test_endpoint_do_not_return_contents_that_are_not_searchable(self):
+        api.content.create(
+            container=self.portal["amministrazione"],
+            type="UnitaOrganizzativa",
+            title="UO Foo",
+            id="uo-foo",
+        )
+        commit()
+
+        response = self.api_session.get("/@search-filters").json()
+        amministrazione = response["sections"][0]["items"][0]
+
+        self.assertEqual("Amministrazione", amministrazione["title"])
+        self.assertEqual(8, len(amministrazione["items"]))
+        self.assertEqual("UO Foo", amministrazione["items"][-1]["title"])
+
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISearchSchema, prefix="plone")
+        settings.types_not_searched = tuple(
+            list(settings.types_not_searched) + ["UnitaOrganizzativa"]
+        )
+        commit()
+
+        response = self.api_session.get("/@search-filters").json()
+        amministrazione = response["sections"][0]["items"][0]
+
+        self.assertEqual("Amministrazione", amministrazione["title"])
+        self.assertEqual(7, len(amministrazione["items"]))
