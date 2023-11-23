@@ -44,7 +44,7 @@ class SearchFiltersGet(Service):
         utils = getToolByName(self.context, "plone_utils")
 
         sections = []
-        for setting in json.loads(settings):
+        for setting in json.loads(settings or "[]"):
             items = []
             for section_settings in setting.get("items") or []:
                 for uid in section_settings.get("linkUrl") or []:
