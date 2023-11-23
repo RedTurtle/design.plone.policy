@@ -6,6 +6,7 @@ from plone.registry.interfaces import IRegistry
 from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.services import Service
 from Products.CMFPlone.interfaces import ISearchSchema
+from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.i18n import translate
@@ -38,46 +39,45 @@ class SearchFiltersGet(Service):
 
     def reply(self):
         settings = api.portal.get_registry_record(
-            "search_sections",
-            interface=IDesignPloneSettings,
+            "search_sections", interface=IDesignPloneSettings, default="[]"
         )
+        utils = getToolByName(self.context, "plone_utils")
+
         sections = []
-        if settings:
-            settings = json.loads(settings)
-            for setting in settings:
-                items = []
-                for section_settings in setting.get("items") or []:
-                    for uid in section_settings.get("linkUrl") or []:
-                        try:
-                            section = api.content.get(UID=uid)
-                        except Unauthorized:
-                            # private folder
-                            continue
-                        if section:
-                            item_infos = getMultiAdapter(
-                                (section, self.request),
-                                ISerializeToJsonSummary,
-                            )()
-                            children = section.listFolderContents()
-                            if children:
-                                item_infos["items"] = []
-                                for children in section.listFolderContents():
-                                    item_infos["items"].append(
-                                        getMultiAdapter(
-                                            (children, self.request),
-                                            ISerializeToJsonSummary,
-                                        )()
-                                    )
-                            if section_settings.get("title", ""):
-                                item_infos["title"] = section_settings["title"]
-                            items.append(item_infos)
-                if items:
-                    sections.append(
-                        {
-                            "rootPath": setting.get("rootPath", ""),
-                            "items": items,
-                        }
+        for setting in json.loads(settings or "[]"):
+            items = []
+            for section_settings in setting.get("items") or []:
+                for uid in section_settings.get("linkUrl") or []:
+                    try:
+                        section = api.content.get(UID=uid)
+                    except Unauthorized:
+                        # private folder
+                        continue
+                    if not section:
+                        continue
+                    item_infos = getMultiAdapter(
+                        (section, self.request),
+                        ISerializeToJsonSummary,
+                    )()
+                    children = section.listFolderContents(
+                        contentFilter={"portal_type": utils.getUserFriendlyTypes()}
                     )
+                    item_infos["items"] = [
+                        getMultiAdapter(
+                            (x, self.request),
+                            ISerializeToJsonSummary,
+                        )()
+                        for x in children
+                    ]
+                    item_infos["title"] = section_settings.get("title", "")
+                    items.append(item_infos)
+            if items:
+                sections.append(
+                    {
+                        "rootPath": setting.get("rootPath", ""),
+                        "items": items,
+                    }
+                )
         topics = [
             getMultiAdapter(
                 (brain, self.request),

@@ -4,7 +4,8 @@ Changelog
 5.0.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Do not return section children in @search-filters endpoint if they are types omitted from search results.
+  [cekk]
 
 
 5.0.6 (2023-08-29)
