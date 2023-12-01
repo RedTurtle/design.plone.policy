@@ -62,8 +62,12 @@ def post_install(context):
     create_secondary_menu()
 
 
-def disable_searchable_types():
+def disable_searchable_types(context=None):
     # remove some types from search enabled ones
+
+    # This is the list updated at 2023/12/01 with all types that
+    # could not be searchable in io-Comune
+
     registry = getUtility(IRegistry)
     settings = registry.forInterface(ISearchSchema, prefix="plone")
     remove_types = [
@@ -74,8 +78,14 @@ def disable_searchable_types():
         "Discussion Item",
         "Dataset",
         "Documento Personale",
+        "File",
+        "Image",
+        "Incarico",
+        "LRF",
         "Messaggio",
+        "Modulo",
         "Pratica",
+        "PuntoDiContatto",
         "RicevutaPagamento",
     ]
     types = set(settings.types_not_searched)

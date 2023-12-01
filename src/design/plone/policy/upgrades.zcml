@@ -201,4 +201,14 @@
         handler=".upgrades.update_registry"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="3102"
+      destination="3103"
+      >
+    <genericsetup:upgradeStep
+        title="Update not searchable types in io-Comune site"
+        handler=".setuphandlers.disable_searchable_types"
+        />
+  </genericsetup:upgradeSteps>
 </configure>
