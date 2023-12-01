@@ -81,7 +81,6 @@ def disable_searchable_types(context=None):
         "File",
         "Image",
         "Incarico",
-        "LRF",
         "Messaggio",
         "Modulo",
         "Pratica",
