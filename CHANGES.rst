@@ -4,6 +4,8 @@ Changelog
 5.0.7 (unreleased)
 ------------------
 
+- Update list of non searchable type in io-Comune
+  [lucabel]
 - Do not return section children in @search-filters endpoint if they are types omitted from search results.
   [cekk]
 
