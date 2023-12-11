@@ -84,7 +84,6 @@ def disable_searchable_types(context=None):
         "Messaggio",
         "Modulo",
         "Pratica",
-        "PuntoDiContatto",
         "RicevutaPagamento",
     ]
     types = set(settings.types_not_searched)
