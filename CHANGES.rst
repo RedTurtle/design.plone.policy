@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.7 (unreleased)
+5.0.7 (2023-12-13)
 ------------------
 
 - Update list of non searchable type in io-Comune
