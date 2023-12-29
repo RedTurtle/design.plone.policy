@@ -4,7 +4,8 @@ Changelog
 5.0.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Allow anonymous user access to /RSS even when using iw.rejectanonymous
+  [lucabel] 
 
 
 5.0.7 (2023-12-13)
