@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-from iw.rejectanonymous import rejectAnonymous, addValidIds
+from iw.rejectanonymous import addValidIds
+from iw.rejectanonymous import rejectAnonymous
 
-addValidIds('RSS')
+
+addValidIds("RSS")
+
 
 def insertRejectAnonymousHook(portal, event):
     """force authentication for request with X-ForceAuth header"""
