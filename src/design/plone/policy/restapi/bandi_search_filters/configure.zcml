@@ -12,7 +12,7 @@
       permission="zope2.View"
       name="@bandi-search-filters"
       />
-    
+
   <plone:service
       method="GET"
       factory=".get.BandiSearchFiltersGet"
