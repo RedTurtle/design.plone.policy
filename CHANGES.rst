@@ -4,7 +4,8 @@ Changelog
 4.0.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- @bandi-search-filters: if called on a specific folder returns only tipologies and subjects of bandi inside that folder.
+  [daniele]   
 
 
 4.0.6 (2023-09-08)
