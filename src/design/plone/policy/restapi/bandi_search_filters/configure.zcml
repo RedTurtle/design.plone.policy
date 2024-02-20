@@ -13,6 +13,14 @@
       name="@bandi-search-filters"
       />
 
+  <plone:service
+      method="GET"
+      factory=".get.BandiSearchFiltersGet"
+      for="plone.app.contenttypes.interfaces.IFolder"
+      permission="zope2.View"
+      name="@bandi-search-filters"
+      />
+
   <cache:ruleset
       for=".get.BandiSearchFiltersGet"
       ruleset="plone.content.dynamic"
