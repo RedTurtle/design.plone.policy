@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.8 (unreleased)
+4.0.8 (2024-02-21)
 ------------------
 
 - @bandi-search-filters: registered for a more generic interface.
