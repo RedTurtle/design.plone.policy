@@ -1,7 +1,13 @@
 Changelog
 =========
 
-4.0.7 (unreleased)
+4.0.8 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+4.0.7 (2024-02-20)
 ------------------
 
 - @bandi-search-filters: if called on a specific folder returns only tipologies and subjects of bandi inside that folder.
