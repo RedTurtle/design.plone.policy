@@ -4,7 +4,8 @@ Changelog
 4.0.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- @bandi-search-filters: registered for a more generic interface.
+  [daniele]
 
 
 4.0.7 (2024-02-20)

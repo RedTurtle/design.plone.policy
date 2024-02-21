@@ -16,7 +16,7 @@
   <plone:service
       method="GET"
       factory=".get.BandiSearchFiltersGet"
-      for="plone.app.contenttypes.interfaces.IFolder"
+      for="plone.dexterity.interfaces.IDexterityContainer"
       permission="zope2.View"
       name="@bandi-search-filters"
       />
