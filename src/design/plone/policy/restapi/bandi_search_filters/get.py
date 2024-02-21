@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from plone import api
+from plone.dexterity.interfaces import IDexterityContainer
 from plone.restapi.services import Service
+from redturtle.bandi.vocabularies import TipologiaBandoVocabularyFactory
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
-from redturtle.bandi.vocabularies import TipologiaBandoVocabularyFactory
 
 
 @implementer(IPublishTraverse)
@@ -21,7 +22,7 @@ class BandiSearchFiltersGet(Service):
 
         bandi_folder = None
 
-        if self.context.portal_type == "Folder":
+        if IDexterityContainer.providedBy(self.context):
             bandi_folder = self.context
 
         if bandi_folder:
