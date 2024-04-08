@@ -4,7 +4,8 @@ Changelog
 5.0.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add collective.volto.slimheader dependency and profile requirement.
+  [folix-01]
 
 
 5.0.7 (2023-12-13)
