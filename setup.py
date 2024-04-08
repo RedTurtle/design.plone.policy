@@ -59,6 +59,7 @@ setup(
         "collective.volto.formsupport[honeypot]",
         "collective.volto.secondarymenu",
         "collective.volto.socialsettings",
+        "collective.volto.slimheader",
         "collective.volto.subsites",
         "collective.volto.subfooter",
         "eea.api.taxonomy",
