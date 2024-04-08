@@ -12,6 +12,7 @@
     <dependency>profile-redturtle.voltoplugin.editablefooter:default</dependency>
     <dependency>profile-collective.volto.formsupport:default</dependency>
     <dependency>profile-collective.volto.subfooter:default</dependency>
+    <dependency>profile-collective.volto.slimheader:default</dependency>
     <dependency>profile-eea.api.taxonomy:default</dependency>
     <dependency>profile-redturtle.faq:default</dependency>
     <dependency>profile-collective.feedback:default</dependency>
