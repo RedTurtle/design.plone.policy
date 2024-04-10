@@ -45,9 +45,14 @@ class BandiSearchFiltersGet(Service):
                     found = [x for x in subjects if x["UID"] == sub]
                     if not found:
                         subjects.append({"UID": sub, "title": sub})
-                
+
                 for office_relation in bando.ufficio_responsabile:
-                    offices.append({"UID": office_relation.to_object.UID(), "title": office_relation.to_object.title})
+                    offices.append(
+                        {
+                            "UID": office_relation.to_object.UID(),
+                            "title": office_relation.to_object.title,
+                        }
+                    )
         else:
             for subject in pc.uniqueValuesFor("Subject_bando"):
                 res = api.content.find(Subject_bando=subject)
