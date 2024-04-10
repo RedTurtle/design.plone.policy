@@ -34,6 +34,11 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
 
         intids = getUtility(IIntIds)
+
+        self.bando_dir = api.content.create(
+            container=self.portal type="Folder", title="Bandi test folder"
+        )
+
         self.uo_public_1 = api.content.create(
             container=self.portal, type="UnitaOrganizzativa", title="UO 1"
         )
@@ -68,10 +73,19 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
             ufficio_responsabile=[RelationValue(intids.getId(self.uo_public_1))],
         )
 
+        self.bando_in_folder = api.content.create(
+            container=self.bando_dir,
+            type="Bando",
+            title="Bando in folder",
+            subject=("foo", "baz"),
+            ufficio_responsabile=[RelationValue(intids.getId(self.uo_public_1))],
+        )
+
         api.content.transition(obj=self.uo_public_1, transition="publish")
         api.content.transition(obj=self.uo_public_2, transition="publish")
         api.content.transition(obj=self.bando_public_1, transition="publish")
         api.content.transition(obj=self.bando_public_2, transition="publish")
+        api.content.transition(obj=self.bando_in_folder, transition="publish")
 
         commit()
 
@@ -113,3 +127,12 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
         subjects = [x["UID"] for x in response["subjects"]]
         self.assertEqual(len(subjects), 2)
         self.assertEqual(subjects, ["bar", "foo"])
+
+    def test_endpoint_return_related_office_for_bando_by_path(self):
+        response = self.api_session.get("/@bandi-search-filters").json()
+
+        self.assertIn("offices", response)
+        offices = [x["UID"] for x in response["offices"]]
+
+        self.assertEqual(offices, ["bar", "baz", "foo"])
+
