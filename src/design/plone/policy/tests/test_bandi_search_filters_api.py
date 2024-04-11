@@ -82,7 +82,6 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
             container=self.bando_dir,
             type="Bando",
             title="Bando in folder",
-            subject=("foo", "baz"),
             tipologia_bando=tipologia_bando,
             ufficio_responsabile=[RelationValue(intids.getId(self.uo_public_1))],
         )
