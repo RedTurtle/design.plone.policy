@@ -12,6 +12,7 @@ from transaction import commit
 from z3c.relationfield import RelationValue
 from zope.intid.interfaces import IIntIds
 from plone import api
+from redturtle.bandi.vocabularies import TipologiaBandoVocabularyFactory
 
 import unittest
 
@@ -33,7 +34,16 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
 
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
 
+        voc_tipologie = TipologiaBandoVocabularyFactory(self.portal)
+        keys = voc_tipologie.by_value.keys()
+        tipologia_bando = tuple(keys)[0]
+
         intids = getUtility(IIntIds)
+
+        self.bando_dir = api.content.create(
+            container=self.portal, type="Folder", title="Bandi test folder"
+        )
+
         self.uo_public_1 = api.content.create(
             container=self.portal, type="UnitaOrganizzativa", title="UO 1"
         )
@@ -68,10 +78,19 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
             ufficio_responsabile=[RelationValue(intids.getId(self.uo_public_1))],
         )
 
+        self.bando_in_folder = api.content.create(
+            container=self.bando_dir,
+            type="Bando",
+            title="Bando in folder",
+            tipologia_bando=tipologia_bando,
+            ufficio_responsabile=[RelationValue(intids.getId(self.uo_public_1))],
+        )
+
         api.content.transition(obj=self.uo_public_1, transition="publish")
         api.content.transition(obj=self.uo_public_2, transition="publish")
         api.content.transition(obj=self.bando_public_1, transition="publish")
         api.content.transition(obj=self.bando_public_2, transition="publish")
+        api.content.transition(obj=self.bando_in_folder, transition="publish")
 
         commit()
 
@@ -113,3 +132,13 @@ class BandiSearchFiltersAPITest(unittest.TestCase):
         subjects = [x["UID"] for x in response["subjects"]]
         self.assertEqual(len(subjects), 2)
         self.assertEqual(subjects, ["bar", "foo"])
+
+    def test_endpoint_return_related_office_for_bando_by_path(self):
+        path = "/".join(self.bando_dir.getPhysicalPath()).replace("/plone/", "/")
+        string_request = path + "/@bandi-search-filters"
+        response = self.api_session.get(string_request).json()
+
+        self.assertIn("offices", response)
+        offices = [x["UID"] for x in response["offices"]]
+
+        self.assertIn(self.uo_public_1.UID(), offices)
