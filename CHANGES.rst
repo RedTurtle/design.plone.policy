@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.8 (unreleased)
+5.0.8 (2024-04-11)
 ------------------
 
 - Add collective.volto.slimheader dependency and profile requirement.
