@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.9 (unreleased)
+4.0.9 (2024-04-11)
 ------------------
 
 - @bandi-search-filters: if called on a specific folder returns only related offices of bandi inside that folder.
