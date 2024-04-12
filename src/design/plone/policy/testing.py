@@ -19,6 +19,7 @@ import collective.volto.secondarymenu
 import collective.volto.socialsettings
 import collective.volto.subfooter
 import collective.volto.subsites
+import collective.volto.slimheader
 import collective.z3cform.datagridfield
 import design.plone.contenttypes
 import design.plone.policy
@@ -50,6 +51,7 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
         self.loadZCML(package=collective.volto.subfooter)
+        self.loadZCML(package=collective.volto.slimheader)
         self.loadZCML(package=collective.taxonomy)
         self.loadZCML(package=eea.api.taxonomy)
         self.loadZCML(name="overrides.zcml", package=design.plone.contenttypes)
@@ -106,6 +108,7 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
         self.loadZCML(package=collective.volto.subsites)
         self.loadZCML(package=redturtle.voltoplugin.editablefooter)
         self.loadZCML(package=collective.volto.subfooter)
+        self.loadZCML(package=collective.volto.slimheader)
         self.loadZCML(package=redturtle.volto)
         self.loadZCML(package=collective.taxonomy)
         self.loadZCML(package=eea.api.taxonomy)
