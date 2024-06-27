@@ -59,7 +59,7 @@ class SearchFiltersGet(Service):
                         (section, self.request),
                         ISerializeToJsonSummary,
                     )()
-                    if setting.get("expandItems", True):
+                    if section_settings.get("expandItems", True):
                         children = section.listFolderContents(
                             contentFilter={"portal_type": utils.getUserFriendlyTypes()}
                         )

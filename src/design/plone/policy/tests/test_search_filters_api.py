@@ -132,6 +132,7 @@ class SearchFiltersAPITest(unittest.TestCase):
         # first section has 7 children
         response = self.api_session.get("/@search-filters").json()
         self.assertEqual(len(response["sections"][0]["items"][0]["items"]), 7)
+        self.assertEqual(len(response["sections"][0]["items"][1]["items"]), 15)
 
         # change expandItems to False for the first section
         settings = json.loads(
@@ -139,12 +140,14 @@ class SearchFiltersAPITest(unittest.TestCase):
                 "search_sections", interface=IDesignPloneSettings
             )
         )
-        settings[0]["expandItems"] = False
+        settings[0]["items"][0]["expandItems"] = False
         api.portal.set_registry_record(
             "search_sections", json.dumps(settings), interface=IDesignPloneSettings
         )
         commit()
 
-        # first section now has only 1 child
         response = self.api_session.get("/@search-filters").json()
+        # first item now has only 1 child
         self.assertEqual(len(response["sections"][0]["items"][0]["items"]), 1)
+        # second item still has 15 children
+        self.assertEqual(len(response["sections"][0]["items"][1]["items"]), 15)
