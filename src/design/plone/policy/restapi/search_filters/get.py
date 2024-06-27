@@ -59,16 +59,25 @@ class SearchFiltersGet(Service):
                         (section, self.request),
                         ISerializeToJsonSummary,
                     )()
-                    children = section.listFolderContents(
-                        contentFilter={"portal_type": utils.getUserFriendlyTypes()}
-                    )
-                    item_infos["items"] = [
-                        getMultiAdapter(
-                            (x, self.request),
-                            ISerializeToJsonSummary,
-                        )()
-                        for x in children
-                    ]
+                    if section_settings.get("expandItems", True):
+                        children = section.listFolderContents(
+                            contentFilter={"portal_type": utils.getUserFriendlyTypes()}
+                        )
+                        item_infos["items"] = [
+                            getMultiAdapter(
+                                (x, self.request),
+                                ISerializeToJsonSummary,
+                            )()
+                            for x in children
+                        ]
+                    else:
+                        # do not expand childrens, the only item is the section/container itself
+                        item_infos["items"] = [
+                            getMultiAdapter(
+                                (section, self.request),
+                                ISerializeToJsonSummary,
+                            )()
+                        ]
                     item_infos["title"] = section_settings.get("title", "")
                     items.append(item_infos)
             if items:
