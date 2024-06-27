@@ -42,7 +42,7 @@ class SearchFiltersGet(Service):
             "search_sections", interface=IDesignPloneSettings, default="[]"
         )
         utils = getToolByName(self.context, "plone_utils")
-            
+
         sections = []
         for setting in json.loads(settings or "[]"):
             items = []
