@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from AccessControl.unauthorized import Unauthorized
-from design.plone.contenttypes.controlpanels.settings import (
-    IDesignPloneSettings,
-)
+from design.plone.contenttypes.controlpanels.settings import IDesignPloneSettings
 from plone import api
 from plone.registry.interfaces import IRegistry
 from plone.restapi.interfaces import ISerializeToJsonSummary
@@ -13,6 +11,7 @@ from zope.component import getUtility
 from zope.i18n import translate
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
+
 import json
 
 
@@ -59,16 +58,24 @@ class SearchFiltersGet(Service):
                                 (section, self.request),
                                 ISerializeToJsonSummary,
                             )()
-                            children = section.listFolderContents()
-                            if children:
-                                item_infos["items"] = []
-                                for children in section.listFolderContents():
-                                    item_infos["items"].append(
-                                        getMultiAdapter(
-                                            (children, self.request),
-                                            ISerializeToJsonSummary,
-                                        )()
-                                    )
+                            if section_settings.get("expandItems", True):
+                                children = section.listFolderContents()
+                                if children:
+                                    item_infos["items"] = []
+                                    for children in section.listFolderContents():
+                                        item_infos["items"].append(
+                                            getMultiAdapter(
+                                                (children, self.request),
+                                                ISerializeToJsonSummary,
+                                            )()
+                                        )
+                            else:
+                                item_infos["items"] = [
+                                    getMultiAdapter(
+                                        (section, self.request),
+                                        ISerializeToJsonSummary,
+                                    )()
+                                ]
                             if section_settings.get("title", ""):
                                 item_infos["title"] = section_settings["title"]
                             items.append(item_infos)
