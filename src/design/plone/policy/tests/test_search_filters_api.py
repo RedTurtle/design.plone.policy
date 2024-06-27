@@ -10,7 +10,8 @@ from plone.restapi.testing import RelativeSession
 from Products.CMFPlone.interfaces import ISearchSchema
 from transaction import commit
 from zope.component import getUtility
-
+from design.plone.contenttypes.controlpanels.settings import IDesignPloneSettings
+import json
 import unittest
 
 
@@ -126,3 +127,18 @@ class SearchFiltersAPITest(unittest.TestCase):
 
         self.assertEqual("Amministrazione", amministrazione["title"])
         self.assertEqual(7, len(amministrazione["items"]))
+
+    def test_not_expand_items(self):
+        # first section has 7 children
+        response = self.api_session.get("/@search-filters").json()
+        self.assertEqual(len(response['sections'][0]['items'][0]['items']), 7)
+
+        # change expandItems to False for the first section
+        settings = json.loads(api.portal.get_registry_record("search_sections",interface=IDesignPloneSettings))
+        settings[0]['expandItems'] = False
+        api.portal.set_registry_record('search_sections', json.dumps(settings), interface=IDesignPloneSettings)
+        commit()
+
+        # first section now has only 1 child
+        response = self.api_session.get("/@search-filters").json()
+        self.assertEqual(len(response['sections'][0]['items'][0]['items']), 1)

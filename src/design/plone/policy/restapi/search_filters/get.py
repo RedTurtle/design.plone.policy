@@ -42,7 +42,7 @@ class SearchFiltersGet(Service):
             "search_sections", interface=IDesignPloneSettings, default="[]"
         )
         utils = getToolByName(self.context, "plone_utils")
-
+            
         sections = []
         for setting in json.loads(settings or "[]"):
             items = []
@@ -59,16 +59,25 @@ class SearchFiltersGet(Service):
                         (section, self.request),
                         ISerializeToJsonSummary,
                     )()
-                    children = section.listFolderContents(
-                        contentFilter={"portal_type": utils.getUserFriendlyTypes()}
-                    )
-                    item_infos["items"] = [
-                        getMultiAdapter(
-                            (x, self.request),
-                            ISerializeToJsonSummary,
-                        )()
-                        for x in children
-                    ]
+                    if setting.get("expandItems", True):
+                        children = section.listFolderContents(
+                            contentFilter={"portal_type": utils.getUserFriendlyTypes()}
+                        )
+                        item_infos["items"] = [
+                            getMultiAdapter(
+                                (x, self.request),
+                                ISerializeToJsonSummary,
+                            )()
+                            for x in children
+                        ]
+                    else:
+                        # do not expand childrens, the only item is the section/container itself
+                        item_infos["items"] = [
+                            getMultiAdapter(
+                                (section, self.request),
+                                ISerializeToJsonSummary,
+                            )()
+                        ]
                     item_infos["title"] = section_settings.get("title", "")
                     items.append(item_infos)
             if items:
