@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.10 (unreleased)
+4.0.10 (2024-07-12)
 -------------------
 
 - `search_sections` in IDesignPloneSettings has a new filed in each section:
