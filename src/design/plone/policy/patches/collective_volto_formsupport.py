@@ -42,18 +42,18 @@ def get_data(self):
     sbuf = StringIO()
     fixed_columns = ["date"]
     columns = []
-    # # # start patch
+    # start patch
     custom_colums = []
     if self.form_block.get("limit", None) is not None:
         limit = int(self.form_block["limit"])
         if limit > -1:
             custom_colums.append("waiting_list")
-    # # #
+    # end patch
 
     rows = []
-    # # # start patch
+    # start patch
     for index, item in enumerate(store.search()):
-        # # #
+        # end patch
         data = {}
         fields_labels = item.attrs.get("fields_labels", {})
         for k in self.get_ordered_keys(item):
@@ -68,7 +68,7 @@ def get_data(self):
             # add fixed columns values
             value = item.attrs.get(k, None)
             data[k] = json_compatible(value)
-        # # # start patch
+        # start patch
         if "waiting_list" in custom_colums:
             data.update(
                 {
@@ -79,7 +79,7 @@ def get_data(self):
                     )
                 }
             )
-        # # #
+        # end patch
 
         rows.append(data)
     columns.extend(fixed_columns)
@@ -103,6 +103,7 @@ def patch_FormDataExportGet_get_data():
 def reply(self):
     self.validate_form()
 
+    # start patch
     self.store_action = self.block.get("store", False)
     self.send_action = self.block.get("send", [])
     self.submit_limit = int(self.block.get("limit", "-1"))
@@ -112,6 +113,7 @@ def reply(self):
 
     notify(PostEventService(self.context, self.form_data))
     data = self.form_data.get("data", [])
+    # end patch
 
     if self.send_action:
         try:
@@ -129,6 +131,7 @@ def reply(self):
             )
             self.request.response.setStatus(500)
             return dict(type="InternalServerError", message=message)
+    # start patch
     if self.store_action:
         try:
             data = self.store_data()
@@ -146,10 +149,12 @@ def reply(self):
             return dict(type="InternalServerError", message=message)
 
     return {"data": data}
+    # end patch
 
 
 def store_data(self):
     store = getMultiAdapter((self.context, self.request), IFormDataStore)
+    # start patch
     data = {"form_data": self.filter_parameters()}
 
     res = store.add(data=data)
@@ -169,6 +174,9 @@ def store_data(self):
 def count_data(self):
     store = getMultiAdapter((self.context, self.request), IFormDataStore)
     return store.count()
+
+
+# end patch
 
 
 def patch_SubmitPost_reply():
@@ -197,7 +205,9 @@ def add(self, data):
     record = Record()
     fields_labels = {}
     fields_order = []
+    # start patch
     for field_data in data["form_data"]:
+        # end patch
         field_id = field_data.get("field_id", "")
         value = field_data.get("value", "")
         if field_id in fields:
@@ -209,6 +219,7 @@ def add(self, data):
     record.attrs["date"] = datetime.now()
     record.attrs["block_id"] = self.block_id
 
+    # start patch
     keys = [(x["field_id"], x["label"]) for x in form_fields if x.get("unique", False)]
     if keys:
         saved_data = self.soup.data.values()
@@ -221,16 +232,21 @@ def add(self, data):
 
             if not unique:
                 raise ValueError(f" {', '.join([x[1] for x in keys])}")
+        # end patch
 
         return self.soup.add(record)
 
 
+# start patch
 def count(self, query=None):
     records = []
     if not query:
         records = self.soup.data.values()
 
     return len(records)
+
+
+# end patch
 
 
 def patch_FormDataStore_methods():
