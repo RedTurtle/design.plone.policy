@@ -16,10 +16,10 @@ import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
 import collective.volto.formsupport
 import collective.volto.secondarymenu
+import collective.volto.slimheader
 import collective.volto.socialsettings
 import collective.volto.subfooter
 import collective.volto.subsites
-import collective.volto.slimheader
 import collective.z3cform.datagridfield
 import design.plone.contenttypes
 import design.plone.policy

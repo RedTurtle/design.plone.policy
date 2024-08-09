@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rolemap>
   <permissions>
-    <permission name="Access inactive portal content" acquire="True">
+    <permission acquire="True"
+                name="Access inactive portal content"
+    >
       <role name="Editor" />
       <role name="Owner" />
       <role name="Reviewer" />

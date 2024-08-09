@@ -5,8 +5,8 @@ from plone import api
 from plone.registry.interfaces import IRegistry
 from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.services import Service
-from Products.CMFPlone.interfaces import ISearchSchema
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import ISearchSchema
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.i18n import translate

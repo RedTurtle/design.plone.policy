@@ -2,10 +2,10 @@
 from Acquisition import aq_base
 from collective.volto.blocksfield.field import BlocksField
 from copy import deepcopy
+from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from design.plone.policy.setuphandlers import disable_searchable_types
 from design.plone.policy.setuphandlers import set_default_subsite_colors
 from design.plone.policy.utils import create_default_blocks
-from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
 from plone.dexterity.utils import iterSchemata
@@ -15,7 +15,6 @@ from Products.CMFPlone.interfaces import IFilterSchema
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
 from zope.component import getUtility
 from zope.schema import getFields
-
 
 import json
 import logging
@@ -375,7 +374,8 @@ def to_3101(context):
             for name, field in getFields(schema).items():
                 if name == "blocks":
                     logger.info(
-                        f"[3100 - 3101] Deleting twitter blocks if exist from {'/'.join(item.getPhysicalPath())}"
+                        f"[3100 - 3101] Deleting twitter blocks if "
+                        f"exist from {'/'.join(item.getPhysicalPath())}"
                     )
 
                     twitter_block_uids = []
@@ -410,7 +410,8 @@ def to_3101(context):
 
                     if blocks:
                         logger.info(
-                            f"[3100 - 3101] Deleting twitter blocks if exist from {'/'.join(item.getPhysicalPath())}"
+                            f"[3100 - 3101] Deleting twitter blocks if "
+                            f"exist from {'/'.join(item.getPhysicalPath())}"
                         )
 
                         twitter_block_uids = []
