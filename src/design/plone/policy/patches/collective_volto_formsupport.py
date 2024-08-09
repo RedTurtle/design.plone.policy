@@ -161,12 +161,10 @@ def store_data(self):
     if not res:
         raise BadRequest("Unable to store data")
 
-    data.update(
-        {
-            "waiting_list": self.submit_limit is not None
-            and -1 < self.submit_limit < self.count_data()
-        }
+    waiting_list = (
+        self.submit_limit is not None and -1 < self.submit_limit < self.count_data()
     )
+    data.update({"waiting_list": waiting_list})
 
     return data
 
