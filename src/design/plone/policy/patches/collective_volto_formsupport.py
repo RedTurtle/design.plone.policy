@@ -232,7 +232,7 @@ def add(self, data):
                 raise ValueError(f" {', '.join([x[1] for x in keys])}")
         # end patch
 
-        return self.soup.add(record)
+    return self.soup.add(record)
 
 
 # start patch

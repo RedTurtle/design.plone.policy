@@ -103,3 +103,72 @@ class TestLimitMailStore(unittest.TestCase):
         )
         transaction.commit()
         self.assertEqual(response.status_code, 200)
+
+        response = self.submit_form(
+            data={
+                "from": "john@doe.com",
+                "data": [
+                    {"field_id": "message", "value": "just want to say hi"},
+                    {"field_id": "name", "value": "John"},
+                    {"field_id": "foo", "value": "skip this"},
+                ],
+                "subject": "test subject",
+                "block_id": "form-id",
+            },
+        )
+        transaction.commit()
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["data"]["waiting_list"])
+
+    def test_unique_field(self):
+        self.document.blocks = {
+            "form-id": {
+                "@type": "form",
+                "store": True,
+                "subblocks": [
+                    {
+                        "label": "Message",
+                        "field_id": "message",
+                        "field_type": "text",
+                    },
+                    {
+                        "label": "Name",
+                        "field_id": "name",
+                        "field_type": "text",
+                        "unique": True,
+                    },
+                ],
+            },
+        }
+        transaction.commit()
+
+        response = self.submit_form(
+            data={
+                "from": "john@doe.com",
+                "data": [
+                    {"field_id": "message", "value": "just want to say hi"},
+                    {"field_id": "name", "value": "John"},
+                    {"field_id": "foo", "value": "skip this"},
+                ],
+                "subject": "test subject",
+                "block_id": "form-id",
+            },
+        )
+        transaction.commit()
+        self.assertEqual(response.status_code, 200)
+
+        response = self.submit_form(
+            data={
+                "from": "john@doe.com",
+                "data": [
+                    {"field_id": "message", "value": "just want to say hi"},
+                    {"field_id": "name", "value": "John"},
+                    {"field_id": "foo", "value": "skip this"},
+                ],
+                "subject": "test subject",
+                "block_id": "form-id",
+            },
+        )
+        transaction.commit()
+        self.assertEqual(response.status_code, 500)
+        self.assertTrue("Value not unique" in response.json()["message"])
