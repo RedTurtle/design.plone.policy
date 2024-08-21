@@ -52,7 +52,7 @@ def get_data(self):
 
     rows = []
     # start patch
-    for index, item in enumerate(store.search()):
+    for index, item in enumerate(reversed(store.search())):
         # end patch
         data = {}
         fields_labels = item.attrs.get("fields_labels", {})
@@ -68,6 +68,7 @@ def get_data(self):
             # add fixed columns values
             value = item.attrs.get(k, None)
             data[k] = json_compatible(value)
+
         # start patch
         if "waiting_list" in custom_colums:
             data.update(
