@@ -10,6 +10,7 @@
 
   <include package=".browser" />
   <include package=".restapi" />
+  <include package=".limit_root_addables" />
   <include file="permissions.zcml" />
   <include file="upgrades.zcml" />
 
@@ -21,7 +22,6 @@
       directory="profiles/default"
       post_handler=".setuphandlers.post_install"
       />
-
   <genericsetup:registerProfile
       name="uninstall"
       title="Design Plone: policy (uninstall)"
