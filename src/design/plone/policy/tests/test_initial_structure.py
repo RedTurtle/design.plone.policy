@@ -49,7 +49,7 @@ class TestInitialStructureCreation(unittest.TestCase):
         for child in self.portal.listFolderContents():
             if child.id == "leggi-le-faq":
                 self.assertEqual(child.portal_type, "FaqFolder")
-            elif child.id == "dichiarazione-di-accessiblita":
+            elif child.id == "dichiarazione-di-accessibilita":
                 self.assertEqual(child.portal_type, "Link")
             else:
                 self.assertEqual(child.portal_type, "Document")

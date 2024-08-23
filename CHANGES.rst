@@ -4,7 +4,8 @@ Changelog
 5.0.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add a profile to limit addables on site root
+  [lucabel]
 
 
 5.0.9 (2024-04-12)

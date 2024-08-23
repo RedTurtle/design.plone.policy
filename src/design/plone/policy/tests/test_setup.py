@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
-from design.plone.policy.testing import DESIGN_PLONE_POLICY_INTEGRATION_TESTING
-from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.registry.interfaces import IRegistry
-from Products.CMFPlone.interfaces import ISearchSchema
-from Products.CMFPlone.interfaces import ISiteSchema
-from Products.CMFPlone.interfaces.controlpanel import INavigationSchema
-from zope.component import getUtility
-
 import unittest
 
+from design.plone.policy.testing import (
+    DESIGN_PLONE_POLICY_INTEGRATION_TESTING,
+    DESIGN_PLONE_POLICY_LIMIT_ROOT_ADDABLES_INTEGRATION_TESTING,
+)
+from plone import api
+from plone.app.testing import TEST_USER_ID, setRoles
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import ISearchSchema, ISiteSchema
+from Products.CMFPlone.interfaces.controlpanel import INavigationSchema
+from zope.component import getUtility
 
 try:
     from Products.CMFPlone.utils import get_installer
@@ -58,6 +58,10 @@ class TestSetup(unittest.TestCase):
             sorted(settings.types_not_searched),
             sorted(
                 (
+                    "File",
+                    "Image",
+                    "Incarico",
+                    "Modulo",
                     "Documento Personale",
                     "Bando Folder Deepening",
                     "Pratica",
@@ -100,3 +104,50 @@ class TestUninstall(unittest.TestCase):
         from plone.browserlayer import utils
 
         self.assertNotIn(IDesignPlonePolicyLayer, utils.registered_layers())
+
+
+class TestSetupLimitRootAddables(unittest.TestCase):
+
+    layer = DESIGN_PLONE_POLICY_LIMIT_ROOT_ADDABLES_INTEGRATION_TESTING
+
+    def setUp(self):
+        """Custom shared utility setup for tests."""
+        self.portal = self.layer["portal"]
+        if get_installer:
+            self.installer = get_installer(self.portal, self.layer["request"])
+        else:
+            self.installer = api.portal.get_tool("portal_quickinstaller")
+        self.installer.install_product("design.plone.policy.limit_root_addables")
+
+    def test_setup(self):
+        plonesite = api.portal.get_tool("portal_types")["Plone Site"]
+        self.assertTrue(plonesite.filter_content_types)
+        self.assertEqual(
+            sorted(plonesite.allowed_content_types),
+            sorted(("Folder", "File", "Document", "Image", "Subsite")),
+        )
+
+
+class TestUninstallLimitRootAddables(unittest.TestCase):
+
+    layer = DESIGN_PLONE_POLICY_INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer["portal"]
+        if get_installer:
+            self.installer = get_installer(self.portal, self.layer["request"])
+        else:
+            self.installer = api.portal.get_tool("portal_quickinstaller")
+        # roles_before = api.user.get_roles(TEST_USER_ID)
+        # setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.installer.install_product("design.plone.policy.limit_root_addables")
+        # setRoles(self.portal, TEST_USER_ID, roles_before)
+
+    def test_uninstall(self):
+        plonesite = api.portal.get_tool("portal_types")["Plone Site"]
+        self.installer.uninstall_product("design.plone.policy.limit_root_addables")
+        self.assertFalse(plonesite.filter_content_types)
+        self.assertEqual(
+            plonesite.allowed_content_types,
+            (),
+        )
