@@ -1,14 +1,4 @@
 # -*- coding: utf-8 -*-
-from design.plone.contenttypes.testing import DesignPloneContenttypesLayer
-from design.plone.contenttypes.testing import DesignPloneContenttypesRestApiLayer
-from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
-from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
-from plone.app.testing import applyProfile
-from plone.app.testing import FunctionalTesting
-from plone.app.testing import IntegrationTesting
-from plone.testing import z2
-from zope.globalrequest import setRequest
-
 import collective.feedback
 import collective.MockMailHost
 import collective.taxonomy
@@ -16,10 +6,10 @@ import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
 import collective.volto.formsupport
 import collective.volto.secondarymenu
+import collective.volto.slimheader
 import collective.volto.socialsettings
 import collective.volto.subfooter
 import collective.volto.subsites
-import collective.volto.slimheader
 import collective.z3cform.datagridfield
 import design.plone.contenttypes
 import design.plone.policy
@@ -28,6 +18,15 @@ import plone.app.contentlisting
 import redturtle.faq
 import redturtle.voltoplugin.editablefooter
 import souper.plone
+from design.plone.contenttypes.testing import (
+    DesignPloneContenttypesLayer,
+    DesignPloneContenttypesRestApiLayer,
+)
+from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
+from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
+from plone.app.testing import FunctionalTesting, IntegrationTesting, applyProfile
+from plone.testing import z2
+from zope.globalrequest import setRequest
 
 
 class FauxRequest(dict):
@@ -88,6 +87,31 @@ DESIGN_PLONE_POLICY_ACCEPTANCE_TESTING = FunctionalTesting(
         z2.ZSERVER_FIXTURE,
     ),
     name="DesignPlonePolicyLayer:AcceptanceTesting",
+)
+
+
+class DesignPlonePolicyLimitRootAddablesLayer(DesignPlonePolicyLayer):
+    def setUpZope(self, app, configurationContext):
+        # Load any other ZCML that is required for your tests.
+        # The z3c.autoinclude feature is disabled in the Plone fixture base
+        # layer.
+
+        super().setUpZope(app, configurationContext)
+        self.loadZCML(package=design.plone.policy)
+
+    def setUpPloneSite(self, portal):
+        super().setUpPloneSite(portal)
+        request = portal.REQUEST
+        setRequest(request)
+        import pdb
+
+        pdb.set_trace()
+        applyProfile(portal, "design.plone.policy.limit_root_addables:default")
+
+
+DESIGN_PLONE_POLICY_LIMIT_ROOT_ADDABLES_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(DESIGN_PLONE_POLICY_INTEGRATION_TESTING,),
+    name="DesignPlonePolicyLimitRootAddablesLayer:IntegrationTesting",
 )
 
 
