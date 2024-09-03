@@ -20,5 +20,13 @@
       permission="zope2.View"
       />
 
+  <!-- backport of https://github.com/RedTurtle/redturtle.volto/pull/113 -->
+  <browser:page
+      name="display-file"
+      for="*"
+      class=".display_file.DisplayFile"
+      permission="zope2.View"
+      layer="design.plone.policy.interfaces.IDesignPlonePolicyLayer"
+      />
 
 </configure>

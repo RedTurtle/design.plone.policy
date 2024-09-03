@@ -4,7 +4,9 @@ Changelog
 4.0.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Customize @@display-file to allow to download files with proper filename.
+  (backport of https://github.com/RedTurtle/redturtle.volto/pull/113).
+  [cekk]
 
 
 4.0.10 (2024-07-12)
