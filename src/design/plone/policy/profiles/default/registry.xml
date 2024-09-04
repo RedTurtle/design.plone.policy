@@ -46,9 +46,9 @@
       <element>data-element</element>
     </value>
   </records>
- 
+
   <record field="show_author_info"
-	  interface="plone.base.interfaces.syndication.ISiteSyndicationSettings"
+          interface="plone.base.interfaces.syndication.ISiteSyndicationSettings"
           name="plone.base.interfaces.syndication.ISiteSyndicationSettings.show_author_info"
           purge="True"
   >

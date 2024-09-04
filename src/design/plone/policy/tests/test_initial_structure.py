@@ -7,8 +7,8 @@ from design.plone.policy.utils import TASSONOMIA_ORGANI_GOVERNO
 from design.plone.policy.utils import TASSONOMIA_SERVIZI
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from plone.restapi.behaviors import IBlocks
 from plone.i18n.normalizer.interfaces import IURLNormalizer
+from plone.restapi.behaviors import IBlocks
 from zope.component import getUtility
 
 import unittest
