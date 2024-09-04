@@ -5,11 +5,13 @@ Changelog
 -------------------
 
 - `search_sections` in IDesignPloneSettings has a new filed in each section:
-  `expandItems` that is a boolean to decide if the items of the section should 
+  `expandItems` that is a boolean to decide if the items of the section should
   be expanded or not (default is True).
   [mamico]
 - Add a profile to limit addables on site root
   [lucabel]
+- Patch for collective.volto.formsupport
+  [eikichi18]
 
 5.0.9 (2024-04-12)
 ------------------
