@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.11 (unreleased)
+4.0.11 (2024-09-05)
 -------------------
 
 - Customize @@display-file to allow to download files with proper filename.
