@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.11 (unreleased)
+5.0.11 (2024-09-05)
 -------------------
 
 - fixed translate on form block patch
