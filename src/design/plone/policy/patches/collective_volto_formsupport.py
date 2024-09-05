@@ -141,7 +141,7 @@ def reply(self):
             message = translate(
                 _(
                     "save_data_exception",
-                    default="Unable to save data. Value not unique: '${fields}'",
+                    default="Impossibile salvare i dati. I campi '${fields}' non sono univoci.",  # noqa
                     mapping={"fields": e.args[0]},
                 ),
                 context=self.request,
@@ -225,7 +225,9 @@ def add(self, data):
         for saved_record in saved_data:
             unique = False
             for key in keys:
-                if record.attrs.storage[key[0]] != saved_record.attrs.storage[key[0]]:
+                if record.attrs.storage[key[0]] != saved_record.attrs.storage.get(
+                    key[0], None
+                ):
                     unique = True
                     break
 
