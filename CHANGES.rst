@@ -4,7 +4,9 @@ Changelog
 5.0.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- fixed translate on form block patch
+- fixed check on saved value
+  [eikichi18]
 
 
 5.0.10 (2024-09-04)

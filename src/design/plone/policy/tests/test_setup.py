@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
-import unittest
-
+from design.plone.policy.testing import DESIGN_PLONE_POLICY_INTEGRATION_TESTING
 from design.plone.policy.testing import (
-    DESIGN_PLONE_POLICY_INTEGRATION_TESTING,
     DESIGN_PLONE_POLICY_LIMIT_ROOT_ADDABLES_INTEGRATION_TESTING,
 )
 from plone import api
-from plone.app.testing import TEST_USER_ID, setRoles
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from plone.registry.interfaces import IRegistry
-from Products.CMFPlone.interfaces import ISearchSchema, ISiteSchema
+from Products.CMFPlone.interfaces import ISearchSchema
+from Products.CMFPlone.interfaces import ISiteSchema
 from Products.CMFPlone.interfaces.controlpanel import INavigationSchema
 from zope.component import getUtility
+
+import unittest
+
 
 try:
     from Products.CMFPlone.utils import get_installer
@@ -107,7 +110,6 @@ class TestUninstall(unittest.TestCase):
 
 
 class TestSetupLimitRootAddables(unittest.TestCase):
-
     layer = DESIGN_PLONE_POLICY_LIMIT_ROOT_ADDABLES_INTEGRATION_TESTING
 
     def setUp(self):
@@ -129,7 +131,6 @@ class TestSetupLimitRootAddables(unittest.TestCase):
 
 
 class TestUninstallLimitRootAddables(unittest.TestCase):
-
     layer = DESIGN_PLONE_POLICY_INTEGRATION_TESTING
 
     def setUp(self):
