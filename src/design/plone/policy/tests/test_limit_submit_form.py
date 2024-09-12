@@ -169,7 +169,5 @@ class TestLimitMailStore(unittest.TestCase):
         transaction.commit()
         self.assertEqual(response.status_code, 500)
         # test message is not fair because it's a translation, in another package
-        self.assertTrue(
-            "Value not unique" in response.json()["message"]
-            or "non sono univoci" in response.json()["message"]
-        )
+        message = response.json()["message"]
+        self.assertTrue("Value not unique" in message or "non sono univoci" in message)
