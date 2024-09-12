@@ -4,7 +4,8 @@ Changelog
 5.0.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix a test for translations
+  [mamico]
 
 
 5.0.11 (2024-09-05)
