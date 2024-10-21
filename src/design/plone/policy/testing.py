@@ -2,7 +2,6 @@
 import collective.feedback
 import collective.MockMailHost
 import collective.taxonomy
-import collective.volto.cookieconsent
 import collective.volto.dropdownmenu
 import collective.volto.formsupport
 import collective.volto.secondarymenu
@@ -43,7 +42,6 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
         self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=collective.feedback)
         self.loadZCML(package=collective.volto.formsupport)
-        self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
         self.loadZCML(package=collective.volto.secondarymenu)
         self.loadZCML(package=collective.volto.socialsettings)
@@ -125,7 +123,6 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
         self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=collective.feedback)
         self.loadZCML(package=collective.volto.formsupport)
-        self.loadZCML(package=collective.volto.cookieconsent)
         self.loadZCML(package=collective.volto.dropdownmenu)
         self.loadZCML(package=collective.volto.secondarymenu)
         self.loadZCML(package=collective.volto.socialsettings)
