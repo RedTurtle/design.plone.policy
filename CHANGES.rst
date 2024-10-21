@@ -6,7 +6,8 @@ Changelog
 
 - Fix a test for translations
   [mamico]
-
+- Fix tests: do not import collective.volto.cookieconsent.
+  [cekk]
 
 5.0.11 (2024-09-05)
 -------------------
