@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.12 (unreleased)
+5.0.12 (2024-10-23)
 -------------------
 
 - Fix a test for translations
