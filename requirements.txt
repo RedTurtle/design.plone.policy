@@ -1,2 +1,1 @@
-setuptools==65.5.1
-zc.buildout
+-r https://dist.plone.org/release/6.0-latest/requirements.txt
