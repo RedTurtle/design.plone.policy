@@ -62,7 +62,6 @@ setup(
         "collective.volto.slimheader",
         "collective.volto.subsites",
         "collective.volto.subfooter",
-        "eea.api.taxonomy",
         "redturtle.voltoplugin.editablefooter",
         "redturtle.faq",
         "redturtle.rssservice",
