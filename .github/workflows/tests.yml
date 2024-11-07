@@ -11,7 +11,7 @@ jobs:
         python: ["3.8", "3.9", "3.10", "3.11"]
         plone: ["60"]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Cache eggs
         uses: actions/cache@v3
         with:
