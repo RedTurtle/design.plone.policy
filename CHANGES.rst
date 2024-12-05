@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.13 (unreleased)
+5.0.13 (2024-12-05)
 -------------------
 
 - Remove eea.api.taxonomy dependendency (it's needed in contenttypes, not here).
