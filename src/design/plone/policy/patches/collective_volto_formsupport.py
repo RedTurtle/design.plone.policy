@@ -149,23 +149,24 @@ def reply(self):
             self.request.response.setStatus(500)
             return dict(type="InternalServerError", message=message)
 
-    return {"data": data}
+    res = {"data": data}
+    waiting_list = (
+        self.submit_limit is not None and -1 < self.submit_limit < self.count_data()
+    )
+    if waiting_list:
+        res["waiting_list"] = waiting_list
     # end patch
+    return res
 
 
 def store_data(self):
     store = getMultiAdapter((self.context, self.request), IFormDataStore)
     # start patch
-    data = {"form_data": self.filter_parameters()}
+    data = self.filter_parameters()
 
     res = store.add(data=data)
     if not res:
         raise BadRequest("Unable to store data")
-
-    waiting_list = (
-        self.submit_limit is not None and -1 < self.submit_limit < self.count_data()
-    )
-    data.update({"waiting_list": waiting_list})
 
     return data
 
@@ -205,7 +206,7 @@ def add(self, data):
     fields_labels = {}
     fields_order = []
     # start patch
-    for field_data in data["form_data"]:
+    for field_data in data:
         # end patch
         field_id = field_data.get("field_id", "")
         value = field_data.get("value", "")

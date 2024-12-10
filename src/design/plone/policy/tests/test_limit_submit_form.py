@@ -115,7 +115,7 @@ class TestLimitMailStore(unittest.TestCase):
         )
         transaction.commit()
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.json()["data"]["waiting_list"])
+        self.assertTrue(response.json()["waiting_list"])
 
     def test_unique_field(self):
         self.document.blocks = {
