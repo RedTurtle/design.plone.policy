@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.14 (unreleased)
+5.0.14 (2025-02-06)
 -------------------
 
 - Fix volto.formsupport path to not alter returned data on POST (#74).
