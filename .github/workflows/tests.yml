@@ -8,7 +8,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python: ["3.8", "3.9", "3.10", "3.11"]
+        python: ["3.11"]
         plone: ["60"]
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Coveralls Finished
-      uses: AndreMiras/coveralls-python-action@develop
-      with:
-        parallel-finished: true
+      - name: Coveralls Finished
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          parallel-finished: true
