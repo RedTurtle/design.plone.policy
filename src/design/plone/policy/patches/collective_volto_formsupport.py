@@ -150,8 +150,9 @@ def reply(self):
 
 def store_data(self):
     store = getMultiAdapter((self.context, self.request), IFormDataStore)
-    # start patch
-    data = self.filter_parameters()
+
+    # patch: keep parameters and return them
+    data = self.form_data_adapter.filter_parameters()
 
     res = store.add(data=data)
     if not res:
