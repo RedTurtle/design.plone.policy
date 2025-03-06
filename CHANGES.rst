@@ -4,7 +4,8 @@ Changelog
 5.0.15 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Align formsupport patches with collective.volto.formsupport >= 3.2.0.
+  [cekk]
 
 
 5.0.14 (2025-02-06)
