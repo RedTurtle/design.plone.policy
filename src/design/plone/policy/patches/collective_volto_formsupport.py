@@ -11,6 +11,7 @@ validation for data
 """
 from collective.volto.formsupport import _
 from collective.volto.formsupport.datamanager.catalog import FormDataStore
+from collective.volto.formsupport.events import FormSubmittedEvent
 from collective.volto.formsupport.interfaces import IFormDataStore
 from collective.volto.formsupport.restapi.services.form_data.csv import (
     FormDataExportGet,
@@ -102,21 +103,19 @@ def patch_FormDataExportGet_get_data():
 
 
 def reply(self):
-    self.validate_form()
-
-    # start patch
-    self.store_action = self.block.get("store", False)
-    self.send_action = self.block.get("send", [])
-    self.submit_limit = int(self.block.get("limit", "-1"))
+    """
+    This code is a copy of the original reply method from collective.volto.formsupport v3.2.2
+    """
+    store_action = self.block.get("store", False)
+    send_action = self.block.get("send", [])
+    self.submit_limit = int(self.block.get("limit", "-1"))  # this is the patch
 
     # Disable CSRF protection
     alsoProvides(self.request, IDisableCSRFProtection)
 
     notify(PostEventService(self.context, self.form_data))
-    data = self.form_data.get("data", [])
-    # end patch
 
-    if self.send_action:
+    if send_action or self.get_bcc():
         try:
             self.send_data()
         except BadRequest as e:
@@ -126,30 +125,20 @@ def reply(self):
             message = translate(
                 _(
                     "mail_send_exception",
-                    default="Unable to send confirm email. Please retry later or contact site administrator.",  # noqa
-                ),
-                context=self.request,
-            )
-            self.request.response.setStatus(500)
-            return dict(type="InternalServerError", message=message)
-    # start patch
-    if self.store_action:
-        try:
-            data = self.store_data()
-        except ValueError as e:
-            logger.exception(e)
-            message = translate(
-                _(
-                    "save_data_exception",
-                    default="Impossibile salvare i dati. I campi '${fields}' non sono univoci.",  # noqa
-                    mapping={"fields": e.args[0]},
+                    default="Unable to send confirm email. Please retry later or contact site administrator.",
                 ),
                 context=self.request,
             )
             self.request.response.setStatus(500)
             return dict(type="InternalServerError", message=message)
 
-    res = {"data": data}
+    notify(FormSubmittedEvent(self.context, self.block, self.form_data))
+
+    if store_action:
+        self.store_data()
+
+    # start patch - append waiting_list to response
+    res = {"data": self.form_data.get("data", [])}
     waiting_list = (
         self.submit_limit is not None and -1 < self.submit_limit < self.count_data()
     )
