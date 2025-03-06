@@ -135,7 +135,20 @@ def reply(self):
     notify(FormSubmittedEvent(self.context, self.block, self.form_data))
 
     if store_action:
-        self.store_data()
+        try:
+            self.store_data()
+        except ValueError as e:
+            logger.exception(e)
+            message = translate(
+                _(
+                    "save_data_exception",
+                    default="Unable to save data. Value not unique: '${fields}'",
+                    mapping={"fields": e.args[0]},
+                ),
+                context=self.request,
+            )
+            self.request.response.setStatus(500)
+            return dict(type="InternalServerError", message=message)
 
     # start patch - append waiting_list to response
     res = {"data": self.form_data.get("data", [])}
@@ -146,19 +159,6 @@ def reply(self):
         res["waiting_list"] = waiting_list
     # end patch
     return res
-
-
-def store_data(self):
-    store = getMultiAdapter((self.context, self.request), IFormDataStore)
-
-    # patch: keep parameters and return them
-    data = self.form_data_adapter.filter_parameters()
-
-    res = store.add(data=data)
-    if not res:
-        raise BadRequest("Unable to store data")
-
-    return data
 
 
 def count_data(self):
@@ -174,7 +174,6 @@ def patch_SubmitPost_reply():
         "Patch reply method of class SubmitPost from collective.volto.formsupport"
     )
     SubmitPost.reply = reply
-    SubmitPost.store_data = store_data
     SubmitPost.count_data = count_data
 
 
