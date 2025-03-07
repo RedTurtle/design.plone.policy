@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.15 (unreleased)
+5.0.15 (2025-03-07)
 -------------------
 
 - Align formsupport patches with collective.volto.formsupport >= 3.2.0.
