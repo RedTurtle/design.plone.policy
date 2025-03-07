@@ -139,34 +139,25 @@ class TestLimitMailStore(unittest.TestCase):
         }
         transaction.commit()
 
-        response = self.submit_form(
-            data={
-                "from": "john@doe.com",
-                "data": [
-                    {"field_id": "message", "value": "just want to say hi"},
-                    {"field_id": "name", "value": "John"},
-                    {"field_id": "foo", "value": "skip this"},
-                ],
-                "subject": "test subject",
-                "block_id": "form-id",
-            },
-        )
+        data = {
+            "from": "john@doe.com",
+            "data": [
+                {"field_id": "message", "value": "just want to say hi"},
+                {"field_id": "name", "value": "John"},
+                {"field_id": "foo", "value": "skip this"},
+            ],
+            "subject": "test subject",
+            "block_id": "form-id",
+        }
+
+        response = self.submit_form(data=data)
         transaction.commit()
+
         self.assertEqual(response.status_code, 200)
 
-        response = self.submit_form(
-            data={
-                "from": "john@doe.com",
-                "data": [
-                    {"field_id": "message", "value": "just want to say hi"},
-                    {"field_id": "name", "value": "John"},
-                    {"field_id": "foo", "value": "skip this"},
-                ],
-                "subject": "test subject",
-                "block_id": "form-id",
-            },
-        )
+        response = self.submit_form(data=data)
         transaction.commit()
+
         self.assertEqual(response.status_code, 500)
         # test message is not fair because it's a translation, in another package
         message = response.json()["message"]
