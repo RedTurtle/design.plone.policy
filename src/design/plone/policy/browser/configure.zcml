@@ -15,9 +15,9 @@
 
   <browser:page
       name="crea_area_trasparenza"
-      for="*"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       class=".trasparenza.CreaTrasparenza"
-      permission="zope2.View"
+      permission="cmf.ManagePortal"
       />
 
 
