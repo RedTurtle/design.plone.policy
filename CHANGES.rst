@@ -4,7 +4,8 @@ Changelog
 5.0.16 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix exclude_from_nav index value for initial setup contents.
+  [folix-01]
 
 
 5.0.15 (2025-03-07)

@@ -246,11 +246,11 @@ def create_footer():
             container=container,
             type=item.get("type", "Pagina"),
             title=item.get("title", "Titolo"),
+            exclude_from_nav=True,
         )
         create_default_blocks(context=obj)
         api.content.transition(obj=obj, transition="publish")
         item["path"] = f"/{obj.getId()}"
-        obj.exclude_from_nav = True
         if obj.portal_type == "FaqFolder":
             setattr(obj, "icon", None)
             obj.reindexObject()
