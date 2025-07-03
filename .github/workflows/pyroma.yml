@@ -28,7 +28,7 @@ jobs:
 
       # install pyroma
       - name: install pyroma
-        run: pip install pyroma
+        run: pip install pyroma==4.3.0
 
       # run pyroma
       - name: run pyroma
