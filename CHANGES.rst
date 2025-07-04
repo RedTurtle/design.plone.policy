@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.16 (unreleased)
+5.0.16 (2025-07-04)
 -------------------
 
 - Fix exclude_from_nav index value for initial setup contents.
