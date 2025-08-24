@@ -133,25 +133,21 @@ def generate_listing_query(obj):
     title_uuid = str(uuid4())
     listing_uuid = str(uuid4())
     data = {}
-    query = [
-        {
-            "i": "path",
-            "o": "plone.app.querystring.operation.string.path",
-            "v": "{uid}::1".format(uid=getattr(obj, "_plone.uuid")),
-        }
-    ]
+
     data["blocks"] = {
         title_uuid: {"@type": "title"},
         listing_uuid: {
             "@type": "listing",
             "block": listing_uuid,
-            "query": [],
-            "querystring": {
-                "query": query,
-                "sort_on": obj.get("sort_on", "getObjPositionInParent"),
-                "sort_order": obj.get("sort_reversed", False),
-                "b_size": obj.get("item_count", "30"),
-            },
+            "headlineTag": "h2",
+            "variation": "simpleCard",
+            "show_icon": "true",
+            "hide_dates": "false",
+            "show_section": "true",
+            "show_type": "false",
+            "show_description": "true",
+            "show_detail_link": "false",
+            "show_path_filters": "false",
         },
     }
     data["blocks_layout"] = {"items": [title_uuid, listing_uuid]}
