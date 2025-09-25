@@ -4,8 +4,8 @@ Changelog
 5.0.17 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- formsupport 3.3.0 compatibility.
+  [mamico]
 
 5.0.16 (2025-07-04)
 -------------------
