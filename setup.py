@@ -54,7 +54,7 @@ setup(
         "design.plone.contenttypes>=6.0.0.dev0",
         "collective.feedback",
         "collective.volto.dropdownmenu",
-        "collective.volto.formsupport[honeypot]>=3.2.0<=3.3.0",
+        "collective.volto.formsupport[honeypot]>=3.2.0,<=3.3.0",
         "collective.volto.secondarymenu",
         "collective.volto.socialsettings",
         "collective.volto.slimheader",
