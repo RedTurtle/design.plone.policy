@@ -4,7 +4,7 @@ Changelog
 5.0.17 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Install contactsblocks.
 
 
 5.0.16 (2025-07-04)
