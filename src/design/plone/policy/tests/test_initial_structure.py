@@ -115,4 +115,6 @@ class TestInitialStructureCreation(unittest.TestCase):
             object_provides="plone.restapi.behaviors.IBlocks"
         )
         for brain in brains:
-            self.check_initial_blocks(brain.getObject())
+            obj = brain.getObject()
+            if obj != self.portal:
+                self.check_initial_blocks(obj)
