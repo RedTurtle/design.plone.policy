@@ -106,6 +106,23 @@ def reply(self):
     """
     This code is a copy of the original reply method from collective.volto.formsupport v3.2.2
     """
+    if not self.block:
+        # formsupport 3.3.0 compatibility
+        from collective.volto.formsupport.interfaces import IPostAdapter
+
+        self.form_data_adapter = getMultiAdapter(
+            (self.context, self.request), IPostAdapter
+        )
+        self.form_data = self.get_form_data()
+        # fix attachment fields
+        if self.form_data.get("attachments"):
+            for k, v in self.form_data["attachments"].items():
+                if "field_id" not in v:
+                    v["field_id"] = k
+        self.block_id = self.form_data.get("block_id", "")
+        if self.block_id:
+            self.block = self.get_block_data(block_id=self.block_id)
+
     store_action = self.block.get("store", False)
     send_action = self.block.get("send", [])
     self.submit_limit = int(self.block.get("limit", "-1"))  # this is the patch
