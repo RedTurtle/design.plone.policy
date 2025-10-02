@@ -5,6 +5,7 @@ Changelog
 -------------------
 
 - Install contactsblocks.
+  [lucabel]
 
 - formsupport 3.3.0 compatibility.
   [mamico]
