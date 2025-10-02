@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
+from design.plone.contenttypes.testing import DesignPloneContenttypesLayer
+from design.plone.contenttypes.testing import DesignPloneContenttypesRestApiLayer
+from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
+from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
+from plone.app.testing import applyProfile
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import IntegrationTesting
+from plone.testing import z2
+from zope.globalrequest import setRequest
+
 import collective.feedback
 import collective.MockMailHost
 import collective.taxonomy
+import collective.volto.contactsblock
 import collective.volto.dropdownmenu
 import collective.volto.formsupport
 import collective.volto.secondarymenu
@@ -16,15 +27,6 @@ import plone.app.contentlisting
 import redturtle.faq
 import redturtle.voltoplugin.editablefooter
 import souper.plone
-from design.plone.contenttypes.testing import (
-    DesignPloneContenttypesLayer,
-    DesignPloneContenttypesRestApiLayer,
-)
-from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
-from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
-from plone.app.testing import FunctionalTesting, IntegrationTesting, applyProfile
-from plone.testing import z2
-from zope.globalrequest import setRequest
 
 
 class FauxRequest(dict):
@@ -53,6 +55,7 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
         self.loadZCML(package=plone.app.contentlisting)
         self.loadZCML(package=souper.plone)
         self.loadZCML(package=redturtle.faq)
+        self.loadZCML(package=collective.volto.contactsblock)
 
     def setUpPloneSite(self, portal):
         super().setUpPloneSite(portal)
@@ -136,6 +139,7 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
         self.loadZCML(package=redturtle.faq)
         self.loadZCML(package=souper.plone)
         self.loadZCML(package=redturtle.faq)
+        self.loadZCML(package=collective.volto.contactsblock)
 
     def setUpPloneSite(self, portal):
         super().setUpPloneSite(portal)

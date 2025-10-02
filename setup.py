@@ -66,7 +66,7 @@ setup(
         "redturtle.faq",
         "redturtle.rssservice",
         "iw.rejectanonymous",
-        "collective.volto.contactsblock",
+        "collective.volto.contactsblock>=1.0.1",
     ],
     extras_require={
         "test": [
