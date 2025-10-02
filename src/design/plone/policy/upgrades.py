@@ -433,3 +433,9 @@ def to_3101(context):
 
                             if blocks_layout:
                                 item.blocks_layout = blocks_layout
+
+
+def install_contactsblock(context):
+    """Install collective.volto.contactsblock."""
+    installOrReinstallProduct(api.portal.get(), "collective.volto.contactsblock")
+    logger.info("Installed collective.volto.contactsblock")

@@ -4,6 +4,8 @@ Changelog
 5.0.17 (unreleased)
 -------------------
 
+- Install contactsblocks.
+  [lucabel]
 - formsupport 3.3.0 compatibility.
   [mamico]
 

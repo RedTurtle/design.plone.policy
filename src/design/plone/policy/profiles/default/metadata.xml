@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-  <version>3103</version>
+  <version>3104</version>
   <dependencies>
     <dependency>profile-plone.restapi:default</dependency>
     <dependency>profile-design.plone.contenttypes:default</dependency>
@@ -15,5 +15,6 @@
     <dependency>profile-collective.volto.slimheader:default</dependency>
     <dependency>profile-redturtle.faq:default</dependency>
     <dependency>profile-collective.feedback:default</dependency>
+    <dependency>profile-collective.volto.contactsblock:default</dependency>
   </dependencies>
 </metadata>

@@ -211,4 +211,14 @@
         handler=".setuphandlers.disable_searchable_types"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="3103"
+      destination="3104"
+      >
+    <genericsetup:upgradeStep
+        title="Install collective.volto.contactsblock"
+        handler=".upgrades.install_contactsblock"
+        />
+  </genericsetup:upgradeSteps>
 </configure>
