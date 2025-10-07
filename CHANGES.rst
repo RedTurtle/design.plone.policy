@@ -4,8 +4,9 @@ Changelog
 5.0.18 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Fix formsupport 3.3.0 compatibility (in add patch).
+  [cekk]
+  
 
 5.0.17 (2025-10-02)
 -------------------
