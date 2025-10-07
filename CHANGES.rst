@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.18 (unreleased)
+5.0.18 (2025-10-07)
 -------------------
 
 - Fix formsupport 3.3.0 compatibility (in add patch).
