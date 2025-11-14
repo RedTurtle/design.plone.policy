@@ -1,4 +1,6 @@
 name: Flake8
+permissions:
+  contents: read
 on: [push]
 jobs:
   build:
