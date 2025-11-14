@@ -4,7 +4,8 @@ Changelog
 5.0.19 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Refactoring patch per waiting list
+  [mamico]
 
 
 5.0.18 (2025-10-07)
