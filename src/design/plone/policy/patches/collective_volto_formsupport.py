@@ -24,7 +24,6 @@ from collective.volto.formsupport.restapi.services.submit_form.post import Submi
 from datetime import datetime
 from io import StringIO
 from plone.protect.interfaces import IDisableCSRFProtection
-from plone.restapi.serializer.converters import json_compatible
 from souper.soup import Record
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -63,14 +62,14 @@ def wrapper_get_data(orig):
             return res
         else:
             return res
-    
+
     return get_data
 
 
 def patch_FormDataExportGet_get_data():
     logger.info(
         "Patch collective.volto.formsupport.restapi.services.form_data.csv.FormDataExportGet.get_data "
-        "addding waiting_list feature" 
+        "addding waiting_list feature"
     )
     FormDataExportGet.get_data = wrapper_get_data(FormDataExportGet.get_data)
 
