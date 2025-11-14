@@ -1,4 +1,6 @@
 name: zpretty
+permissions:
+  contents: read
 on: [push]
 jobs:
   build:
