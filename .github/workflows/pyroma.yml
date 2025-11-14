@@ -1,4 +1,6 @@
 name: Pyroma
+permissions:
+  contents: read
 on: [push]
 jobs:
   build:
