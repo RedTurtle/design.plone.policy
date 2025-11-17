@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.19 (unreleased)
+5.0.19 (2025-11-17)
 -------------------
 
 - Refactoring patch per waiting list
