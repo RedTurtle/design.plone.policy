@@ -24,7 +24,6 @@ from collective.volto.formsupport.restapi.services.submit_form.post import Submi
 from datetime import datetime
 from io import StringIO
 from plone.protect.interfaces import IDisableCSRFProtection
-from plone.restapi.serializer.converters import json_compatible
 from souper.soup import Record
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -38,68 +37,41 @@ import csv
 SKIP_ATTRS = ["block_id", "fields_labels", "fields_order"]
 
 
-def get_data(self):
-    store = getMultiAdapter((self.context, self.request), IFormDataStore)
-    sbuf = StringIO()
-    fixed_columns = ["date"]
-    columns = []
-    # start patch
-    custom_colums = []
-    if self.form_block.get("limit", None) is not None:
-        limit = int(self.form_block["limit"])
-        if limit > -1:
-            custom_colums.append("waiting_list")
-    # end patch
+def wrapper_get_data(orig):
+    def get_data(self):
+        res = orig(self)
+        has_waiting_list = False
+        if self.form_block.get("limit") is not None:
+            limit = int(self.form_block["limit"])
+            if limit > -1:
+                has_waiting_list = True
+        if has_waiting_list:
+            reader = csv.DictReader(StringIO(res))
+            columns = reader.fieldnames + ["waiting_list"]
+            sbuf = StringIO()
+            writer = csv.DictWriter(sbuf, fieldnames=columns, quoting=csv.QUOTE_ALL)
+            writer.writeheader()
+            for idx, row in enumerate(reader):
+                if idx >= limit:
+                    row["waiting_list"] = translate(_("yes_label", default="Yes"))
+                else:
+                    row["waiting_list"] = translate(_("no_label", default="No"))
+                writer.writerow(row)
+            res = sbuf.getvalue()
+            sbuf.close()
+            return res
+        else:
+            return res
 
-    rows = []
-    # start patch
-    for index, item in enumerate(reversed(store.search())):
-        # end patch
-        data = {}
-        fields_labels = item.attrs.get("fields_labels", {})
-        for k in self.get_ordered_keys(item):
-            if k in SKIP_ATTRS:
-                continue
-            value = item.attrs.get(k, None)
-            label = fields_labels.get(k, k)
-            if label not in columns and label not in fixed_columns:
-                columns.append(label)
-            data[label] = json_compatible(value)
-        for k in fixed_columns:
-            # add fixed columns values
-            value = item.attrs.get(k, None)
-            data[k] = json_compatible(value)
-
-        # start patch
-        if "waiting_list" in custom_colums:
-            data.update(
-                {
-                    "waiting_list": (
-                        translate(_("yes_label", default="Yes"))
-                        if not (index < limit)
-                        else translate(_("no_label", default="No"))
-                    )
-                }
-            )
-        # end patch
-
-        rows.append(data)
-    columns.extend(fixed_columns)
-    columns.extend(custom_colums)
-    writer = csv.DictWriter(sbuf, fieldnames=columns, quoting=csv.QUOTE_ALL)
-    writer.writeheader()
-    for row in rows:
-        writer.writerow(row)
-    res = sbuf.getvalue()
-    sbuf.close()
-    return res
+    return get_data
 
 
 def patch_FormDataExportGet_get_data():
     logger.info(
-        "Patch get_data methos of class FormDataExporterGet from collective.volto.formsupport"  # noqa
+        "Patch collective.volto.formsupport.restapi.services.form_data.csv.FormDataExportGet.get_data "
+        "addding waiting_list feature"
     )
-    FormDataExportGet.get_data = get_data
+    FormDataExportGet.get_data = wrapper_get_data(FormDataExportGet.get_data)
 
 
 def reply(self):
