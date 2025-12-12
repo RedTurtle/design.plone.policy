@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-12-12 09:20+0000\n"
+"POT-Creation-Date: 2025-12-12 09:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,8 +47,8 @@ msgstr ""
 msgid "no_label"
 msgstr ""
 
-#. Default: "Unable to save data. These fields need to have an unique value:  \"${fields}\""
-#: ../patches/collective_volto_formsupport.py:210
+#. Default: "Unable to save data. The value of field \"${field}\" is already stored in previous submissions."
+#: ../patches/collective_volto_formsupport.py:205
 msgid "save_data_exception"
 msgstr ""
 

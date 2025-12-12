@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#. Default: "Unable to save data. Value not unique: '${fields}'"
-#: ../patches/collective_volto_formsupport.py:132
+#. Default: "Unable to save data. The value of field \"${field}\" is already stored in previous submissions."
+#: ../patches/collective_volto_formsupport.py:205
 msgid "save_data_exception"
-msgstr "Impossibile sottomettere il form. Valore non univoco nei campi \"${fields}\""
+msgstr "Non è possibile inviare il modulo, poiché il valore nel campo \"${field}\" è già presente."

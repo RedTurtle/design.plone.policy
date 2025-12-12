@@ -196,24 +196,19 @@ def add(self, data):
     if keys:
         saved_data = self.soup.data.values()
         for saved_record in saved_data:
-            unique = False
             for key in keys:
-                if record.attrs.storage[key[0]] != saved_record.attrs.storage.get(
-                    key[0], None
-                ):
-                    unique = True
-                    break
-
-            if not unique:
-                raise BadRequest(
-                    api.portal.translate(
-                        _(
-                            "save_data_exception",
-                            default='Unable to save data. These fields need to have an unique value:  "${fields}"',
-                            mapping={"fields": ", ".join([x[1] for x in keys])},
+                saved_value = saved_record.attrs.storage.get(key[0], None)
+                submit_value = record.attrs.storage.get(key[0], None)
+                if submit_value and submit_value == saved_value:
+                    raise BadRequest(
+                        api.portal.translate(
+                            _(
+                                "save_data_exception",
+                                default='Unable to save data. The value of field "${field}" is already stored in previous submissions.',
+                                mapping={"field": key[1]},
+                            )
                         )
                     )
-                )
         # end patch
 
     return self.soup.add(record)
