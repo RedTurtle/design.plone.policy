@@ -24,6 +24,7 @@ from collective.volto.formsupport.restapi.services.submit_form.post import Submi
 from datetime import datetime
 from io import StringIO
 from plone.protect.interfaces import IDisableCSRFProtection
+from plone import api
 from souper.soup import Record
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -124,20 +125,7 @@ def reply(self):
     notify(FormSubmittedEvent(self.context, self.block, self.form_data))
 
     if store_action:
-        try:
-            self.store_data()
-        except ValueError as e:
-            logger.exception(e)
-            message = translate(
-                _(
-                    "save_data_exception",
-                    default="Unable to save data. Value not unique: '${fields}'",
-                    mapping={"fields": e.args[0]},
-                ),
-                context=self.request,
-            )
-            self.request.response.setStatus(500)
-            return dict(type="InternalServerError", message=message)
+        self.store_data()
 
     # start patch - append waiting_list to response
     res = {"data": self.form_data.get("data", [])}
@@ -217,7 +205,15 @@ def add(self, data):
                     break
 
             if not unique:
-                raise ValueError(f" {', '.join([x[1] for x in keys])}")
+                raise BadRequest(
+                    api.portal.translate(
+                        _(
+                            "save_data_exception",
+                            default='Unable to save data. These fields need to have an unique value:  "${fields}"',
+                            mapping={"fields": ", ".join([x[1] for x in keys])},
+                        )
+                    )
+                )
         # end patch
 
     return self.soup.add(record)
