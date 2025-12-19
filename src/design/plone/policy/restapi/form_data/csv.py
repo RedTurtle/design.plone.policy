@@ -1,6 +1,4 @@
-from collective.volto.formsupport.restapi.services.form_data.csv import (
-    FormDataExportGet as BaseFormDataExportGet,
-)
+from collective.volto.formsupport.restapi.services.form_data.csv import FormDataExportGet as BaseFormDataExportGet
 from io import StringIO
 
 import csv
