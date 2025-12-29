@@ -76,6 +76,7 @@ setup(
             "plone.app.contenttypes",
             "plone.app.robotframework[debug]",
             "collective.MockMailHost",
+            "freezegun",
         ]
     },
     entry_points="""
