@@ -1,4 +1,4 @@
-from collective.volto.formsupport.testing import VOLTO_FORMSUPPORT_API_FUNCTIONAL_TESTING  # noqa: E501,
+from design.plone.policy.testing import DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import SITE_OWNER_NAME
@@ -13,7 +13,7 @@ import unittest
 
 
 class TestLimitMailStore(unittest.TestCase):
-    layer = VOLTO_FORMSUPPORT_API_FUNCTIONAL_TESTING
+    layer = DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.app = self.layer["app"]
@@ -113,6 +113,7 @@ class TestLimitMailStore(unittest.TestCase):
         )
         transaction.commit()
         self.assertEqual(response.status_code, 200)
+
         self.assertTrue(response.json()["waiting_list"])
 
     def test_unique_field(self):
@@ -156,7 +157,10 @@ class TestLimitMailStore(unittest.TestCase):
         response = self.submit_form(data=data)
         transaction.commit()
 
-        self.assertEqual(response.status_code, 500)
+        self.assertEqual(response.status_code, 400)
         # test message is not fair because it's a translation, in another package
         message = response.json()["message"]
-        self.assertTrue("Value not unique" in message or "non sono univoci" in message)
+        self.assertEqual(
+            message,
+            'Unable to save data. The value of field "Name" is already stored in previous submissions.',
+        )

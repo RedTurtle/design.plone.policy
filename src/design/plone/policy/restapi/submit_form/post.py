@@ -1,6 +1,8 @@
 from collective.volto.formsupport import _
 from collective.volto.formsupport.interfaces import IFormDataStore
-from collective.volto.formsupport.restapi.services.submit_form.post import SubmitPost as BaseSubmitPost
+from collective.volto.formsupport.restapi.services.submit_form.post import (
+    SubmitPost as BaseSubmitPost,
+)
 from plone import api
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -12,7 +14,6 @@ class SubmitPost(BaseSubmitPost):
         Append waiting_list to response
         """
         res = super().reply()
-
         submit_limit = int(self.block.get("limit", "-1"))  # this is the patch
         waiting_list = (
             submit_limit is not None and -1 < submit_limit < self.count_data()

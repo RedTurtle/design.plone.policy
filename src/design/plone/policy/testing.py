@@ -40,7 +40,6 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
         # layer.
 
         super().setUpZope(app, configurationContext)
-        self.loadZCML(package=design.plone.policy)
         self.loadZCML(package=collective.feedback)
         self.loadZCML(package=collective.volto.formsupport)
         self.loadZCML(package=collective.volto.dropdownmenu)
@@ -56,6 +55,7 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
         self.loadZCML(package=souper.plone)
         self.loadZCML(package=redturtle.faq)
         self.loadZCML(package=collective.volto.contactsblock)
+        self.loadZCML(package=design.plone.policy)
 
     def setUpPloneSite(self, portal):
         super().setUpPloneSite(portal)
@@ -102,9 +102,6 @@ class DesignPlonePolicyLimitRootAddablesLayer(DesignPlonePolicyLayer):
         super().setUpPloneSite(portal)
         request = portal.REQUEST
         setRequest(request)
-        import pdb
-
-        pdb.set_trace()
         applyProfile(portal, "design.plone.policy.limit_root_addables:default")
 
 
@@ -140,6 +137,7 @@ class DesignPlonePolicyRestApiLayer(DesignPloneContenttypesRestApiLayer):
         self.loadZCML(package=souper.plone)
         self.loadZCML(package=redturtle.faq)
         self.loadZCML(package=collective.volto.contactsblock)
+        self.loadZCML(package=design.plone.policy)
 
     def setUpPloneSite(self, portal):
         super().setUpPloneSite(portal)
