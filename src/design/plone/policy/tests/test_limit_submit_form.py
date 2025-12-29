@@ -125,7 +125,8 @@ class TestLimitMailStore(unittest.TestCase):
             "text/comma-separated-values; charset=utf-8",
         )
         self.assertEqual(
-            [r for r in csv.DictReader(io.StringIO(response.text))][
+            [r for r in csv.DictReader(io.StringIO(response.text))],
+            [
                 {
                     "Message": "just want to say hi",
                     "Name": "John",
@@ -138,7 +139,7 @@ class TestLimitMailStore(unittest.TestCase):
                     "Lista d'attesa": "Si",
                     "date": "2025-12-29T23:09:33",
                 },
-            ]
+            ],
         )
 
     def test_unique_field(self):
