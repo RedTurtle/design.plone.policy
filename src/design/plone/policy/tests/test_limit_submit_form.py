@@ -187,5 +187,5 @@ class TestLimitMailStore(unittest.TestCase):
         message = response.json()["message"]
         self.assertEqual(
             message,
-            'Unable to save data. The value of field "Name" is already stored in previous submissions.',
+            "[{'message': 'Unable to save data. The value of field \"Name\" is already stored in previous submissions.', 'field_id': 'name', 'label': 'Name', 'error': 'UniqueValueError'}]",
         )

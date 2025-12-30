@@ -47,13 +47,20 @@ class SubmitPost(BaseSubmitPost):
                     submit_value = submitted_data.get(field_id, {}).get("value", None)
                     if submit_value and submit_value == saved_value:
                         raise BadRequest(
-                            api.portal.translate(
-                                _(
-                                    "save_data_exception",
-                                    default='Unable to save data. The value of field "${field}" is already stored in previous submissions.',
-                                    mapping={"field": label},
-                                )
-                            )
+                            [
+                                {
+                                    "message": api.portal.translate(
+                                        _(
+                                            "save_data_exception",
+                                            default='Unable to save data. The value of field "${field}" is already stored in previous submissions.',
+                                            mapping={"field": label},
+                                        )
+                                    ),
+                                    "field_id": field_id,
+                                    "label": label,
+                                    "error": "UniqueValueError",
+                                }
+                            ]
                         )
 
         return form_data
