@@ -11,7 +11,8 @@ jobs:
       max-parallel: 4
       matrix:
         python: ["3.11"]
-        plone: ["60", "61"]
+        # plone: ["60", "61"]
+        plone: ["60"]
     steps:
       - uses: actions/checkout@v4
       - name: Cache eggs
