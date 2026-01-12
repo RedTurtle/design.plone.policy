@@ -4,7 +4,8 @@ Changelog
 5.0.20 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix translation for unique values in form patch.
+  [cekk]
 
 
 5.0.19 (2025-11-17)

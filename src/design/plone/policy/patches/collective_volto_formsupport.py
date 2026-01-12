@@ -24,6 +24,7 @@ from collective.volto.formsupport.restapi.services.submit_form.post import Submi
 from datetime import datetime
 from io import StringIO
 from plone.protect.interfaces import IDisableCSRFProtection
+from plone import api
 from souper.soup import Record
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -124,20 +125,7 @@ def reply(self):
     notify(FormSubmittedEvent(self.context, self.block, self.form_data))
 
     if store_action:
-        try:
-            self.store_data()
-        except ValueError as e:
-            logger.exception(e)
-            message = translate(
-                _(
-                    "save_data_exception",
-                    default="Unable to save data. Value not unique: '${fields}'",
-                    mapping={"fields": e.args[0]},
-                ),
-                context=self.request,
-            )
-            self.request.response.setStatus(500)
-            return dict(type="InternalServerError", message=message)
+        self.store_data()
 
     # start patch - append waiting_list to response
     res = {"data": self.form_data.get("data", [])}
@@ -208,16 +196,19 @@ def add(self, data):
     if keys:
         saved_data = self.soup.data.values()
         for saved_record in saved_data:
-            unique = False
             for key in keys:
-                if record.attrs.storage[key[0]] != saved_record.attrs.storage.get(
-                    key[0], None
-                ):
-                    unique = True
-                    break
-
-            if not unique:
-                raise ValueError(f" {', '.join([x[1] for x in keys])}")
+                saved_value = saved_record.attrs.storage.get(key[0], None)
+                submit_value = record.attrs.storage.get(key[0], None)
+                if submit_value and submit_value == saved_value:
+                    raise BadRequest(
+                        api.portal.translate(
+                            _(
+                                "save_data_exception",
+                                default='Unable to save data. The value of field "${field}" is already stored in previous submissions.',
+                                mapping={"field": key[1]},
+                            )
+                        )
+                    )
         # end patch
 
     return self.soup.add(record)
