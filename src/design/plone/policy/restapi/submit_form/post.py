@@ -37,7 +37,7 @@ class SubmitPost(BaseSubmitPost):
         store = getMultiAdapter((self.context, self.request), IFormDataStore)
         form_fields = store.get_form_fields()
         keys = [
-            (x["field_id"], x["label"]) for x in form_fields if x.get("unique", False)
+            (x["field_id"], x.get("label", x["field_id"])) for x in form_fields if x.get("unique", False)
         ]
         if keys:
             saved_data = store.soup.data.values()
