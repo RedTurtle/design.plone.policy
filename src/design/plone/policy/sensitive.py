@@ -4,7 +4,6 @@ import os
 import re
 import six
 
-
 try:
     from collective.sentry import error_handler
 except ImportError:
