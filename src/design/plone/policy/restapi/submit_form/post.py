@@ -1,5 +1,7 @@
 from collective.volto.formsupport.interfaces import IFormDataStore
-from collective.volto.formsupport.restapi.services.submit_form.post import SubmitPost as BaseSubmitPost
+from collective.volto.formsupport.restapi.services.submit_form.post import (
+    SubmitPost as BaseSubmitPost,
+)
 from design.plone.policy import _
 from plone import api
 from zExceptions import BadRequest
