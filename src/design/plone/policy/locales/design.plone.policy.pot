@@ -1,0 +1,48 @@
+#--- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+#SOME DESCRIPTIVE TITLE.
+#FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2026-01-26 11:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: design.plone.policy\n"
+
+#: ../configure.zcml:24
+msgid "Design Plone: policy"
+msgstr ""
+
+#: ../configure.zcml:39
+msgid "Design Plone: policy (to_1400)"
+msgstr ""
+
+#: ../configure.zcml:32
+msgid "Design Plone: policy (uninstall)"
+msgstr ""
+
+#: ../configure.zcml:24
+msgid "Installs the design.plone.policy add-on."
+msgstr ""
+
+#: ../configure.zcml:32
+msgid "Uninstalls the design.plone.policy add-on."
+msgstr ""
+
+#. Default: "Unable to save data. The value of field \"${field}\" is already stored in previous submissions."
+#: ../restapi/submit_form/post.py:53
+msgid "save_data_exception"
+msgstr ""
+
+#. Default: "Unable to save data. The value is already stored in previous submissions."
+#: ../restapi/submit_form/post.py:61
+msgid "save_data_exception_no_label"
+msgstr ""

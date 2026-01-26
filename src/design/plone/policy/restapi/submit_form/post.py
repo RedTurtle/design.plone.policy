@@ -1,4 +1,4 @@
-from collective.volto.formsupport import _
+from design.plone.policy import _
 from collective.volto.formsupport.interfaces import IFormDataStore
 from collective.volto.formsupport.restapi.services.submit_form.post import (
     SubmitPost as BaseSubmitPost,
@@ -48,16 +48,25 @@ class SubmitPost(BaseSubmitPost):
                     saved_value = saved_record.attrs.storage.get(field_id, None)
                     submit_value = submitted_data.get(field_id, {}).get("value", None)
                     if submit_value and submit_value == saved_value:
-                        raise BadRequest(
-                            [
-                                {
-                                    "message": api.portal.translate(
+                        if label:
+                            msg = api.portal.translate(
                                         _(
                                             "save_data_exception",
                                             default='Unable to save data. The value of field "${field}" is already stored in previous submissions.',
                                             mapping={"field": label},
                                         )
-                                    ),
+                                    )
+                        else:
+                            msg = api.portal.translate(
+                                        _(
+                                            "save_data_exception_no_label",
+                                            default='Unable to save data. The value is already stored in previous submissions.',
+                                        )
+                                    )
+                        raise BadRequest(
+                            [
+                                {
+                                    "message": msg,
                                     "field_id": field_id,
                                     "label": label,
                                     "error": "UniqueValueError",
