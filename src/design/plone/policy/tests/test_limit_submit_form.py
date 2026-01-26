@@ -1,4 +1,5 @@
 from design.plone.policy.testing import DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING
+from freezegun import freeze_time
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import SITE_OWNER_NAME
@@ -7,7 +8,6 @@ from plone.app.testing import TEST_USER_ID
 from plone.restapi.testing import RelativeSession
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
-from freezegun import freeze_time
 
 import csv
 import io

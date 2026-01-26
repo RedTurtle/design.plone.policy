@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
 from design.plone.policy.testing import DESIGN_PLONE_POLICY_INTEGRATION_TESTING
-from design.plone.policy.testing import (
-    DESIGN_PLONE_POLICY_LIMIT_ROOT_ADDABLES_INTEGRATION_TESTING,
-)
+from design.plone.policy.testing import DESIGN_PLONE_POLICY_LIMIT_ROOT_ADDABLES_INTEGRATION_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID

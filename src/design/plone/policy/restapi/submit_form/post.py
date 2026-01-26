@@ -1,8 +1,6 @@
-from design.plone.policy import _
 from collective.volto.formsupport.interfaces import IFormDataStore
-from collective.volto.formsupport.restapi.services.submit_form.post import (
-    SubmitPost as BaseSubmitPost,
-)
+from collective.volto.formsupport.restapi.services.submit_form.post import SubmitPost as BaseSubmitPost
+from design.plone.policy import _
 from plone import api
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -50,19 +48,19 @@ class SubmitPost(BaseSubmitPost):
                     if submit_value and submit_value == saved_value:
                         if label:
                             msg = api.portal.translate(
-                                        _(
-                                            "save_data_exception",
-                                            default='Unable to save data. The value of field "${field}" is already stored in previous submissions.',
-                                            mapping={"field": label},
-                                        )
-                                    )
+                                _(
+                                    "save_data_exception",
+                                    default='Unable to save data. The value of field "${field}" is already stored in previous submissions.',  # noqa
+                                    mapping={"field": label},
+                                )
+                            )
                         else:
                             msg = api.portal.translate(
-                                        _(
-                                            "save_data_exception_no_label",
-                                            default='Unable to save data. The value is already stored in previous submissions.',
-                                        )
-                                    )
+                                _(
+                                    "save_data_exception_no_label",
+                                    default="Unable to save data. The value is already stored in previous submissions.",  # noqa
+                                )
+                            )
                         raise BadRequest(
                             [
                                 {
