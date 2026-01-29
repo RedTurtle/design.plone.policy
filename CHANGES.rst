@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.20 (unreleased)
+5.0.20 (2026-01-29)
 -------------------
 
 - Fix translation for unique values in form patch.
