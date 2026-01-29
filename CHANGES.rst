@@ -4,8 +4,6 @@ Changelog
 5.0.20 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
 - Fix translation for unique values in form patch.
   [cekk]
 - Remove collective.volto.formsupport patches and override restapi services instead.
