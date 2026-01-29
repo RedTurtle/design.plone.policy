@@ -16,7 +16,6 @@ from zope.globalrequest import getRequest
 import json
 import time
 
-
 TASSONOMIA_PRIMO_LIVELLO = [
     "Amministrazione",
     "Novità",

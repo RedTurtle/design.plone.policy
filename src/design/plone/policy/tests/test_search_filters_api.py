@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from design.plone.contenttypes.controlpanels.settings import IDesignPloneSettings
 from design.plone.policy.testing import DESIGN_PLONE_POLICY_API_FUNCTIONAL_TESTING
 from plone import api
 from plone.app.testing import setRoles
@@ -10,7 +11,7 @@ from plone.restapi.testing import RelativeSession
 from Products.CMFPlone.interfaces import ISearchSchema
 from transaction import commit
 from zope.component import getUtility
-from design.plone.contenttypes.controlpanels.settings import IDesignPloneSettings
+
 import json
 import unittest
 

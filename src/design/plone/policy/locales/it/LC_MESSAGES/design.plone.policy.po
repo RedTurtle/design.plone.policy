@@ -1,3 +1,6 @@
+#--- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+#SOME DESCRIPTIVE TITLE.
+#FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -12,7 +15,7 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
+"Domain: design.plone.policy\n"
 
 #: ../configure.zcml:24
 msgid "Design Plone: policy"
@@ -37,9 +40,9 @@ msgstr ""
 #. Default: "Unable to save data. The value of field \"${field}\" is already stored in previous submissions."
 #: ../restapi/submit_form/post.py:53
 msgid "save_data_exception"
-msgstr ""
+msgstr "Non è possibile inviare il modulo, poiché il valore nel campo \"${field}\" è già presente."
 
 #. Default: "Unable to save data. The value is already stored in previous submissions."
 #: ../restapi/submit_form/post.py:61
 msgid "save_data_exception_no_label"
-msgstr ""
+msgstr "Non è possibile inviare il modulo, poiché questo valore è già presente."

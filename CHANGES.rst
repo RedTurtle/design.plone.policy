@@ -6,6 +6,10 @@ Changelog
 
 - Nothing changed yet.
 
+- Fix translation for unique values in form patch.
+  [cekk]
+- Remove collective.volto.formsupport patches and override restapi services instead.
+  [cekk]
 
 5.0.19 (2025-11-17)
 -------------------

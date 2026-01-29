@@ -19,7 +19,6 @@ from zope.schema import getFields
 import json
 import logging
 
-
 logger = logging.getLogger(__name__)
 
 DEFAULT_PROFILE = "profile-design.plone.policy:default"
