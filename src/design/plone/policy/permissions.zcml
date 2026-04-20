@@ -8,6 +8,9 @@
     <!-- -*- extra stuff goes here -*- -->
 
   </configure>
-  <include package="Products.CMFCore" file="permissions.zcml" />
+  <include
+      package="Products.CMFCore"
+      file="permissions.zcml"
+      />
 
 </configure>

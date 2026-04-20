@@ -4,7 +4,8 @@ Changelog
 5.0.21 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- "Descrizione" now translate to "Descrizione breve" in italian.
+  [fedevancin]
 
 
 5.0.20 (2026-01-29)
@@ -27,7 +28,7 @@ Changelog
 
 - Fix formsupport 3.3.0 compatibility (in add patch).
   [cekk]
-  
+
 
 5.0.17 (2025-10-02)
 -------------------
