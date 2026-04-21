@@ -8,10 +8,10 @@
 
   <i18n:registerTranslations directory="locales" />
 
+  <include file="permissions.zcml" />
   <include package=".browser" />
   <include package=".restapi" />
   <include package=".limit_root_addables" />
-  <include file="permissions.zcml" />
   <include file="upgrades.zcml" />
 
   <genericsetup:registerProfile

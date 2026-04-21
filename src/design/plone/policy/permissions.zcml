@@ -7,7 +7,10 @@
   <configure zcml:condition="installed AccessControl.security">
     <!-- -*- extra stuff goes here -*- -->
 
-
   </configure>
+  <include
+      package="Products.CMFCore"
+      file="permissions.zcml"
+      />
 
 </configure>
