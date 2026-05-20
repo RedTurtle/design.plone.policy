@@ -1,13 +1,18 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="design.plone.policy"
-    xmlns:five="http://namespaces.zope.org/five"
     >
 
-  <five:registerPackage package="." initialize=".initialize" />
+  <!-- Fix dell'ordine delle traduzioni preso da
+  https://community.plone.org/t/overriding-plone-app-locales/12021/14 -->
+  <five:registerPackage
+      package="."
+      initialize=".initialize"
+      />
 
   <i18n:registerTranslations directory="locales" />
 
