@@ -15,8 +15,8 @@ apply()
 
 def initialize(context):
     """Be sure that we have our translations loaded before the othe ones
-       Fix proposto da @alert dell'ordine delle traduzioni preso da
-       https://community.plone.org/t/overriding-plone-app-locales/12021/14
+    Fix proposto da @alert dell'ordine delle traduzioni preso da
+    https://community.plone.org/t/overriding-plone-app-locales/12021/14
     """
     translation_domain = queryUtility(ITranslationDomain, "plone")
     if not translation_domain:
