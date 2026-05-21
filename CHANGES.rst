@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.21 (unreleased)
+5.0.21 (2026-05-21)
 -------------------
 
 - "Descrizione" now translate to "Descrizione breve" in italian.
