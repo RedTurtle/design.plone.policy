@@ -4,7 +4,7 @@ Changelog
 5.0.22 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Updated trasparenza view [daniele].
 
 
 5.0.21 (2026-05-21)
