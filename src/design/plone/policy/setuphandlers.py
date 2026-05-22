@@ -86,6 +86,10 @@ def disable_searchable_types(context=None):
         "Pratica",
         "RicevutaPagamento",
     ]
+    fti = api.portal.get_tool("portal_types")
+    for portal_type in remove_types:
+        if portal_type not in fti:
+            remove_types.remove(portal_type)
     types = set(settings.types_not_searched)
     types.update(remove_types)
     settings.types_not_searched = tuple(types)
