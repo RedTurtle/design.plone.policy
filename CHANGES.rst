@@ -4,7 +4,9 @@ Changelog
 5.0.22 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Clean disable_searchable_types in order to install design.plone.policy
+  on Plone 6.1 and 6.2.
+  [lucabel]
 
 
 5.0.21 (2026-05-21)
