@@ -51,6 +51,7 @@ setup(
     python_requires=">=3.7",
     install_requires=[
         "setuptools",
+        "plone.restapi",
         "redturtle.volto",
         "design.plone.contenttypes>=6.0.0.dev0",
         "collective.feedback",
@@ -63,7 +64,7 @@ setup(
         "collective.volto.subfooter",
         "redturtle.voltoplugin.editablefooter",
         "redturtle.faq",
-        "redturtle.rssservice",
+        "redturtle.rssservice>=2.2.2",
         "iw.rejectanonymous",
         "collective.volto.contactsblock>=1.0.1",
     ],
@@ -83,5 +84,7 @@ setup(
     entry_points="""
     [z3c.autoinclude.plugin]
     target = plone
+    [console_scripts]
+    rssmixer-proxy = redturtle.rssservice.proxycacheserver:main
     """,
 )

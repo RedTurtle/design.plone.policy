@@ -7,6 +7,9 @@ Changelog
 - Clean disable_searchable_types in order to install design.plone.policy
   on Plone 6.1 and 6.2.
   [lucabel]
+- Richietsa versione recente di redturtle.rssservice (>=2.2.2), aggiunto
+  script console per proxy rss cache.
+  [mamico]
 
 
 5.0.21 (2026-05-21)
