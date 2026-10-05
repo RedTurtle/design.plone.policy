@@ -57,29 +57,30 @@ class TestSetup(unittest.TestCase):
     def test_searchable_types(self):
         registry = getUtility(IRegistry)
         settings = registry.forInterface(ISearchSchema, prefix="plone")
+        expected = {
+            "File",
+            "Image",
+            "Incarico",
+            "Modulo",
+            "Documento Personale",
+            "Bando Folder Deepening",
+            "Pratica",
+            "Collection",
+            "RicevutaPagamento",
+            "Link",
+            "Messaggio",
+            "Folder",
+            "Dataset",
+            "Discussion Item",
+            "Subsite",
+        }
+        # only installed types can be excluded (e.g. no "Discussion Item"
+        # on Plone 6.1+)
+        portal_types = api.portal.get_tool("portal_types")
+        expected = {t for t in expected if t in portal_types}
         self.assertEqual(
-            sorted(settings.types_not_searched),
-            sorted(
-                (
-                    "File",
-                    "Image",
-                    "Incarico",
-                    "Modulo",
-                    "Documento Personale",
-                    "Bando Folder Deepening",
-                    "Pratica",
-                    "TempFolder",
-                    "Collection",
-                    "RicevutaPagamento",
-                    "Link",
-                    "Messaggio",
-                    "Plone Site",
-                    "Folder",
-                    "Dataset",
-                    "Discussion Item",
-                    "Subsite",
-                )
-            ),
+            sorted(expected - set(settings.types_not_searched)),
+            [],
         )
 
 

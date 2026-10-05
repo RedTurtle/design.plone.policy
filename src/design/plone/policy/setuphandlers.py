@@ -86,6 +86,9 @@ def disable_searchable_types(context=None):
         "Pratica",
         "RicevutaPagamento",
     ]
+    # skip types that are not installed (e.g. "Discussion Item" on Plone 6.1+)
+    fti = api.portal.get_tool("portal_types")
+    remove_types = [t for t in remove_types if t in fti]
     types = set(settings.types_not_searched)
     types.update(remove_types)
     settings.types_not_searched = tuple(types)
