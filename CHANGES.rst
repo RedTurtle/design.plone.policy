@@ -10,6 +10,9 @@ Changelog
 - Richietsa versione recente di redturtle.rssservice (>=2.2.2), aggiunto
   script console per proxy rss cache.
   [mamico]
+- Test CI anche su Plone 6.1 e 6.2, con le versioni di iocomune-backend
+  per linea Plone (plone60.cfg, plone61.cfg, plone62.cfg).
+  [mamico]
 
 
 5.0.21 (2026-05-21)

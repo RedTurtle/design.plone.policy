@@ -1,1 +1,6 @@
--r https://dist.plone.org/release/6.1-latest/requirements.txt
+-r https://raw.githubusercontent.com/RedTurtle/iocomune-backend/main/requirements61.txt
+# zope.interface 8 uses native namespaces: with buildout every egg lives in its own
+# path and the "zope" namespace is not merged. horse-with-no-namespace must be
+# installed by pip in the venv (not by buildout). On 6.2 it comes from the release
+# requirements.
+horse-with-no-namespace==20260202.0

@@ -1,0 +1,1 @@
+-r https://raw.githubusercontent.com/RedTurtle/iocomune-backend/main/requirements62.txt
