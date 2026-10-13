@@ -2,13 +2,19 @@
 from Acquisition import aq_base
 from collective.volto.blocksfield.field import BlocksField
 from copy import deepcopy
+from design.plone.policy.block_images import BLOCK_TYPES
+from design.plone.policy.block_images import format_change
+from design.plone.policy.block_images import human_size
+from design.plone.policy.block_images import optimize_blocks
 from design.plone.policy.interfaces import IDesignPlonePolicySettings
 from design.plone.policy.setuphandlers import disable_searchable_types
 from design.plone.policy.setuphandlers import set_default_subsite_colors
 from design.plone.policy.utils import create_default_blocks
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
+from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import iterSchemata
+from plone.dexterity.utils import iterSchemataForType
 from plone.registry.interfaces import IRegistry
 from plone.restapi.behaviors import IBlocks
 from Products.CMFPlone.interfaces import IFilterSchema
@@ -18,6 +24,7 @@ from zope.schema import getFields
 
 import json
 import logging
+import transaction
 
 logger = logging.getLogger(__name__)
 
@@ -438,3 +445,115 @@ def install_contactsblock(context):
     """Install collective.volto.contactsblock."""
     installOrReinstallProduct(api.portal.get(), "collective.volto.contactsblock")
     logger.info("Installed collective.volto.contactsblock")
+
+
+def _optimize_block_images(obj):
+    """Optimize the inline images in the blocks and blocks fields of obj."""
+    item = aq_base(obj)
+    changes = []
+    names = {"blocks"}
+    for schema in iterSchemata(item):
+        for name, field in getFields(schema).items():
+            if isinstance(field, BlocksField):
+                names.add(name)
+    for name in sorted(names):
+        value = getattr(item, name, None)
+        if not value or not isinstance(value, dict):
+            continue
+        value = deepcopy(value)
+        # the "blocks" field is the blocks dict, a BlocksField wraps it
+        blocks = value if name == "blocks" else value.get("blocks")
+        field_changes = optimize_blocks(obj, blocks)
+        if any("error" not in stats for stats in field_changes):
+            setattr(item, name, value)
+        changes.extend(field_changes)
+    return changes
+
+
+def to_3105(context):
+    """Resize and convert to WebP the base64 images of card and alert blocks."""
+    prefix = "[3104 - 3105]"
+    portal = api.portal.get()
+    catalog = api.portal.get_tool("portal_catalog")
+
+    if "block_types" in catalog.indexes():
+        brains = list(catalog.unrestrictedSearchResults(block_types=list(BLOCK_TYPES)))
+    else:
+        brains = list(catalog.unrestrictedSearchResults())
+    # the block_types index does not cover the blocks fields
+    blocksfield_types = set()
+    for fti in api.portal.get_tool("portal_types").listTypeInfo():
+        if not IDexterityFTI.providedBy(fti):
+            continue
+        for schema in iterSchemataForType(fti.getId()):
+            if any(isinstance(f, BlocksField) for f in getFields(schema).values()):
+                blocksfield_types.add(fti.getId())
+    if blocksfield_types:
+        brains += list(
+            catalog.unrestrictedSearchResults(portal_type=list(blocksfield_types))
+        )
+
+    modified = []
+    errors = []
+    analyzed = 0
+    seen = set()
+    candidates = [("/".join(portal.getPhysicalPath()), lambda: portal)]
+    candidates += [(b.getPath(), b._unrestrictedGetObject) for b in brains]
+    tot = len(candidates)
+    for i, (path, get_object) in enumerate(candidates):
+        if path in seen:
+            continue
+        seen.add(path)
+        analyzed += 1
+        if i and i % 1000 == 0:
+            logger.info(f"{prefix} Progress: {i}/{tot}")
+            portal._p_jar.cacheGC()
+        try:
+            obj = get_object()
+        except (AttributeError, KeyError):
+            logger.warning(f"{prefix} {path} - unable to get the object")
+            continue
+        changes = _optimize_block_images(obj)
+        for stats in changes:
+            if "error" in stats:
+                errors.append((path, stats))
+                logger.warning(
+                    f'{prefix} {path} - {stats["block_type"]} "{stats["filename"]}" '
+                    f'not optimized: {stats["error"]}'
+                )
+            else:
+                logger.info(f"{prefix} {path} - {format_change(stats)}")
+        changes = [stats for stats in changes if "error" not in stats]
+        if not changes:
+            continue
+        old = sum(stats["old_bytes"] for stats in changes)
+        new = sum(stats["new_bytes"] for stats in changes)
+        modified.append((path, len(changes), old, new))
+        logger.info(
+            f"{prefix} {path} - {len(changes)} images, "
+            f"{human_size(old)} -> {human_size(new)} (-{100 - new * 100 / old:.0f}%)"
+        )
+        if len(modified) % 50 == 0:
+            transaction.commit()
+
+    old = sum(item[2] for item in modified)
+    new = sum(item[3] for item in modified)
+    logger.info(f"{prefix} ### Block images optimization summary ###")
+    logger.info(f"{prefix} Analyzed pages: {analyzed}")
+    logger.info(f"{prefix} Modified pages: {len(modified)}")
+    logger.info(f"{prefix} Optimized images: {sum(item[1] for item in modified)}")
+    logger.info(f"{prefix} Images not optimized for errors: {len(errors)}")
+    if old:
+        logger.info(
+            f"{prefix} Total size: {human_size(old)} -> {human_size(new)} "
+            f"(-{100 - new * 100 / old:.0f}%)"
+        )
+    for i, (path, count, old, new) in enumerate(
+        sorted(modified, key=lambda item: item[2] - item[3], reverse=True)
+    ):
+        logger.info(
+            f"{prefix} [{i + 1}/{len(modified)}] - {path} - {count} images, "
+            f"{human_size(old)} -> {human_size(new)}"
+        )
+    for path, stats in errors:
+        logger.info(f'{prefix} Not optimized: {path} - "{stats["filename"]}"')
