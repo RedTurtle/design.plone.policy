@@ -103,9 +103,9 @@ class OptimizeImageTest(unittest.TestCase):
         self.assertEqual(result["content-type"], "image/webp")
         self.assertEqual(decode(result).size, (800, 600))
 
-    def test_image_is_unchanged_if_webp_is_not_smaller(self):
+    def test_small_image_is_unchanged(self):
         value = image_value(
-            Image.new("RGB", (10, 10), "red"), "GIF", "image/gif", "tiny.gif"
+            Image.new("RGB", (800, 600), "red"), "JPEG", "image/jpeg", "small.jpg"
         )
 
         self.assertIsNone(optimize_image(value))
