@@ -21,7 +21,6 @@ logger = logging.getLogger(__name__)
 
 BLOCK_TYPES = ("testo_riquadro_immagine", "alert")
 MAX_SIDE = 1600
-MIN_BYTES = 500 * 1024
 WEBP_QUALITY = 82
 
 SKIP_CONTENT_TYPES = ("image/svg+xml",)
@@ -52,7 +51,8 @@ def _optimize(value):
     if getattr(image, "is_animated", False):
         return None, None
     old_size = image.size
-    if max(old_size) <= MAX_SIDE and (image.format == "WEBP" or len(raw) < MIN_BYTES):
+    if max(old_size) <= MAX_SIDE and image.format == "WEBP":
+        # already optimized
         return None, None
 
     # an ICC profile is valid only for the original color space

@@ -86,9 +86,26 @@ class OptimizeImageTest(unittest.TestCase):
 
         self.assertEqual(optimize_image(value)["extra"], "foo")
 
-    def test_small_image_is_unchanged(self):
+    def test_small_webp_image_is_unchanged(self):
         value = image_value(
-            Image.new("RGB", (800, 600), "red"), "JPEG", "image/jpeg", "small.jpg"
+            noise_image(800, 600), "WEBP", "image/webp", "small.webp", quality=80
+        )
+
+        self.assertIsNone(optimize_image(value))
+
+    def test_small_jpeg_is_converted_without_resize(self):
+        value = image_value(
+            noise_image(800, 600), "JPEG", "image/jpeg", "small.jpg", quality=95
+        )
+
+        result = optimize_image(value)
+
+        self.assertEqual(result["content-type"], "image/webp")
+        self.assertEqual(decode(result).size, (800, 600))
+
+    def test_image_is_unchanged_if_webp_is_not_smaller(self):
+        value = image_value(
+            Image.new("RGB", (10, 10), "red"), "GIF", "image/gif", "tiny.gif"
         )
 
         self.assertIsNone(optimize_image(value))
@@ -220,9 +237,7 @@ class BlockImagesUpgradeTest(unittest.TestCase):
         document.blocks = {
             "card": card_block(big_jpeg("card.jpg")),
             "small": card_block(
-                image_value(
-                    Image.new("RGB", (100, 100)), "PNG", "image/png", "small.png"
-                )
+                image_value(noise_image(100, 100), "WEBP", "image/webp", "small.webp")
             ),
         }
         document.reindexObject()
@@ -241,7 +256,7 @@ class BlockImagesUpgradeTest(unittest.TestCase):
             to_3105(None)
 
         self.assertEqual(document.blocks["card"]["image"]["content-type"], "image/webp")
-        self.assertEqual(document.blocks["small"]["image"]["filename"], "small.png")
+        self.assertEqual(document.blocks["small"]["image"]["filename"], "small.webp")
         self.assertEqual(
             persona.competenze["blocks"]["alert"]["image"]["content-type"],
             "image/webp",
