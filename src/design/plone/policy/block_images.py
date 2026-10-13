@@ -6,6 +6,7 @@ the block data as ``{"data": <base64>, "encoding": "base64", "content-type",
 "filename"}``. Large uploads make the page payload huge, so we resize them and
 re-encode them as WebP.
 """
+
 from io import BytesIO
 from PIL import features
 from PIL import Image
@@ -15,7 +16,6 @@ from plone.restapi.blocks import visit_blocks
 import base64
 import logging
 import os
-
 
 logger = logging.getLogger(__name__)
 
