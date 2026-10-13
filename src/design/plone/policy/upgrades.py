@@ -12,9 +12,7 @@ from design.plone.policy.setuphandlers import set_default_subsite_colors
 from design.plone.policy.utils import create_default_blocks
 from plone import api
 from plone.app.upgrade.utils import installOrReinstallProduct
-from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import iterSchemata
-from plone.dexterity.utils import iterSchemataForType
 from plone.registry.interfaces import IRegistry
 from plone.restapi.behaviors import IBlocks
 from Products.CMFPlone.interfaces import IFilterSchema
@@ -476,22 +474,11 @@ def to_3105(context):
     portal = api.portal.get()
     catalog = api.portal.get_tool("portal_catalog")
 
+    # block_types also covers the blocks fields (collective.volto.blocksfield)
     if "block_types" in catalog.indexes():
         brains = list(catalog.unrestrictedSearchResults(block_types=list(BLOCK_TYPES)))
     else:
         brains = list(catalog.unrestrictedSearchResults())
-    # the block_types index does not cover the blocks fields
-    blocksfield_types = set()
-    for fti in api.portal.get_tool("portal_types").listTypeInfo():
-        if not IDexterityFTI.providedBy(fti):
-            continue
-        for schema in iterSchemataForType(fti.getId()):
-            if any(isinstance(f, BlocksField) for f in getFields(schema).values()):
-                blocksfield_types.add(fti.getId())
-    if blocksfield_types:
-        brains += list(
-            catalog.unrestrictedSearchResults(portal_type=list(blocksfield_types))
-        )
 
     modified = []
     errors = []

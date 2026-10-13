@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from collective.volto.blocksfield.interfaces import IBlocksFieldEnabled
 from design.plone.policy.block_images import MAX_SIDE
 from design.plone.policy.block_images import optimize_image
 from design.plone.policy.block_images import optimize_image_with_stats
@@ -14,6 +15,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.dexterity.utils import createContentInContainer
 from plone.restapi.testing import RelativeSession
 from transaction import commit
+from zope.interface import alsoProvides
 
 import base64
 import unittest
@@ -231,6 +233,8 @@ class BlockImagesUpgradeTest(unittest.TestCase):
             "blocks": {"alert": {"@type": "alert", "image": big_jpeg("alert.jpg")}},
             "blocks_layout": {"items": ["alert"]},
         }
+        # set by collective.volto.blocksfield when a blocks field is saved
+        alsoProvides(persona, IBlocksFieldEnabled)
         persona.reindexObject()
 
         with self.assertLogs("design.plone.policy.upgrades", level="INFO") as logs:
