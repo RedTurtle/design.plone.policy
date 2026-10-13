@@ -30,7 +30,7 @@ jobs:
 
       # install black
       - name: install black
-        run: pip install black
+        run: pip install black==26.10.1
 
       # run black
       - name: run black
