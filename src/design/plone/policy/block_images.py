@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 BLOCK_TYPES = ("testo_riquadro_immagine", "alert")
 MAX_SIDE = 1600
-MIN_BYTES = 100 * 1024
+MIN_BYTES = 500 * 1024
 WEBP_QUALITY = 82
 
 SKIP_CONTENT_TYPES = ("image/svg+xml",)
