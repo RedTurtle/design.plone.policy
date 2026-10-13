@@ -22,7 +22,6 @@ from zope.schema import getFields
 
 import json
 import logging
-import transaction
 
 logger = logging.getLogger(__name__)
 
@@ -520,8 +519,6 @@ def to_3105(context):
             f"{prefix} {path} - {len(changes)} images, "
             f"{human_size(old)} -> {human_size(new)} (-{100 - new * 100 / old:.0f}%)"
         )
-        if len(modified) % 50 == 0:
-            transaction.commit()
 
     old = sum(item[2] for item in modified)
     new = sum(item[3] for item in modified)
