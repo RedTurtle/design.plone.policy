@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.12 (unreleased)
+4.0.12 (2026-10-14)
 -------------------
 
 - Resize (max 1600px) and convert to WebP the base64 images stored inline in
