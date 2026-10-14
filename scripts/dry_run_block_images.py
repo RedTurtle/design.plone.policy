@@ -16,8 +16,9 @@ from copy import deepcopy
 from design.plone.policy.block_images import BLOCK_TYPES
 from design.plone.policy.block_images import format_change
 from design.plone.policy.block_images import human_size
-from design.plone.policy.block_images import optimize_blocks
+from design.plone.policy.block_images import optimize_image_with_stats
 from plone.dexterity.utils import iterSchemata
+from plone.restapi.blocks import visit_blocks
 from zope.component.hooks import setSite
 from zope.schema import getFields
 
@@ -35,17 +36,41 @@ def block_field_names(item):
 
 
 def analyze(obj):
-    """Return the changes the upgrade step would make on obj."""
+    """Return (changes, skipped) for obj.
+
+    changes: what the upgrade step would do (or fail on).
+    skipped: images in card/alert blocks that need no optimization.
+    """
     item = aq_base(obj)
     changes = []
+    skipped = []
     for name in block_field_names(item):
         value = getattr(item, name, None)
         if not value or not isinstance(value, dict):
             continue
         value = deepcopy(value)  # never touch the real data
         blocks = value if name == "blocks" else value.get("blocks")
-        changes.extend(optimize_blocks(obj, blocks))
-    return changes
+        if not isinstance(blocks, dict):
+            continue
+        for block in visit_blocks(obj, blocks):
+            block_type = block.get("@type")
+            if block_type not in BLOCK_TYPES:
+                continue
+            image = block.get("image")
+            new_value, stats = optimize_image_with_stats(image)
+            if stats:
+                stats["block_type"] = block_type
+                changes.append(stats)
+            elif isinstance(image, dict) and image.get("data"):
+                skipped.append(
+                    {
+                        "block_type": block_type,
+                        "filename": image.get("filename"),
+                        "content_type": image.get("content-type"),
+                        "bytes": len(image["data"]) * 3 // 4,
+                    }
+                )
+    return changes, skipped
 
 
 def main():
@@ -71,6 +96,7 @@ def main():
     seen = set()
     pages = []
     errors = []
+    not_needed = []
     for i, (path, get_object) in enumerate(candidates):
         if path in seen:
             continue
@@ -83,7 +109,9 @@ def main():
         except (AttributeError, KeyError):
             print(f"WARNING unable to get {path}", file=sys.stderr)
             continue
-        changes = analyze(obj)
+        changes, skipped = analyze(obj)
+        if skipped:
+            not_needed.append((path, skipped))
         errors.extend((path, c) for c in changes if "error" in c)
         changes = [c for c in changes if "error" not in c]
         if changes:
@@ -101,6 +129,16 @@ def main():
     print(f"Analyzed: {len(seen)}  Would modify: {len(pages)} pages")
     if old:
         print(f"Size: {human_size(old)} -> {human_size(new)} (-{100 - new * 100 / old:.0f}%)")
+
+    print()
+    print(f"Pages with card/alert images that need no optimization: {len(not_needed)}")
+    for path, skipped in not_needed:
+        print(path)
+        for k in skipped:
+            print(
+                f'    {k["block_type"]} "{k["filename"]}" {k["content_type"]} '
+                f'{human_size(k["bytes"])}'
+            )
     for path, c in errors:
         print(f'ERROR (not optimizable) {path} "{c["filename"]}": {c["error"]}')
 
