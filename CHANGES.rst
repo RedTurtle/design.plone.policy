@@ -4,7 +4,11 @@ Changelog
 4.0.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Resize (max 1600px) and convert to WebP the base64 images stored inline in
+  "testo_riquadro_immagine" and "alert" blocks, on save and with an upgrade
+  step for existing contents, to reduce the page payload
+  (backport of #90).
+  [mamico]
 
 
 4.0.11 (2024-09-05)

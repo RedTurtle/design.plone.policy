@@ -64,6 +64,7 @@ setup(
         "redturtle.faq",
         "redturtle.rssservice",
         "iw.rejectanonymous",
+        "Pillow",
     ],
     extras_require={
         "test": [
