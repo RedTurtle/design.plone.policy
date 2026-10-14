@@ -3,9 +3,9 @@
 
 List the pages that the upgrade step would modify, without changing anything.
 
-Usage (the Plone site id can be given as first argument, default "Plone"):
+Usage:
 
-    bin/instance run scripts/dry_run_block_images.py [site_id] [--full]
+    bin/instance run scripts/dry_run_block_images.py [--full]
 
 Works on a copy of the blocks and never commits.
 """
@@ -17,9 +17,9 @@ from design.plone.policy.block_images import BLOCK_TYPES
 from design.plone.policy.block_images import format_change
 from design.plone.policy.block_images import human_size
 from design.plone.policy.block_images import optimize_image_with_stats
+from plone import api
 from plone.dexterity.utils import iterSchemata
 from plone.restapi.blocks import visit_blocks
-from zope.component.hooks import setSite
 from zope.schema import getFields
 
 import sys
@@ -74,11 +74,8 @@ def analyze(obj):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
     full = "--full" in sys.argv
-    site_id = args[-1] if args and not args[-1].endswith(".py") else "Plone"
-    portal = app[site_id]  # noqa: F821 (provided by bin/instance run)
-    setSite(portal)
+    portal = api.portal.get()
     catalog = portal.portal_catalog
 
     # --full: ignore the block_types index and scan every cataloged object
@@ -87,7 +84,7 @@ def main():
         brains = list(catalog.unrestrictedSearchResults(block_types=list(BLOCK_TYPES)))
         print(f"block_types index: {len(brains)} candidate objects", file=sys.stderr)
     else:
-        brains = list(catalog.unrestrictedSearchResults())
+        brains = list(catalog.getAllBrains())
         print(f"full scan: {len(brains)} objects", file=sys.stderr)
 
     candidates = [("/".join(portal.getPhysicalPath()), lambda: portal)]
@@ -128,7 +125,9 @@ def main():
     print()
     print(f"Analyzed: {len(seen)}  Would modify: {len(pages)} pages")
     if old:
-        print(f"Size: {human_size(old)} -> {human_size(new)} (-{100 - new * 100 / old:.0f}%)")
+        print(
+            f"Size: {human_size(old)} -> {human_size(new)} (-{100 - new * 100 / old:.0f}%)"
+        )
 
     print()
     print(f"Pages with card/alert images that need no optimization: {len(not_needed)}")
