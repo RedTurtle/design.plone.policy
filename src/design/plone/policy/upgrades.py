@@ -477,7 +477,7 @@ def to_3105(context):
     if "block_types" in catalog.indexes():
         brains = list(catalog.unrestrictedSearchResults(block_types=list(BLOCK_TYPES)))
     else:
-        brains = list(catalog.unrestrictedSearchResults())
+        brains = list(catalog.getAllBrains())
 
     modified = []
     errors = []
