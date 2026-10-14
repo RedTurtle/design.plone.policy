@@ -8,4 +8,13 @@
   <include package=".bandi_search_filters" />
   <include package=".search_filters" />
 
+  <subscriber
+      factory=".blocks.TextCardWithImageDeserializer"
+      provides="plone.restapi.interfaces.IBlockFieldDeserializationTransformer"
+      />
+  <subscriber
+      factory=".blocks.AlertDeserializer"
+      provides="plone.restapi.interfaces.IBlockFieldDeserializationTransformer"
+      />
+
 </configure>
