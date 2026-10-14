@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from collective.volto.blocksfield.interfaces import IBlocksFieldEnabled
+try:
+    from collective.volto.blocksfield.interfaces import IBlocksFieldEnabled
+except ImportError:
+    IBlocksFieldEnabled = None
 from design.plone.policy.block_images import MAX_SIDE
 from design.plone.policy.block_images import optimize_image
 from design.plone.policy.block_images import optimize_image_with_stats
@@ -249,7 +252,8 @@ class BlockImagesUpgradeTest(unittest.TestCase):
             "blocks_layout": {"items": ["alert"]},
         }
         # set by collective.volto.blocksfield when a blocks field is saved
-        alsoProvides(persona, IBlocksFieldEnabled)
+        if IBlocksFieldEnabled is not None:
+            alsoProvides(persona, IBlocksFieldEnabled)
         persona.reindexObject()
 
         with self.assertLogs("design.plone.policy.upgrades", level="INFO") as logs:
