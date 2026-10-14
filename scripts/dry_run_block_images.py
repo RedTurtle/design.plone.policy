@@ -5,7 +5,7 @@ List the pages that the upgrade step would modify, without changing anything.
 
 Usage (the Plone site id can be given as first argument, default "Plone"):
 
-    bin/instance run scripts/dry_run_block_images.py [site_id]
+    bin/instance run scripts/dry_run_block_images.py [site_id] [--full]
 
 Works on a copy of the blocks and never commits.
 """
@@ -49,17 +49,21 @@ def analyze(obj):
 
 
 def main():
-    site_id = "Plone"
-    if len(sys.argv) > 1 and not sys.argv[-1].endswith(".py"):
-        site_id = sys.argv[-1]
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    full = "--full" in sys.argv
+    site_id = args[-1] if args and not args[-1].endswith(".py") else "Plone"
     portal = app[site_id]  # noqa: F821 (provided by bin/instance run)
     setSite(portal)
     catalog = portal.portal_catalog
 
-    if "block_types" in catalog.indexes():
+    # --full: ignore the block_types index and scan every cataloged object
+    # (use it if the index is missing or not up to date)
+    if "block_types" in catalog.indexes() and not full:
         brains = list(catalog.unrestrictedSearchResults(block_types=list(BLOCK_TYPES)))
+        print(f"block_types index: {len(brains)} candidate objects", file=sys.stderr)
     else:
         brains = list(catalog.unrestrictedSearchResults())
+        print(f"full scan: {len(brains)} objects", file=sys.stderr)
 
     candidates = [("/".join(portal.getPhysicalPath()), lambda: portal)]
     candidates += [(b.getPath(), b._unrestrictedGetObject) for b in brains]
