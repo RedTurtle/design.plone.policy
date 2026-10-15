@@ -21,11 +21,11 @@ Here we only normalize line endings, on bytes:
 * no decode/encode: messages with 8bit non utf-8 content are left untouched;
 * idempotent: an already compliant message is not modified.
 """
+
 from Products.MailHost.MailHost import MailBase
 
 import logging
 import re
-
 
 logger = logging.getLogger(__name__)
 

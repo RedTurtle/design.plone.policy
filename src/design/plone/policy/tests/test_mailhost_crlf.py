@@ -9,7 +9,6 @@ import re
 import smtplib
 import unittest
 
-
 BARE_LF = re.compile(rb"(?<!\r)\n")
 
 
