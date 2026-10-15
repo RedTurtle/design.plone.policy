@@ -4,7 +4,8 @@ Changelog
 4.0.13 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Handle edge-case in @bandi-search-filters when a Bando does not have tipologia set.
+  [cekk]
 
 
 4.0.12 (2026-10-14)

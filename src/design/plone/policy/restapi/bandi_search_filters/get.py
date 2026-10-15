@@ -32,6 +32,8 @@ class BandiSearchFiltersGet(Service):
 
             for brain in brains:
                 bando = brain.getObject()
+                if not bando.tipologia_bando:
+                    continue
                 found = [x for x in tipologie if x["UID"] == bando.tipologia_bando]
                 if not found:
                     tipologie.append(
