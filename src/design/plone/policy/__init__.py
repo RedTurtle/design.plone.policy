@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Init and utils."""
 
+from .mailhost import apply as apply_mailhost_patch
 from .sensitive import apply
 from zope.i18nmessageid import MessageFactory
 from zope.i18n.interfaces import ITranslationDomain
@@ -11,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 _ = MessageFactory("design.plone.policy")
 apply()
+apply_mailhost_patch()
 
 
 def initialize(context):

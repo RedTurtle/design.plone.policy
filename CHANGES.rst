@@ -7,6 +7,10 @@ Changelog
 - Clean disable_searchable_types in order to install design.plone.policy
   on Plone 6.1 and 6.2.
   [lucabel]
+- Always send emails with CRLF line endings: Products.MailHost leaves bare LF
+  when ``send()`` receives an ``email.message.Message`` object, and some SMTP
+  servers then put the body into the headers.
+  [lucabel]
 
 
 5.0.21 (2026-05-21)
