@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.22 (unreleased)
+5.0.22 (2026-10-19)
 -------------------
 
 - Clean disable_searchable_types in order to install design.plone.policy
