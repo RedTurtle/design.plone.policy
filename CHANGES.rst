@@ -7,6 +7,11 @@ Changelog
 - Clean disable_searchable_types in order to install design.plone.policy
   on Plone 6.1 and 6.2.
   [lucabel]
+- Richietsa versione recente di redturtle.rssservice (>=2.2.2), aggiunto
+  script console per proxy rss cache.
+  [mamico]
+- Test CI anche su Plone 6.1 e 6.2, con le versioni di iocomune-backend
+  per linea Plone (plone60.cfg, plone61.cfg, plone62.cfg).
 - Resize (max 1600px) and convert to WebP the base64 images stored inline in
   "testo_riquadro_immagine" and "alert" blocks, on save and with an upgrade
   step for existing contents, to reduce the page payload.

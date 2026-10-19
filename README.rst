@@ -24,10 +24,6 @@ Pacchetto di policy per un sito Plone AGID.
     :target: https://github.com/RedTurtle/design.plone.policy/actions
     :alt: Tests
 
-.. image:: https://coveralls.io/repos/github/RedTurtle/design.plone.policy/badge.svg?branch=main
-    :target: https://coveralls.io/github/RedTurtle/design.plone.policy?branch=main
-    :alt: Coverage
-
 Features
 ========
 
