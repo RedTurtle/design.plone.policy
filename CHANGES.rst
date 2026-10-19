@@ -7,6 +7,10 @@ Changelog
 - Clean disable_searchable_types in order to install design.plone.policy
   on Plone 6.1 and 6.2.
   [lucabel]
+- Resize (max 1600px) and convert to WebP the base64 images stored inline in
+  "testo_riquadro_immagine" and "alert" blocks, on save and with an upgrade
+  step for existing contents, to reduce the page payload.
+  [mamico]
 
 
 5.0.21 (2026-05-21)

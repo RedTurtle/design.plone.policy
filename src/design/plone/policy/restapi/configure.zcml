@@ -10,6 +10,14 @@
   <include package=".submit_form" />
   <include package=".form_data" />
 
+  <subscriber
+      factory=".blocks.TextCardWithImageDeserializer"
+      provides="plone.restapi.interfaces.IBlockFieldDeserializationTransformer"
+      />
+  <subscriber
+      factory=".blocks.AlertDeserializer"
+      provides="plone.restapi.interfaces.IBlockFieldDeserializationTransformer"
+      />
 
 
 </configure>
