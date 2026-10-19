@@ -69,6 +69,7 @@ setup(
         "redturtle.rssservice>=2.2.2",
         "iw.rejectanonymous",
         "collective.volto.contactsblock>=1.0.1",
+        "Pillow",
     ],
     extras_require={
         "test": [

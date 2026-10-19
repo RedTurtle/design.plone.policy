@@ -221,4 +221,14 @@
         handler=".upgrades.install_contactsblock"
         />
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="3104"
+      destination="3105"
+      >
+    <genericsetup:upgradeStep
+        title="Optimize inline base64 images in card and alert blocks"
+        handler=".upgrades.to_3105"
+        />
+  </genericsetup:upgradeSteps>
 </configure>

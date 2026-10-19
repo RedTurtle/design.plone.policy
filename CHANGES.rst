@@ -12,6 +12,9 @@ Changelog
   [mamico]
 - Test CI anche su Plone 6.1 e 6.2, con le versioni di iocomune-backend
   per linea Plone (plone60.cfg, plone61.cfg, plone62.cfg).
+- Resize (max 1600px) and convert to WebP the base64 images stored inline in
+  "testo_riquadro_immagine" and "alert" blocks, on save and with an upgrade
+  step for existing contents, to reduce the page payload.
   [mamico]
 
 
