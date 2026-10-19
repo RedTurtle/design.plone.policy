@@ -4,7 +4,7 @@ Changelog
 5.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Updated trasparenza view [daniele].
 
 
 5.1.0 (2026-10-19)
