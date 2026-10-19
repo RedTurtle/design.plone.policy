@@ -1,5 +1,6 @@
 graft src/design
 graft docs
+graft scripts
 include *.rst
 global-exclude *.pyc
 include *.GPL
