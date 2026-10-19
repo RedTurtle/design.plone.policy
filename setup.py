@@ -4,7 +4,6 @@
 from setuptools import find_packages
 from setuptools import setup
 
-
 long_description = "\n\n".join(
     [
         open("README.rst").read(),
@@ -16,7 +15,7 @@ long_description = "\n\n".join(
 
 setup(
     name="design.plone.policy",
-    version="5.0.23.dev0",
+    version="5.1.0.dev0",
     description="Pacchetto per creare un sito Agid su Plone",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
