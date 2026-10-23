@@ -1,10 +1,27 @@
 Changelog
 =========
 
-5.1.1 (unreleased)
+5.2.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Upgrade step (3106) that converts the base64 images stored inline in
+  "testo_riquadro_immagine" and "alert" blocks into Image contents (inside the
+  page, or in its parent if not folderish) and references them from the block.
+  Big images are resized (max 1600px) and converted to WebP before creating the
+  Image. Run it only when the site frontend supports the new image format of
+  these blocks (design-comuni-plone-theme with Image contents in card and alert
+  blocks).
+  [cekk]
+- Upgrade step 3105 does nothing now: the images are optimized by 3106.
+  [cekk]
+- Remove the optimization of the base64 images of card and alert blocks on
+  save.
+  [cekk]
+- Move the upgrade steps in the ``upgrades`` package, one module for each new
+  step.
+  [cekk]
+- Run the tests also on Plone 6.2.
+  [cekk]
 
 
 5.1.0 (2026-10-19)

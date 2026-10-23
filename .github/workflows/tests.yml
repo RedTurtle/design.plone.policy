@@ -9,10 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
+      # run every Plone line to the end, even if another one fails
+      fail-fast: false
       matrix:
-        python: ["3.11"]
-        # plone: ["60", "61"]
-        plone: ["60"]
+        include:
+          - python: "3.11"
+            plone: "60"
+          # - python: "3.11"
+          #   plone: "61"
+          - python: "3.12"
+            plone: "62"
     steps:
       - uses: actions/checkout@v4
       - name: Cache eggs

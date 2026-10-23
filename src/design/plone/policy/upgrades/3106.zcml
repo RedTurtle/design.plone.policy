@@ -1,0 +1,17 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    >
+
+  <genericsetup:upgradeSteps
+      profile="design.plone.policy:default"
+      source="3105"
+      destination="3106"
+      >
+    <genericsetup:upgradeStep
+        title="Convert inline base64 images in card and alert blocks to Image contents"
+        handler=".v3106.to_3106"
+        />
+  </genericsetup:upgradeSteps>
+
+</configure>
