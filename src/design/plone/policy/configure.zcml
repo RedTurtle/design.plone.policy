@@ -20,7 +20,7 @@
   <include package=".browser" />
   <include package=".restapi" />
   <include package=".limit_root_addables" />
-  <include file="upgrades.zcml" />
+  <include package=".upgrades" />
 
   <genericsetup:registerProfile
       name="default"

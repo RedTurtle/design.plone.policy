@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    >
+
+  <include file="legacy.zcml" />
+  <include file="3105.zcml" />
+  <include file="3106.zcml" />
+
+</configure>
