@@ -1,1 +1,4 @@
 -r https://dist.plone.org/release/6.1-latest/requirements.txt
+# zope.sendmail >= 7 and other recent Zope packages use native namespaces:
+# needed by buildout before Plone 6.2, whose requirements already include it
+horse-with-no-namespace==20260202.0
