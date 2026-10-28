@@ -4,7 +4,10 @@ Changelog
 5.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Override Plone language vocabularies to show the language code in the label,
+  in the language controlpanel and in the content "language" field
+  (moved from rer.agid.policy).
+  [fedevancin]
 
 
 5.1.0 (2026-10-19)
@@ -13,10 +16,6 @@ Changelog
 - Clean disable_searchable_types in order to install design.plone.policy
   on Plone 6.1 and 6.2.
   [lucabel]
-- Override Plone language vocabularies to show the language code in the label,
-  in the language controlpanel and in the content "language" field
-  (moved from rer.agid.policy).
-  [fedevancin]
 - Resize (max 1600px) and convert to WebP the base64 images stored inline in
   "testo_riquadro_immagine" and "alert" blocks, on save and with an upgrade
   step for existing contents, to reduce the page payload.
