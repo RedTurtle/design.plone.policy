@@ -4,7 +4,10 @@ Changelog
 5.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Override Plone language vocabularies to show the language code in the label,
+  in the language controlpanel and in the content "language" field
+  (moved from rer.agid.policy).
+  [fedevancin]
 
 
 5.1.0 (2026-10-19)
