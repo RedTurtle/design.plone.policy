@@ -77,6 +77,7 @@ setup(
             "plone.app.contenttypes",
             "plone.app.robotframework[debug]",
             "collective.MockMailHost",
+            "zope.sendmail",
             "freezegun",
         ]
     },
