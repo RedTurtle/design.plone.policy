@@ -7,6 +7,10 @@ Changelog
 - Clean disable_searchable_types in order to install design.plone.policy
   on Plone 6.1 and 6.2.
   [lucabel]
+- Override Plone language vocabularies to show the language code in the label,
+  in the language controlpanel and in the content "language" field
+  (moved from rer.agid.policy).
+  [fedevancin]
 
 
 5.0.21 (2026-05-21)
