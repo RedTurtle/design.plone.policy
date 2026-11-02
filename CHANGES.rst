@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.1.1 (unreleased)
+5.1.1 (2026-11-02)
 ------------------
 
 - Override Plone language vocabularies to show the language code in the label,
