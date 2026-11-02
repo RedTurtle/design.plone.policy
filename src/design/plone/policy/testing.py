@@ -56,6 +56,7 @@ class DesignPlonePolicyLayer(DesignPloneContenttypesLayer):
         self.loadZCML(package=redturtle.faq)
         self.loadZCML(package=collective.volto.contactsblock)
         self.loadZCML(package=design.plone.policy)
+        self.loadZCML(name="overrides.zcml", package=design.plone.policy)
 
     def setUpPloneSite(self, portal):
         super().setUpPloneSite(portal)

@@ -1,0 +1,13 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <!-- Show the language code in the labels (e.g. "العربية (ar)") -->
+  <utility
+      name="plone.app.vocabularies.AvailableContentLanguages"
+      component=".vocabularies.AvailableContentLanguageWithCodeVocabularyFactory"
+      />
+  <utility
+      name="plone.app.vocabularies.SupportedContentLanguages"
+      component=".vocabularies.SupportedContentLanguageWithCodeVocabularyFactory"
+      />
+
+</configure>
